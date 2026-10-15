@@ -1,0 +1,17 @@
+{
+  "model_name": "Random Forest Multi-Disease Classifier",
+  "algorithm": "RandomForestClassifier",
+  "n_estimators": 100,
+  "dataset_source": "Kaggle Disease Prediction Using Machine Learning (kaushil268)",
+  "source_url": "https://www.kaggle.com/datasets/kaushil268/disease-prediction-using-machine-learning",
+  "train_samples": 4920,
+  "test_samples": 41,
+  "accuracy": 1.0,
+  "precision_weighted": 1.0,
+  "recall_weighted": 1.0,
+  "f1_weighted": 1.0,
+  "precision_macro": 1.0,
+  "recall_macro": 1.0,
+  "f1_macro": 1.0,
+  "model_version": "1.0.0"
+}

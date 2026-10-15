@@ -1,0 +1,29 @@
+{
+  "model_name": "Random Forest",
+  "version": "1.0.0",
+  "algorithm": "RandomForestRegressor",
+  "mae": 13.4204,
+  "rmse": 15.3708,
+  "r2_score": -0.0146,
+  "features": [
+    "department",
+    "arrival_hour",
+    "arrival_dayofweek",
+    "is_weekend",
+    "patient_age",
+    "patient_gender",
+    "patients_ahead",
+    "triage_priority"
+  ],
+  "department_options": [
+    "Cardiology",
+    "Gastroenterology",
+    "General Emergency",
+    "General Practice",
+    "Neurology",
+    "Orthopedics",
+    "Physiotherapy",
+    "Renal"
+  ],
+  "training_status": "TRAINED"
+}

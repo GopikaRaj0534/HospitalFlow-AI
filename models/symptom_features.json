@@ -1,0 +1,1797 @@
+{
+  "symptom_columns": [
+    "itching",
+    "skin_rash",
+    "nodal_skin_eruptions",
+    "continuous_sneezing",
+    "shivering",
+    "chills",
+    "joint_pain",
+    "stomach_pain",
+    "acidity",
+    "ulcers_on_tongue",
+    "muscle_wasting",
+    "vomiting",
+    "burning_micturition",
+    "spotting_ urination",
+    "fatigue",
+    "weight_gain",
+    "anxiety",
+    "cold_hands_and_feets",
+    "mood_swings",
+    "weight_loss",
+    "restlessness",
+    "lethargy",
+    "patches_in_throat",
+    "irregular_sugar_level",
+    "cough",
+    "high_fever",
+    "sunken_eyes",
+    "breathlessness",
+    "sweating",
+    "dehydration",
+    "indigestion",
+    "headache",
+    "yellowish_skin",
+    "dark_urine",
+    "nausea",
+    "loss_of_appetite",
+    "pain_behind_the_eyes",
+    "back_pain",
+    "constipation",
+    "abdominal_pain",
+    "diarrhoea",
+    "mild_fever",
+    "yellow_urine",
+    "yellowing_of_eyes",
+    "acute_liver_failure",
+    "fluid_overload",
+    "swelling_of_stomach",
+    "swelled_lymph_nodes",
+    "malaise",
+    "blurred_and_distorted_vision",
+    "phlegm",
+    "throat_irritation",
+    "redness_of_eyes",
+    "sinus_pressure",
+    "runny_nose",
+    "congestion",
+    "chest_pain",
+    "weakness_in_limbs",
+    "fast_heart_rate",
+    "pain_during_bowel_movements",
+    "pain_in_anal_region",
+    "bloody_stool",
+    "irritation_in_anus",
+    "neck_pain",
+    "dizziness",
+    "cramps",
+    "bruising",
+    "obesity",
+    "swollen_legs",
+    "swollen_blood_vessels",
+    "puffy_face_and_eyes",
+    "enlarged_thyroid",
+    "brittle_nails",
+    "swollen_extremeties",
+    "excessive_hunger",
+    "extra_marital_contacts",
+    "drying_and_tingling_lips",
+    "slurred_speech",
+    "knee_pain",
+    "hip_joint_pain",
+    "muscle_weakness",
+    "stiff_neck",
+    "swelling_joints",
+    "movement_stiffness",
+    "spinning_movements",
+    "loss_of_balance",
+    "unsteadiness",
+    "weakness_of_one_body_side",
+    "loss_of_smell",
+    "bladder_discomfort",
+    "foul_smell_of urine",
+    "continuous_feel_of_urine",
+    "passage_of_gases",
+    "internal_itching",
+    "toxic_look_(typhos)",
+    "depression",
+    "irritability",
+    "muscle_pain",
+    "altered_sensorium",
+    "red_spots_over_body",
+    "belly_pain",
+    "abnormal_menstruation",
+    "dischromic _patches",
+    "watering_from_eyes",
+    "increased_appetite",
+    "polyuria",
+    "family_history",
+    "mucoid_sputum",
+    "rusty_sputum",
+    "lack_of_concentration",
+    "visual_disturbances",
+    "receiving_blood_transfusion",
+    "receiving_unsterile_injections",
+    "coma",
+    "stomach_bleeding",
+    "distention_of_abdomen",
+    "history_of_alcohol_consumption",
+    "fluid_overload.1",
+    "blood_in_sputum",
+    "prominent_veins_on_calf",
+    "palpitations",
+    "painful_walking",
+    "pus_filled_pimples",
+    "blackheads",
+    "scurring",
+    "skin_peeling",
+    "silver_like_dusting",
+    "small_dents_in_nails",
+    "inflammatory_nails",
+    "blister",
+    "red_sore_around_nose",
+    "yellow_crust_ooze"
+  ],
+  "symptoms_metadata": [
+    {
+      "id": "itching",
+      "name": "Itching",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "skin_rash",
+      "name": "Skin Rash",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "nodal_skin_eruptions",
+      "name": "Nodal Skin Eruptions",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "continuous_sneezing",
+      "name": "Continuous Sneezing",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "shivering",
+      "name": "Shivering",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "chills",
+      "name": "Chills",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "joint_pain",
+      "name": "Joint Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "stomach_pain",
+      "name": "Stomach Pain",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "acidity",
+      "name": "Acidity",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "ulcers_on_tongue",
+      "name": "Ulcers On Tongue",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "muscle_wasting",
+      "name": "Muscle Wasting",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "vomiting",
+      "name": "Vomiting",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "burning_micturition",
+      "name": "Burning Micturition",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "spotting_ urination",
+      "name": "Spotting Urination",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "fatigue",
+      "name": "Fatigue",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "weight_gain",
+      "name": "Weight Gain",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "anxiety",
+      "name": "Anxiety",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "cold_hands_and_feets",
+      "name": "Cold Hands And Feets",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "mood_swings",
+      "name": "Mood Swings",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "weight_loss",
+      "name": "Weight Loss",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "restlessness",
+      "name": "Restlessness",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "lethargy",
+      "name": "Lethargy",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "patches_in_throat",
+      "name": "Patches In Throat",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "irregular_sugar_level",
+      "name": "Irregular Sugar Level",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "cough",
+      "name": "Cough",
+      "category": "Respiratory & Chest",
+      "is_urgent": false
+    },
+    {
+      "id": "high_fever",
+      "name": "High Fever",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "sunken_eyes",
+      "name": "Sunken Eyes",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "breathlessness",
+      "name": "Breathlessness",
+      "category": "Respiratory & Chest",
+      "is_urgent": true
+    },
+    {
+      "id": "sweating",
+      "name": "Sweating",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "dehydration",
+      "name": "Dehydration",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "indigestion",
+      "name": "Indigestion",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "headache",
+      "name": "Headache",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "yellowish_skin",
+      "name": "Yellowish Skin",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "dark_urine",
+      "name": "Dark Urine",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "nausea",
+      "name": "Nausea",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "loss_of_appetite",
+      "name": "Loss Of Appetite",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "pain_behind_the_eyes",
+      "name": "Pain Behind The Eyes",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "back_pain",
+      "name": "Back Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "constipation",
+      "name": "Constipation",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "abdominal_pain",
+      "name": "Abdominal Pain",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "diarrhoea",
+      "name": "Diarrhoea",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "mild_fever",
+      "name": "Mild Fever",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "yellow_urine",
+      "name": "Yellow Urine",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "yellowing_of_eyes",
+      "name": "Yellowing Of Eyes",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "acute_liver_failure",
+      "name": "Acute Liver Failure",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": true
+    },
+    {
+      "id": "fluid_overload",
+      "name": "Fluid Overload",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "swelling_of_stomach",
+      "name": "Swelling Of Stomach",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "swelled_lymph_nodes",
+      "name": "Swelled Lymph Nodes",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "malaise",
+      "name": "Malaise",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "blurred_and_distorted_vision",
+      "name": "Blurred And Distorted Vision",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "phlegm",
+      "name": "Phlegm",
+      "category": "Respiratory & Chest",
+      "is_urgent": false
+    },
+    {
+      "id": "throat_irritation",
+      "name": "Throat Irritation",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "redness_of_eyes",
+      "name": "Redness Of Eyes",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "sinus_pressure",
+      "name": "Sinus Pressure",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "runny_nose",
+      "name": "Runny Nose",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "congestion",
+      "name": "Congestion",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "chest_pain",
+      "name": "Chest Pain",
+      "category": "Respiratory & Chest",
+      "is_urgent": true
+    },
+    {
+      "id": "weakness_in_limbs",
+      "name": "Weakness In Limbs",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "fast_heart_rate",
+      "name": "Fast Heart Rate",
+      "category": "Respiratory & Chest",
+      "is_urgent": true
+    },
+    {
+      "id": "pain_during_bowel_movements",
+      "name": "Pain During Bowel Movements",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "pain_in_anal_region",
+      "name": "Pain In Anal Region",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "bloody_stool",
+      "name": "Bloody Stool",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "irritation_in_anus",
+      "name": "Irritation In Anus",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "neck_pain",
+      "name": "Neck Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "dizziness",
+      "name": "Dizziness",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "cramps",
+      "name": "Cramps",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "bruising",
+      "name": "Bruising",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "obesity",
+      "name": "Obesity",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "swollen_legs",
+      "name": "Swollen Legs",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "swollen_blood_vessels",
+      "name": "Swollen Blood Vessels",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "puffy_face_and_eyes",
+      "name": "Puffy Face And Eyes",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "enlarged_thyroid",
+      "name": "Enlarged Thyroid",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "brittle_nails",
+      "name": "Brittle Nails",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "swollen_extremeties",
+      "name": "Swollen Extremeties",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "excessive_hunger",
+      "name": "Excessive Hunger",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "extra_marital_contacts",
+      "name": "Extra Marital Contacts",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "drying_and_tingling_lips",
+      "name": "Drying And Tingling Lips",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "slurred_speech",
+      "name": "Slurred Speech",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": true
+    },
+    {
+      "id": "knee_pain",
+      "name": "Knee Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "hip_joint_pain",
+      "name": "Hip Joint Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "muscle_weakness",
+      "name": "Muscle Weakness",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "stiff_neck",
+      "name": "Stiff Neck",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "swelling_joints",
+      "name": "Swelling Joints",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "movement_stiffness",
+      "name": "Movement Stiffness",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "spinning_movements",
+      "name": "Spinning Movements",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "loss_of_balance",
+      "name": "Loss Of Balance",
+      "category": "General & Systemic",
+      "is_urgent": true
+    },
+    {
+      "id": "unsteadiness",
+      "name": "Unsteadiness",
+      "category": "General & Systemic",
+      "is_urgent": true
+    },
+    {
+      "id": "weakness_of_one_body_side",
+      "name": "Weakness Of One Body Side",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "loss_of_smell",
+      "name": "Loss Of Smell",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "bladder_discomfort",
+      "name": "Bladder Discomfort",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "foul_smell_of urine",
+      "name": "Foul Smell Of Urine",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "continuous_feel_of_urine",
+      "name": "Continuous Feel Of Urine",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "passage_of_gases",
+      "name": "Passage Of Gases",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "internal_itching",
+      "name": "Internal Itching",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "toxic_look_(typhos)",
+      "name": "Toxic Look (typhos)",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "depression",
+      "name": "Depression",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "irritability",
+      "name": "Irritability",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "muscle_pain",
+      "name": "Muscle Pain",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "altered_sensorium",
+      "name": "Altered Sensorium",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": true
+    },
+    {
+      "id": "red_spots_over_body",
+      "name": "Red Spots Over Body",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "belly_pain",
+      "name": "Belly Pain",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "abnormal_menstruation",
+      "name": "Abnormal Menstruation",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "dischromic _patches",
+      "name": "Dischromic Patches",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "watering_from_eyes",
+      "name": "Watering From Eyes",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "increased_appetite",
+      "name": "Increased Appetite",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "polyuria",
+      "name": "Polyuria",
+      "category": "Urinary, Renal & Endocrine",
+      "is_urgent": false
+    },
+    {
+      "id": "family_history",
+      "name": "Family History",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "mucoid_sputum",
+      "name": "Mucoid Sputum",
+      "category": "Respiratory & Chest",
+      "is_urgent": false
+    },
+    {
+      "id": "rusty_sputum",
+      "name": "Rusty Sputum",
+      "category": "Respiratory & Chest",
+      "is_urgent": false
+    },
+    {
+      "id": "lack_of_concentration",
+      "name": "Lack Of Concentration",
+      "category": "General & Systemic",
+      "is_urgent": false
+    },
+    {
+      "id": "visual_disturbances",
+      "name": "Visual Disturbances",
+      "category": "Head, ENT & Neurological",
+      "is_urgent": false
+    },
+    {
+      "id": "receiving_blood_transfusion",
+      "name": "Receiving Blood Transfusion",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "receiving_unsterile_injections",
+      "name": "Receiving Unsterile Injections",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "coma",
+      "name": "Coma",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "stomach_bleeding",
+      "name": "Stomach Bleeding",
+      "category": "Digestive & Abdominal",
+      "is_urgent": true
+    },
+    {
+      "id": "distention_of_abdomen",
+      "name": "Distention Of Abdomen",
+      "category": "Digestive & Abdominal",
+      "is_urgent": false
+    },
+    {
+      "id": "history_of_alcohol_consumption",
+      "name": "History Of Alcohol Consumption",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "fluid_overload.1",
+      "name": "Fluid Overload.1",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "blood_in_sputum",
+      "name": "Blood In Sputum",
+      "category": "Respiratory & Chest",
+      "is_urgent": true
+    },
+    {
+      "id": "prominent_veins_on_calf",
+      "name": "Prominent Veins On Calf",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "palpitations",
+      "name": "Palpitations",
+      "category": "Other Symptoms",
+      "is_urgent": false
+    },
+    {
+      "id": "painful_walking",
+      "name": "Painful Walking",
+      "category": "Musculoskeletal & Joints",
+      "is_urgent": false
+    },
+    {
+      "id": "pus_filled_pimples",
+      "name": "Pus Filled Pimples",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "blackheads",
+      "name": "Blackheads",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "scurring",
+      "name": "Scurring",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "skin_peeling",
+      "name": "Skin Peeling",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "silver_like_dusting",
+      "name": "Silver Like Dusting",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "small_dents_in_nails",
+      "name": "Small Dents In Nails",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "inflammatory_nails",
+      "name": "Inflammatory Nails",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "blister",
+      "name": "Blister",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "red_sore_around_nose",
+      "name": "Red Sore Around Nose",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    },
+    {
+      "id": "yellow_crust_ooze",
+      "name": "Yellow Crust Ooze",
+      "category": "Skin, Hair & Nails",
+      "is_urgent": false
+    }
+  ],
+  "categorized_symptoms": {
+    "Skin, Hair & Nails": [
+      {
+        "id": "itching",
+        "name": "Itching",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "skin_rash",
+        "name": "Skin Rash",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "nodal_skin_eruptions",
+        "name": "Nodal Skin Eruptions",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "sunken_eyes",
+        "name": "Sunken Eyes",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "dark_urine",
+        "name": "Dark Urine",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "bruising",
+        "name": "Bruising",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "red_spots_over_body",
+        "name": "Red Spots Over Body",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "pus_filled_pimples",
+        "name": "Pus Filled Pimples",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "blackheads",
+        "name": "Blackheads",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "scurring",
+        "name": "Scurring",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "skin_peeling",
+        "name": "Skin Peeling",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "silver_like_dusting",
+        "name": "Silver Like Dusting",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "small_dents_in_nails",
+        "name": "Small Dents In Nails",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "inflammatory_nails",
+        "name": "Inflammatory Nails",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "blister",
+        "name": "Blister",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "red_sore_around_nose",
+        "name": "Red Sore Around Nose",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      },
+      {
+        "id": "yellow_crust_ooze",
+        "name": "Yellow Crust Ooze",
+        "category": "Skin, Hair & Nails",
+        "is_urgent": false
+      }
+    ],
+    "Head, ENT & Neurological": [
+      {
+        "id": "continuous_sneezing",
+        "name": "Continuous Sneezing",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "patches_in_throat",
+        "name": "Patches In Throat",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "headache",
+        "name": "Headache",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "blurred_and_distorted_vision",
+        "name": "Blurred And Distorted Vision",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "throat_irritation",
+        "name": "Throat Irritation",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "sinus_pressure",
+        "name": "Sinus Pressure",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "runny_nose",
+        "name": "Runny Nose",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "congestion",
+        "name": "Congestion",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "dizziness",
+        "name": "Dizziness",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "slurred_speech",
+        "name": "Slurred Speech",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": true
+      },
+      {
+        "id": "stiff_neck",
+        "name": "Stiff Neck",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "spinning_movements",
+        "name": "Spinning Movements",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "loss_of_smell",
+        "name": "Loss Of Smell",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "depression",
+        "name": "Depression",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      },
+      {
+        "id": "altered_sensorium",
+        "name": "Altered Sensorium",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": true
+      },
+      {
+        "id": "visual_disturbances",
+        "name": "Visual Disturbances",
+        "category": "Head, ENT & Neurological",
+        "is_urgent": false
+      }
+    ],
+    "General & Systemic": [
+      {
+        "id": "shivering",
+        "name": "Shivering",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "chills",
+        "name": "Chills",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "fatigue",
+        "name": "Fatigue",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "weight_gain",
+        "name": "Weight Gain",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "mood_swings",
+        "name": "Mood Swings",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "weight_loss",
+        "name": "Weight Loss",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "restlessness",
+        "name": "Restlessness",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "lethargy",
+        "name": "Lethargy",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "high_fever",
+        "name": "High Fever",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "sweating",
+        "name": "Sweating",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "mild_fever",
+        "name": "Mild Fever",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "fluid_overload",
+        "name": "Fluid Overload",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "swelling_of_stomach",
+        "name": "Swelling Of Stomach",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "swelled_lymph_nodes",
+        "name": "Swelled Lymph Nodes",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "malaise",
+        "name": "Malaise",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "loss_of_balance",
+        "name": "Loss Of Balance",
+        "category": "General & Systemic",
+        "is_urgent": true
+      },
+      {
+        "id": "unsteadiness",
+        "name": "Unsteadiness",
+        "category": "General & Systemic",
+        "is_urgent": true
+      },
+      {
+        "id": "toxic_look_(typhos)",
+        "name": "Toxic Look (typhos)",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "irritability",
+        "name": "Irritability",
+        "category": "General & Systemic",
+        "is_urgent": false
+      },
+      {
+        "id": "lack_of_concentration",
+        "name": "Lack Of Concentration",
+        "category": "General & Systemic",
+        "is_urgent": false
+      }
+    ],
+    "Musculoskeletal & Joints": [
+      {
+        "id": "joint_pain",
+        "name": "Joint Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "muscle_wasting",
+        "name": "Muscle Wasting",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "back_pain",
+        "name": "Back Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "weakness_in_limbs",
+        "name": "Weakness In Limbs",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "neck_pain",
+        "name": "Neck Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "cramps",
+        "name": "Cramps",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "swollen_legs",
+        "name": "Swollen Legs",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "knee_pain",
+        "name": "Knee Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "hip_joint_pain",
+        "name": "Hip Joint Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "muscle_weakness",
+        "name": "Muscle Weakness",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "swelling_joints",
+        "name": "Swelling Joints",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "movement_stiffness",
+        "name": "Movement Stiffness",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "muscle_pain",
+        "name": "Muscle Pain",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      },
+      {
+        "id": "painful_walking",
+        "name": "Painful Walking",
+        "category": "Musculoskeletal & Joints",
+        "is_urgent": false
+      }
+    ],
+    "Digestive & Abdominal": [
+      {
+        "id": "stomach_pain",
+        "name": "Stomach Pain",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "acidity",
+        "name": "Acidity",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "ulcers_on_tongue",
+        "name": "Ulcers On Tongue",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "vomiting",
+        "name": "Vomiting",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "indigestion",
+        "name": "Indigestion",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "yellowish_skin",
+        "name": "Yellowish Skin",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "nausea",
+        "name": "Nausea",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "loss_of_appetite",
+        "name": "Loss Of Appetite",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "constipation",
+        "name": "Constipation",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "abdominal_pain",
+        "name": "Abdominal Pain",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "diarrhoea",
+        "name": "Diarrhoea",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "yellowing_of_eyes",
+        "name": "Yellowing Of Eyes",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "bloody_stool",
+        "name": "Bloody Stool",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "excessive_hunger",
+        "name": "Excessive Hunger",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "passage_of_gases",
+        "name": "Passage Of Gases",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "internal_itching",
+        "name": "Internal Itching",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "belly_pain",
+        "name": "Belly Pain",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      },
+      {
+        "id": "stomach_bleeding",
+        "name": "Stomach Bleeding",
+        "category": "Digestive & Abdominal",
+        "is_urgent": true
+      },
+      {
+        "id": "distention_of_abdomen",
+        "name": "Distention Of Abdomen",
+        "category": "Digestive & Abdominal",
+        "is_urgent": false
+      }
+    ],
+    "Urinary, Renal & Endocrine": [
+      {
+        "id": "burning_micturition",
+        "name": "Burning Micturition",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "yellow_urine",
+        "name": "Yellow Urine",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "acute_liver_failure",
+        "name": "Acute Liver Failure",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": true
+      },
+      {
+        "id": "enlarged_thyroid",
+        "name": "Enlarged Thyroid",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "brittle_nails",
+        "name": "Brittle Nails",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "swollen_extremeties",
+        "name": "Swollen Extremeties",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "extra_marital_contacts",
+        "name": "Extra Marital Contacts",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "bladder_discomfort",
+        "name": "Bladder Discomfort",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "continuous_feel_of_urine",
+        "name": "Continuous Feel Of Urine",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      },
+      {
+        "id": "polyuria",
+        "name": "Polyuria",
+        "category": "Urinary, Renal & Endocrine",
+        "is_urgent": false
+      }
+    ],
+    "Other Symptoms": [
+      {
+        "id": "spotting_ urination",
+        "name": "Spotting Urination",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "anxiety",
+        "name": "Anxiety",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "cold_hands_and_feets",
+        "name": "Cold Hands And Feets",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "irregular_sugar_level",
+        "name": "Irregular Sugar Level",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "dehydration",
+        "name": "Dehydration",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "pain_behind_the_eyes",
+        "name": "Pain Behind The Eyes",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "redness_of_eyes",
+        "name": "Redness Of Eyes",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "pain_during_bowel_movements",
+        "name": "Pain During Bowel Movements",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "pain_in_anal_region",
+        "name": "Pain In Anal Region",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "irritation_in_anus",
+        "name": "Irritation In Anus",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "obesity",
+        "name": "Obesity",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "swollen_blood_vessels",
+        "name": "Swollen Blood Vessels",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "puffy_face_and_eyes",
+        "name": "Puffy Face And Eyes",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "drying_and_tingling_lips",
+        "name": "Drying And Tingling Lips",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "weakness_of_one_body_side",
+        "name": "Weakness Of One Body Side",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "foul_smell_of urine",
+        "name": "Foul Smell Of Urine",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "abnormal_menstruation",
+        "name": "Abnormal Menstruation",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "dischromic _patches",
+        "name": "Dischromic Patches",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "watering_from_eyes",
+        "name": "Watering From Eyes",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "increased_appetite",
+        "name": "Increased Appetite",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "family_history",
+        "name": "Family History",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "receiving_blood_transfusion",
+        "name": "Receiving Blood Transfusion",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "receiving_unsterile_injections",
+        "name": "Receiving Unsterile Injections",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "coma",
+        "name": "Coma",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "history_of_alcohol_consumption",
+        "name": "History Of Alcohol Consumption",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "fluid_overload.1",
+        "name": "Fluid Overload.1",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "prominent_veins_on_calf",
+        "name": "Prominent Veins On Calf",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      },
+      {
+        "id": "palpitations",
+        "name": "Palpitations",
+        "category": "Other Symptoms",
+        "is_urgent": false
+      }
+    ],
+    "Respiratory & Chest": [
+      {
+        "id": "cough",
+        "name": "Cough",
+        "category": "Respiratory & Chest",
+        "is_urgent": false
+      },
+      {
+        "id": "breathlessness",
+        "name": "Breathlessness",
+        "category": "Respiratory & Chest",
+        "is_urgent": true
+      },
+      {
+        "id": "phlegm",
+        "name": "Phlegm",
+        "category": "Respiratory & Chest",
+        "is_urgent": false
+      },
+      {
+        "id": "chest_pain",
+        "name": "Chest Pain",
+        "category": "Respiratory & Chest",
+        "is_urgent": true
+      },
+      {
+        "id": "fast_heart_rate",
+        "name": "Fast Heart Rate",
+        "category": "Respiratory & Chest",
+        "is_urgent": true
+      },
+      {
+        "id": "mucoid_sputum",
+        "name": "Mucoid Sputum",
+        "category": "Respiratory & Chest",
+        "is_urgent": false
+      },
+      {
+        "id": "rusty_sputum",
+        "name": "Rusty Sputum",
+        "category": "Respiratory & Chest",
+        "is_urgent": false
+      },
+      {
+        "id": "blood_in_sputum",
+        "name": "Blood In Sputum",
+        "category": "Respiratory & Chest",
+        "is_urgent": true
+      }
+    ]
+  },
+  "urgent_symptoms": [
+    "fast_heart_rate",
+    "blood_in_sputum",
+    "unsteadiness",
+    "loss_of_balance",
+    "slurred_speech",
+    "breathlessness",
+    "acute_liver_failure",
+    "altered_sensorium",
+    "chest_pain",
+    "stomach_bleeding"
+  ],
+  "diseases": [
+    "AIDS / HIV",
+    "Acne",
+    "Alcoholic hepatitis",
+    "Allergy",
+    "Arthritis",
+    "Benign Paroxysmal Positional Vertigo (BPPV)",
+    "Bronchial Asthma",
+    "Cervical spondylosis",
+    "Chicken pox",
+    "Chronic cholestasis",
+    "Common Cold",
+    "Dengue",
+    "Diabetes",
+    "Drug Reaction",
+    "Fungal infection",
+    "Gastroenteritis",
+    "Gastroesophageal Reflux Disease (GERD)",
+    "Heart attack",
+    "Hemorrhoids (Piles)",
+    "Hepatitis A",
+    "Hepatitis B",
+    "Hepatitis C",
+    "Hepatitis D",
+    "Hepatitis E",
+    "Hypertension",
+    "Hyperthyroidism",
+    "Hypoglycemia",
+    "Hypothyroidism",
+    "Impetigo",
+    "Jaundice",
+    "Malaria",
+    "Migraine",
+    "Osteoarthritis",
+    "Paralysis (Brain Hemorrhage)",
+    "Peptic Ulcer Disease",
+    "Pneumonia",
+    "Psoriasis",
+    "Tuberculosis",
+    "Typhoid",
+    "Urinary Tract Infection (UTI)",
+    "Varicose veins"
+  ],
+  "total_symptoms": 132,
+  "total_diseases": 41
+}

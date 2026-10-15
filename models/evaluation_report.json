@@ -1,0 +1,39 @@
+{
+  "dataset": "Hospital Emergency Room Dataset (Kaggle)",
+  "target": "patient_waittime (minutes)",
+  "train_samples": 2450,
+  "test_samples": 613,
+  "best_model": "Random Forest",
+  "model_comparison": {
+    "Linear Regression": {
+      "mae": 13.4402,
+      "rmse": 15.4068,
+      "r2_score": -0.0193
+    },
+    "Random Forest": {
+      "mae": 13.4204,
+      "rmse": 15.3708,
+      "r2_score": -0.0146
+    },
+    "XGBoost": {
+      "mae": 13.5009,
+      "rmse": 15.4861,
+      "r2_score": -0.0298
+    }
+  },
+  "best_metrics": {
+    "mae": 13.4204,
+    "rmse": 15.3708,
+    "r2_score": -0.0146
+  },
+  "features": [
+    "department",
+    "arrival_hour",
+    "arrival_dayofweek",
+    "is_weekend",
+    "patient_age",
+    "patient_gender",
+    "patients_ahead",
+    "triage_priority"
+  ]
+}
