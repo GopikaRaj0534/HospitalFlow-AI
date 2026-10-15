@@ -1,0 +1,236 @@
+{% extends "base.html" %}
+
+{% block title %}Consultation Request #{{ req.request_reference }} - HospitalFlow AI{% endblock %}
+{% block page_title %}Doctor Consultation Request Review{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1rem;">
+    <a href="{{ url_for('doctor.dashboard', tab='consultation_requests') }}" class="btn btn-secondary btn-sm">
+        &larr; Back to Doctor Station
+    </a>
+</div>
+
+<div style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 1.5rem; align-items: flex-start;">
+    <!-- Left Column: Patient & Request Details -->
+    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+        <div class="card">
+            <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="margin: 0; font-size: 1.15rem; color: var(--navy-900);">Request Reference: {{ req.request_reference }}</h3>
+                    <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 2px;">
+                        Submitted: {{ req.created_at.strftime('%Y-%m-%d %H:%M') }} &bull; Department: <strong>{{ req.department.department_name }}</strong>
+                    </div>
+                </div>
+                <div>
+                    {% if req.status == 'Pending' %}
+                        <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 700; padding: 6px 12px;">Pending Triage</span>
+                    {% elif req.status == 'Assigned' %}
+                        <span class="badge" style="background: #ede9fe; color: #6d28d9; font-weight: 700; padding: 6px 12px;">Assigned to You</span>
+                    {% elif req.status == 'In Consultation' %}
+                        <span class="badge" style="background: #dbeafe; color: #1d4ed8; font-weight: 700; padding: 6px 12px;">In Consultation</span>
+                    {% elif req.status == 'Completed' %}
+                        <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 6px 12px;">Completed</span>
+                    {% else %}
+                        <span class="badge" style="background: #f1f5f9; color: #475569; padding: 6px 12px;">{{ req.status }}</span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card-body">
+                <!-- Patient Profile -->
+                <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 1rem; margin-bottom: 1.25rem;">
+                    <div style="font-size: 0.75rem; font-weight: 700; color: var(--slate-500); text-transform: uppercase; margin-bottom: 4px;">Patient Profile</div>
+                    <div style="font-size: 1.1rem; font-weight: 800; color: var(--navy-900);">
+                        {{ req.patient_user.full_name }}
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--slate-600); margin-top: 2px;">
+                        Email: {{ req.patient_user.email }} &bull; Phone: {{ req.patient_user.phone or 'Not provided' }}
+                    </div>
+                </div>
+
+                <!-- Clinical Concern -->
+                <div style="margin-bottom: 1.25rem;">
+                    <label style="font-weight: 700; font-size: 0.85rem; color: var(--navy-900); display: block; margin-bottom: 4px;">
+                        Patient Reported Health Concern / Reason for Consultation:
+                    </label>
+                    <div style="background: white; border: 1px solid var(--slate-200); border-radius: 6px; padding: 0.85rem; font-size: 0.92rem; color: var(--slate-800); line-height: 1.5;">
+                        {{ req.health_concern }}
+                    </div>
+                </div>
+
+                <!-- Schedule Preference -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+                    <div style="background: var(--slate-50); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--slate-200);">
+                        <span style="font-size: 0.75rem; color: var(--slate-500); font-weight: 600; display: block;">Preferred Date</span>
+                        <span style="font-weight: 700; color: var(--navy-900);">{{ req.preferred_date or 'Next available' }}</span>
+                    </div>
+                    <div style="background: var(--slate-50); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--slate-200);">
+                        <span style="font-size: 0.75rem; color: var(--slate-500); font-weight: 600; display: block;">Preferred Time Slot</span>
+                        <span style="font-weight: 700; color: var(--navy-900);">{{ req.preferred_time_slot or 'Flexible' }}</span>
+                    </div>
+                </div>
+
+                {% if req.additional_notes %}
+                    <div style="margin-bottom: 1.25rem;">
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--slate-600); display: block;">Additional Patient Context:</span>
+                        <p style="margin: 4px 0 0; font-size: 0.85rem; color: var(--slate-700);">{{ req.additional_notes }}</p>
+                    </div>
+                {% endif %}
+
+                {% if req.receptionist_notes %}
+                    <div style="background: #eff6ff; border-left: 3px solid #3b82f6; padding: 0.75rem 1rem; border-radius: 4px; margin-bottom: 1.25rem;">
+                        <span style="font-size: 0.75rem; font-weight: 700; color: #1d4ed8; text-transform: uppercase;">Reception Desk Notes</span>
+                        <div style="font-size: 0.85rem; color: #1e3a8a; margin-top: 2px;">{{ req.receptionist_notes }}</div>
+                    </div>
+                {% endif %}
+
+                {% if req.registration %}
+                    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <span style="font-size: 0.75rem; font-weight: 700; color: #15803d; text-transform: uppercase;">Linked Live Queue Token</span>
+                            <div style="font-family: monospace; font-size: 1.3rem; font-weight: 800; color: #14532d;">
+                                {{ req.registration.token_number }}
+                            </div>
+                            <div style="font-size: 0.8rem; color: #15803d;">Status: {{ req.registration.queue_record.queue_status if req.registration.queue_record else 'Unknown' }}</div>
+                        </div>
+                        <a href="{{ url_for('doctor.consultation', registration_id=req.registration.id) }}" class="btn btn-primary btn-sm">
+                            Open Examination Chart &rarr;
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Action Form -->
+        <div class="card">
+            <div class="card-header">
+                <h3>Physician Clinical Notes &amp; Actions</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('doctor.view_consultation_request', request_id=req.id) }}">
+                    <div class="form-group" style="margin-bottom: 1rem;">
+                        <label for="status" class="form-label" style="font-weight: 700;">Update Status</label>
+                        <select name="status" id="status" class="form-control" style="font-size: 0.9rem;">
+                            <option value="Assigned" {% if req.status == 'Assigned' %}selected{% endif %}>Assigned / Under Review</option>
+                            <option value="In Consultation" {% if req.status == 'In Consultation' %}selected{% endif %}>In Consultation</option>
+                            <option value="Completed" {% if req.status == 'Completed' %}selected{% endif %}>Completed / Advised</option>
+                            <option value="Cancelled" {% if req.status == 'Cancelled' %}selected{% endif %}>Cancelled</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.25rem;">
+                        <label for="doctor_notes" class="form-label" style="font-weight: 700;">Physician Notes / Advice for Patient</label>
+                        <textarea name="doctor_notes" id="doctor_notes" class="form-control" rows="4" placeholder="Enter clinical assessment notes, instructions, or preparation advice for this patient...">{{ req.doctor_notes or '' }}</textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                        <button type="submit" name="action" value="save_notes" class="btn btn-primary">
+                            Save Physician Notes
+                        </button>
+                        {% if not req.registration_id %}
+                            <button type="submit" name="action" value="checkin" class="btn btn-secondary" style="background: #0f766e; color: white; border-color: #0f766e;" onclick="return confirm('Check this patient directly into the live clinic queue now?');">
+                                Check In to Live Queue Now &rarr;
+                            </button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: AI Symptom Assessment Insights -->
+    <div>
+        {% if assessment %}
+            <div class="card" style="border-top: 4px solid var(--teal-500);">
+                <div class="card-header" style="background: var(--teal-50);">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <span style="font-size: 1.2rem;">🔬</span>
+                        <div>
+                            <h3 style="margin: 0; color: var(--teal-900); font-size: 1rem;">AI Symptom Checker Assessment</h3>
+                            <div style="font-size: 0.75rem; color: var(--teal-700);">Trained on Kaggle 4,900+ Multi-Disease Dataset</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    {% if assessment.has_urgent_symptoms %}
+                        <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 6px; padding: 0.75rem; margin-bottom: 1rem;">
+                            <strong style="color: #b91c1c; font-size: 0.85rem; display: block;">⚠️ Red-Flag Urgent Symptoms Detected</strong>
+                            <span style="font-size: 0.78rem; color: #991b1b;">Patient reported symptoms associated with acute conditions (chest discomfort, shortness of breath, or critical pain). Prioritize triage.</span>
+                        </div>
+                    {% endif %}
+
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700;">Top Predicted Condition</span>
+                        <div style="font-size: 1.25rem; font-weight: 800; color: var(--navy-900); margin-top: 2px;">
+                            {{ assessment.predicted_disease }}
+                        </div>
+                        {% if assessment.confidence_score %}
+                            <div style="display: flex; align-items: center; gap: 8px; margin-top: 6px;">
+                                <div style="flex-grow: 1; height: 8px; background: var(--slate-200); border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; width: {{ (assessment.confidence_score * 100)|round }}%; background: var(--teal-500);"></div>
+                                </div>
+                                <span style="font-size: 0.8rem; font-weight: 700; color: var(--teal-700);">
+                                    {{ (assessment.confidence_score * 100)|round(1) }}% match
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem; font-size: 0.82rem;">
+                        <div>
+                            <span style="color: var(--slate-500); font-weight: 600;">Symptom Duration:</span>
+                            <div style="font-weight: 700; color: var(--navy-900);">{{ assessment.symptom_duration or 'Unspecified' }}</div>
+                        </div>
+                        <div>
+                            <span style="color: var(--slate-500); font-weight: 600;">Reported Severity:</span>
+                            <div style="font-weight: 700; color: var(--navy-900);">{{ assessment.severity_level or 'Moderate' }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Symptoms Checked -->
+                    <div style="margin-bottom: 1rem;">
+                        <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700; display: block; margin-bottom: 6px;">
+                            Symptoms Checked by Patient ({{ assessment.to_dict().selected_symptoms|length }})
+                        </span>
+                        <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                            {% for sym in assessment.to_dict().selected_symptoms %}
+                                <span class="badge" style="background: var(--slate-100); color: var(--navy-800); font-size: 0.75rem; padding: 4px 8px; border: 1px solid var(--slate-200);">
+                                    {{ sym.replace('_', ' ')|title }}
+                                </span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Top Differentials -->
+                    {% if assessment.to_dict().top_predictions %}
+                        <div>
+                            <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700; display: block; margin-bottom: 6px;">
+                                Differential Probabilities
+                            </span>
+                            <div style="display: flex; flex-direction: column; gap: 4px;">
+                                {% for diff in assessment.to_dict().top_predictions[:4] %}
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; padding: 4px 0; border-bottom: 1px dashed var(--slate-200);">
+                                        <span style="color: var(--navy-800); font-weight: 600;">{{ diff.disease }}</span>
+                                        <span style="font-weight: 700; color: var(--teal-700);">{{ (diff.probability * 100)|round(1) }}%</span>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--slate-200); font-size: 0.72rem; color: var(--slate-500);">
+                        Assessment Ref: <strong>#{{ assessment.assessment_reference }}</strong> &bull; Model: Random Forest v{{ assessment.model_version }}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="card" style="text-align: center; padding: 2rem; color: var(--slate-500);">
+                <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">📋</div>
+                <div style="font-weight: 600; color: var(--navy-800);">Direct Consultation Request</div>
+                <div style="font-size: 0.8rem; margin-top: 4px;">This request was submitted directly without an initial AI Symptom Assessment.</div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

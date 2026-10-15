@@ -1,0 +1,413 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Clinical Portal - HospitalFlow AI{% endblock %}
+{% block page_title %}Physician Consultation Station{% endblock %}
+
+{% block content %}
+<!-- Doctor Profile & Duty Banner -->
+<div class="card" style="margin-bottom: 1.5rem; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; border: none;">
+    <div class="card-body" style="padding: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="width: 52px; height: 52px; border-radius: 12px; background: var(--teal-500); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; font-weight: 700; color: white;">
+                Dr
+            </div>
+            <div>
+                <h2 style="color: white; margin: 0; font-size: 1.35rem; font-weight: 800;">
+                    {{ doctor.full_name }}
+                </h2>
+                <div style="color: var(--teal-300); font-size: 0.9rem; margin-top: 2px;">
+                    Department: <strong>{{ department.department_name if department else 'General Practice' }}</strong>
+                    {% if department %}({{ department.code }}){% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <div>
+                {% if staff and staff.is_available %}
+                    <span class="badge" style="background: #22c55e; color: white; font-size: 0.85rem; padding: 6px 12px; font-weight: 600;">
+                        ● On Duty &amp; Available
+                    </span>
+                {% else %}
+                    <span class="badge" style="background: #ef4444; color: white; font-size: 0.85rem; padding: 6px 12px; font-weight: 600;">
+                        ○ Off Duty / Busy
+                    </span>
+                {% endif %}
+            </div>
+
+            <form method="POST" action="{{ url_for('doctor.toggle_availability') }}" style="margin: 0;">
+                {% if staff and staff.is_available %}
+                    <button type="submit" class="btn btn-secondary btn-sm" style="background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.3);">
+                        Set Off Duty
+                    </button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Set Available
+                    </button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Real Database Clinical KPIs -->
+<div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 1.5rem;">
+    <div class="metric-card" style="border-top: 4px solid var(--amber-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Patients Waiting for You</span>
+            <div class="metric-icon" style="background: #fef3c7; color: var(--amber-600); width: 32px; height: 32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--amber-600);">{{ waiting_count }}</div>
+        <div class="metric-caption">Awaiting call or consultation</div>
+    </div>
+
+    <div class="metric-card" style="border-top: 4px solid var(--blue-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">In Examination Right Now</span>
+            <div class="metric-icon" style="background: #dbeafe; color: var(--blue-600); width: 32px; height: 32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--blue-600);">{{ in_consult_count }}</div>
+        <div class="metric-caption">Active consultation session</div>
+    </div>
+
+    <div class="metric-card" style="border-top: 4px solid var(--emerald-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Completed Today</span>
+            <div class="metric-icon" style="background: #dcfce7; color: var(--emerald-600); width: 32px; height: 32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--emerald-600);">{{ completed_today_count }}</div>
+        <div class="metric-caption">Discharged &amp; prescriptions issued</div>
+    </div>
+
+    <div class="metric-card" style="border-top: 4px solid var(--navy-800);">
+        <div class="metric-card-header">
+            <span class="metric-title">Department Queue Total</span>
+            <div class="metric-icon" style="background: var(--slate-100); color: var(--navy-900); width: 32px; height: 32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+        </div>
+        <div class="metric-value">{{ dept_active_count }}</div>
+        <div class="metric-caption">Active patients in {{ department.code if department else 'Dept' }}</div>
+    </div>
+
+    <div class="metric-card" style="border-top: 4px solid var(--indigo-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Consultation Requests</span>
+            <div class="metric-icon" style="background: #e0e7ff; color: var(--indigo-600); width: 32px; height: 32px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--indigo-600);">{{ assigned_requests_count }}</div>
+        <div class="metric-caption">Assigned direct patient consults</div>
+    </div>
+</div>
+
+<!-- Patient Queue Management Card -->
+<div class="card" style="padding: 0; margin-bottom: 2rem;">
+    <div class="card-header" style="background: #ffffff; border-bottom: 1px solid var(--slate-200); padding: 1rem 1.4rem; flex-direction: column; align-items: stretch; gap: 1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            <!-- Navigation Tabs -->
+            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <a href="{{ url_for('doctor.dashboard', tab='waiting', q=search_query) }}" 
+                   class="btn btn-sm {% if active_tab == 'waiting' %}btn-primary{% else %}btn-outline{% endif %}">
+                    Waiting ({{ waiting_count }})
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='in_consultation', q=search_query) }}" 
+                   class="btn btn-sm {% if active_tab == 'in_consultation' %}btn-primary{% else %}btn-outline{% endif %}">
+                    In Consultation ({{ in_consult_count }})
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='completed', q=search_query) }}" 
+                   class="btn btn-sm {% if active_tab == 'completed' %}btn-primary{% else %}btn-outline{% endif %}">
+                    Completed Today ({{ completed_today_count }})
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='department', q=search_query) }}" 
+                   class="btn btn-sm {% if active_tab == 'department' %}btn-primary{% else %}btn-outline{% endif %}">
+                    Department Intake ({{ dept_active_count }})
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='consultation_requests') }}" 
+                   class="btn btn-sm {% if active_tab == 'consultation_requests' %}btn-primary{% else %}btn-outline{% endif %}">
+                    Consultation Requests ({{ assigned_requests_count }})
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='all', q=search_query) }}" 
+                   class="btn btn-sm {% if active_tab == 'all' %}btn-primary{% else %}btn-outline{% endif %}">
+                    All My Patients
+                </a>
+            </div>
+
+            <!-- Search Form -->
+            <form method="GET" action="{{ url_for('doctor.dashboard') }}" style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="hidden" name="tab" value="{{ active_tab }}">
+                <input type="text" name="q" value="{{ search_query }}" class="form-control" placeholder="Search patient, token..." style="width: 220px; font-size: 0.85rem; padding: 6px 12px; height: 36px;">
+                <button type="submit" class="btn btn-primary btn-sm" style="height: 36px;">Search</button>
+                {% if search_query %}
+                    <a href="{{ url_for('doctor.dashboard', tab=active_tab) }}" class="btn btn-outline btn-sm" style="height: 36px; display: inline-flex; align-items: center;">Clear</a>
+                {% endif %}
+            </form>
+        </div>
+    </div>
+
+    <div class="card-body" style="padding: 0;">
+        {% if active_tab == 'consultation_requests' %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Ref &amp; Date</th>
+                            <th>Patient Profile</th>
+                            <th>Clinical Concern &amp; AI Triage</th>
+                            <th>Preferred Slot</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for req in assigned_requests %}
+                            <tr>
+                                <td>
+                                    <span style="font-family: monospace; font-size: 0.95rem; font-weight: 800; color: var(--navy-900);">
+                                        #{{ req.request_reference }}
+                                    </span>
+                                    <div style="font-size: 0.75rem; color: var(--slate-500); margin-top: 2px;">
+                                        {{ req.created_at.strftime('%Y-%m-%d %H:%M') }}
+                                    </div>
+                                    {% if req.registration %}
+                                        <div style="margin-top: 4px;">
+                                            <span class="badge" style="background: #dcfce7; color: #15803d; font-size: 0.7rem;">Token: {{ req.registration.token_number }}</span>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div style="font-weight: 700; color: var(--navy-900); font-size: 0.95rem;">
+                                        {{ req.patient_user.full_name }}
+                                    </div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 2px;">
+                                        {{ req.patient_user.email }}
+                                    </div>
+                                    {% if req.patient_user.phone %}
+                                        <div style="font-size: 0.75rem; color: var(--slate-500);">
+                                            {{ req.patient_user.phone }}
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div style="font-size: 0.88rem; font-weight: 600; color: var(--navy-900); max-width: 280px;">
+                                        {{ req.health_concern }}
+                                    </div>
+                                    {% if req.symptom_assessment %}
+                                        <div style="margin-top: 6px; padding: 4px 8px; background: var(--teal-50); border: 1px solid var(--teal-200); border-radius: 4px; display: inline-block;">
+                                            <span style="font-size: 0.75rem; font-weight: 700; color: var(--teal-800);">
+                                                AI Match: {{ req.symptom_assessment.predicted_disease }}
+                                                {% if req.symptom_assessment.confidence_score %}
+                                                    ({{ (req.symptom_assessment.confidence_score * 100)|round|int }}%)
+                                                {% endif %}
+                                            </span>
+                                            {% if req.symptom_assessment.has_urgent_symptoms %}
+                                                <span class="badge" style="background: #fee2e2; color: #b91c1c; font-size: 0.68rem; margin-left: 4px;">Urgent</span>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div style="font-size: 0.82rem; font-weight: 600; color: var(--navy-900);">
+                                        {{ req.preferred_date or 'Any date' }}
+                                    </div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-500);">
+                                        {{ req.preferred_time_slot or 'Flexible' }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    {% if req.status == 'Pending' %}
+                                        <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 700;">Pending</span>
+                                    {% elif req.status == 'Assigned' %}
+                                        <span class="badge" style="background: #ede9fe; color: #6d28d9; font-weight: 700;">Assigned</span>
+                                    {% elif req.status == 'In Consultation' %}
+                                        <span class="badge" style="background: #dbeafe; color: #1d4ed8; font-weight: 700;">In Consultation</span>
+                                    {% elif req.status == 'Completed' %}
+                                        <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700;">Completed</span>
+                                    {% else %}
+                                        <span class="badge" style="background: #f1f5f9; color: #475569;">{{ req.status }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <a href="{{ url_for('doctor.view_consultation_request', request_id=req.id) }}" class="btn btn-primary btn-sm" style="font-size: 0.8rem; padding: 5px 10px;">
+                                        Review &amp; Advise &rarr;
+                                    </a>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--slate-500);">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--navy-800);">No consultation requests assigned yet</div>
+                                    <div style="font-size: 0.85rem; margin-top: 4px;">When receptionists route patient requests to your clinic, they will appear here.</div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Token &amp; Priority</th>
+                            <th>Patient Name &amp; Profile</th>
+                            <th>Health Concern / Symptoms</th>
+                            <th>Status</th>
+                            <th>Arrival &amp; Wait</th>
+                            <th>Clinical Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reg in patients %}
+                            {% set q = reg.queue_record %}
+                            <tr>
+                                <!-- Token & Priority -->
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <span style="font-family: monospace; font-size: 1.1rem; font-weight: 800; color: var(--navy-900);">
+                                            {{ reg.token_number }}
+                                        </span>
+                                        <div>
+                                            {% if reg.triage_priority == 1 %}
+                                                <span class="badge" style="background: #fee2e2; color: #b91c1c; font-weight: 700;">P1 - Emergency</span>
+                                            {% elif reg.triage_priority == 2 %}
+                                                <span class="badge" style="background: #ffedd5; color: #c2410c; font-weight: 700;">P2 - Urgent</span>
+                                            {% elif reg.triage_priority == 3 %}
+                                                <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 600;">P3 - Routine</span>
+                                            {% else %}
+                                                <span class="badge" style="background: #f1f5f9; color: #475569;">P4 - Low</span>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!-- Patient Info -->
+                                <td>
+                                    <div style="font-weight: 700; color: var(--navy-900); font-size: 0.95rem;">
+                                        {{ reg.patient_name }}
+                                    </div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 2px;">
+                                        {{ reg.patient_age }} yrs &bull; {{ reg.patient_gender }}
+                                    </div>
+                                    {% if reg.patient_phone %}
+                                        <div style="font-size: 0.75rem; color: var(--slate-500);">
+                                            {{ reg.patient_phone }}
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Health Concern -->
+                                <td>
+                                    <div style="font-weight: 600; color: var(--navy-800); font-size: 0.88rem;">
+                                        {{ reg.health_concern_category or 'General Medical Consultation' }}
+                                    </div>
+                                    {% if reg.symptoms_description %}
+                                        <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 2px; max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ reg.symptoms_description }}">
+                                            {{ reg.symptoms_description }}
+                                        </div>
+                                    {% endif %}
+                                    {% if reg.symptom_duration %}
+                                        <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 2px;">
+                                            Duration: {{ reg.symptom_duration }}
+                                        </div>
+                                    {% endif %}
+                                    {% if reg.has_appointment %}
+                                        <div style="margin-top: 4px;">
+                                            <span class="badge" style="background: #ede9fe; color: #6d28d9; font-size: 0.7rem;">Prior Appointment</span>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Queue Status -->
+                                <td>
+                                    {% if q.queue_status == 'Waiting' %}
+                                        <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 700;">Waiting</span>
+                                    {% elif q.queue_status == 'Called' %}
+                                        <span class="badge" style="background: #ede9fe; color: #6d28d9; font-weight: 700;">Called</span>
+                                    {% elif q.queue_status == 'In Consultation' %}
+                                        <span class="badge" style="background: #dbeafe; color: #1d4ed8; font-weight: 700;">In Consultation</span>
+                                    {% elif q.queue_status == 'Completed' %}
+                                        <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700;">Completed</span>
+                                    {% else %}
+                                        <span class="badge" style="background: #f1f5f9; color: #475569;">{{ q.queue_status }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Arrival & Duration -->
+                                <td>
+                                    <div style="font-size: 0.82rem; font-weight: 600; color: var(--navy-900);">
+                                        {{ reg.arrival_time.strftime('%H:%M') }}
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: var(--slate-500);">
+                                        {{ reg.arrival_time.strftime('%Y-%m-%d') }}
+                                    </div>
+                                    {% if q.queue_status in ['Waiting', 'Called'] and q.estimated_wait_minutes > 0 %}
+                                        <div style="font-size: 0.75rem; color: var(--teal-600); font-weight: 600; margin-top: 2px;">
+                                            Est. wait: ~{{ q.estimated_wait_minutes|round|int }}m
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <!-- Action -->
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 5px;">
+                                        {% if q.queue_status == 'Waiting' or q.queue_status == 'Called' %}
+                                            {% if reg.assigned_doctor_id == current_user.id %}
+                                                <form method="POST" action="{{ url_for('doctor.start_consultation') }}" style="margin: 0;">
+                                                    <input type="hidden" name="registration_id" value="{{ reg.id }}">
+                                                    <button type="submit" class="btn btn-primary btn-sm" style="width: 100%; font-size: 0.8rem; padding: 5px 10px;">
+                                                        Start Consultation &rarr;
+                                                    </button>
+                                                </form>
+                                                <a href="{{ url_for('doctor.consultation', registration_id=reg.id) }}" class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.78rem; text-align: center;">
+                                                    View Chart
+                                                </a>
+                                            {% else %}
+                                                <!-- Unassigned or claimed by other -->
+                                                <form method="POST" action="{{ url_for('doctor.claim_patient', registration_id=reg.id) }}" style="margin: 0;">
+                                                    <button type="submit" class="btn btn-primary btn-sm" style="width: 100%; font-size: 0.8rem; padding: 5px 10px;">
+                                                        Assign to Me
+                                                    </button>
+                                                </form>
+                                            {% endif %}
+
+                                        {% elif q.queue_status == 'In Consultation' %}
+                                            <a href="{{ url_for('doctor.consultation', registration_id=reg.id) }}" class="btn btn-primary btn-sm" style="width: 100%; font-size: 0.8rem; background: #2563eb; border-color: #2563eb; text-align: center;">
+                                                Resume Examination &rarr;
+                                            </a>
+
+                                        {% elif q.queue_status == 'Completed' %}
+                                            <a href="{{ url_for('doctor.consultation', registration_id=reg.id) }}" class="btn btn-secondary btn-sm" style="width: 100%; font-size: 0.78rem; text-align: center;">
+                                                View Discharge Notes
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--slate-500);">
+                                    <div style="font-size: 1.1rem; font-weight: 600; color: var(--navy-800);">No patients found in this view</div>
+                                    <div style="font-size: 0.85rem; margin-top: 4px;">There are currently no patients under the '{{ active_tab }}' filter.</div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

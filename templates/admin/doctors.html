@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Management - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Physicians &amp; Consultation Workload{% endblock %}
+
+{% block content %}
+<!-- Top KPI Workload Metrics -->
+<div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 1.5rem;">
+    <div class="metric-card">
+        <div class="metric-title">Total Registered Physicians</div>
+        <div class="metric-value">{{ doctors|length }}</div>
+        <div class="metric-caption">Hospital clinical medical staff</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--teal-500);">
+        <div class="metric-title">Available for Consultation</div>
+        <div class="metric-value" style="color: var(--teal-600);">{{ total_available_physicians }}</div>
+        <div class="metric-caption">On duty &amp; accepting patients</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--status-consulting);">
+        <div class="metric-title">In Active Consultation</div>
+        <div class="metric-value" style="color: var(--status-consulting);">{{ total_currently_consulting }}</div>
+        <div class="metric-caption">Consulting right now</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--navy-800);">
+        <div class="metric-title">Active Accounts</div>
+        <div class="metric-value">{{ total_active_physicians }}</div>
+        <div class="metric-caption">Permitted system access</div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 340px 1fr; gap: 1.5rem; align-items: flex-start;">
+    <!-- Add New Doctor Form -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Add New Physician</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('admin.doctors') }}">
+                <input type="hidden" name="action" value="create">
+
+                <div class="form-group">
+                    <label class="form-label" for="full_name">Doctor Full Name *</label>
+                    <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Dr. Evelyn Reed, MD" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Medical Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="dr.reed@hospitalflow.ai" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="department_id">Department / Specialization *</label>
+                    <select id="department_id" name="department_id" class="form-select" required>
+                        <option value="">— Select Specialization —</option>
+                        {% for d in departments %}
+                            <option value="{{ d.id }}">{{ d.department_name }} ({{ d.code }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 019-...">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="age">Age</label>
+                        <input type="number" id="age" name="age" class="form-control" placeholder="42" min="20" max="95">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="gender">Gender</label>
+                    <select id="gender" name="gender" class="form-select">
+                        <option value="Female">Female</option>
+                        <option value="Male" selected>Male</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Initial Password *</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+                </div>
+
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem; cursor: pointer;">
+                        <input type="checkbox" name="is_available" value="1" checked style="accent-color: var(--teal-500); width: 16px; height: 16px;">
+                        Immediately Available for Consultation
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Register Physician Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Doctors Directory and Workload Overview -->
+    <div class="card">
+        <div class="card-header" style="flex-direction: column; align-items: stretch; gap: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+                <h3 style="margin: 0;">Physician Workload &amp; Status Directory ({{ doctors|length }})</h3>
+            </div>
+
+            <!-- Filter Bar -->
+            <form method="GET" action="{{ url_for('admin.doctors') }}" style="display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr auto; gap: 0.75rem; align-items: center;">
+                <input type="text" name="q" value="{{ search_query }}" class="form-control" placeholder="Search doctor, email, phone...">
+
+                <select name="department_id" class="form-select">
+                    <option value="">All Departments</option>
+                    {% for d in departments %}
+                        <option value="{{ d.id }}" {% if dept_filter == d.id %}selected{% endif %}>{{ d.department_name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select name="availability" class="form-select">
+                    <option value="ALL" {% if avail_filter == 'ALL' %}selected{% endif %}>All Duty</option>
+                    <option value="available" {% if avail_filter == 'available' %}selected{% endif %}>Available</option>
+                    <option value="unavailable" {% if avail_filter == 'unavailable' %}selected{% endif %}>Off Duty</option>
+                </select>
+
+                <select name="status" class="form-select">
+                    <option value="ALL" {% if status_filter == 'ALL' %}selected{% endif %}>All Accounts</option>
+                    <option value="active" {% if status_filter == 'active' %}selected{% endif %}>Active</option>
+                    <option value="inactive" {% if status_filter == 'inactive' %}selected{% endif %}>Deactivated</option>
+                </select>
+
+                <div style="display: flex; gap: 0.25rem;">
+                    <button type="submit" class="btn btn-primary btn-sm">Filter</button>
+                    {% if search_query or dept_filter or avail_filter != 'ALL' or status_filter != 'ALL' %}
+                        <a href="{{ url_for('admin.doctors') }}" class="btn btn-secondary btn-sm">Reset</a>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+        <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Physician</th>
+                            <th>Department</th>
+                            <th>Availability</th>
+                            <th>Account</th>
+                            <th>Current Workload</th>
+                            <th>Completed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in doctors %}
+                            {% set doc = item.user %}
+                            <tr>
+                                <td>
+                                    <div style="font-weight: 700; color: var(--navy-900); display: flex; align-items: center; gap: 6px;">
+                                        <span class="user-avatar" style="width: 26px; height: 26px; font-size: 0.75rem; background: var(--teal-600); display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; color: white;">
+                                            Dr
+                                        </span>
+                                        {{ doc.full_name }}
+                                    </div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-600); margin-top: 2px;">
+                                        <code>{{ doc.email }}</code>
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: var(--slate-500);">
+                                        {{ doc.phone or 'No contact phone' }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 600;">
+                                        {{ item.department_name }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if item.is_available %}
+                                        <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 600;">Available</span>
+                                    {% else %}
+                                        <span class="badge" style="background: #fee2e2; color: #b91c1c; font-weight: 600;">Off Duty</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if doc.is_active %}
+                                        <span style="color: var(--status-completed); font-weight: 600; font-size: 0.85rem;">Active</span>
+                                    {% else %}
+                                        <span style="color: var(--status-cancelled); font-weight: 600; font-size: 0.85rem;">Deactivated</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div style="font-size: 0.85rem; line-height: 1.4;">
+                                        <div>Waiting: <strong style="color: var(--status-waiting);">{{ item.waiting_count }}</strong></div>
+                                        <div>In Consult: <strong style="color: var(--status-consulting);">{{ item.in_consult_count }}</strong></div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div style="font-weight: 700; color: var(--navy-900); font-size: 1rem;">
+                                        {{ item.completed_count }}
+                                    </div>
+                                    <div style="font-size: 0.72rem; color: var(--slate-500);">total consultations</div>
+                                </td>
+                                <td>
+                                    <div style="display: flex; flex-direction: column; gap: 4px;">
+                                        <!-- Toggle Availability -->
+                                        <form method="POST" action="{{ url_for('admin.doctors') }}" style="display: inline;">
+                                            <input type="hidden" name="action" value="toggle_availability">
+                                            <input type="hidden" name="doctor_id" value="{{ doc.id }}">
+                                            {% if item.is_available %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 3px 8px; width: 100%;">
+                                                    Set Off Duty
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 3px 8px; width: 100%; color: var(--teal-600);">
+                                                    Set Available
+                                                </button>
+                                            {% endif %}
+                                        </form>
+
+                                        <!-- Toggle Active -->
+                                        <form method="POST" action="{{ url_for('admin.doctors') }}" style="display: inline;">
+                                            <input type="hidden" name="action" value="toggle_status">
+                                            <input type="hidden" name="doctor_id" value="{{ doc.id }}">
+                                            {% if doc.is_active %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 3px 8px; width: 100%; color: #ef4444;" onclick="return confirm('Deactivate doctor {{ doc.full_name }}? Historical consultation records will be safely preserved.');">
+                                                    Deactivate
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 3px 8px; width: 100%; color: var(--status-completed);">
+                                                    Activate
+                                                </button>
+                                            {% endif %}
+                                        </form>
+
+                                        <!-- Edit Modal Trigger -->
+                                        <button type="button" class="btn btn-secondary btn-sm" style="font-size: 0.75rem; padding: 3px 8px; width: 100%;" onclick="openEditDoctorModal('{{ doc.id }}', '{{ doc.full_name|escape }}', '{{ doc.phone or '' }}', '{{ doc.age or '' }}', '{{ doc.gender or 'Male' }}', '{{ item.department_id or '' }}', {{ 'true' if item.is_available else 'false' }})">
+                                            Edit Details
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 2.5rem; color: var(--slate-500);">
+                                    No physician records match your search or filter criteria.
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Doctor Modal -->
+<div id="editDoctorModal" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+    <div style="background: white; border-radius: 12px; max-width: 500px; width: 90%; box-shadow: var(--shadow-lg); overflow: hidden; animation: fadeIn 0.2s ease;">
+        <div style="background: var(--navy-900); color: white; padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; color: white; font-size: 1.1rem;">Edit Physician Details</h3>
+            <button type="button" onclick="closeEditDoctorModal()" style="background: none; border: none; color: white; font-size: 1.25rem; cursor: pointer;">&times;</button>
+        </div>
+        <form method="POST" action="{{ url_for('admin.doctors') }}" style="padding: 1.5rem;">
+            <input type="hidden" name="action" value="edit">
+            <input type="hidden" id="edit_doctor_id" name="doctor_id" value="">
+
+            <div class="form-group">
+                <label class="form-label" for="edit_full_name">Full Name *</label>
+                <input type="text" id="edit_full_name" name="full_name" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="edit_department_id">Department / Specialization *</label>
+                <select id="edit_department_id" name="department_id" class="form-select" required>
+                    {% for d in departments %}
+                        <option value="{{ d.id }}">{{ d.department_name }} ({{ d.code }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                <div class="form-group">
+                    <label class="form-label" for="edit_phone">Phone</label>
+                    <input type="tel" id="edit_phone" name="phone" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="edit_age">Age</label>
+                    <input type="number" id="edit_age" name="age" class="form-control" min="20" max="95">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="edit_gender">Gender</label>
+                <select id="edit_gender" name="gender" class="form-select">
+                    <option value="Female">Female</option>
+                    <option value="Male">Male</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem; cursor: pointer;">
+                    <input type="checkbox" id="edit_is_available" name="is_available" value="1" style="accent-color: var(--teal-500); width: 16px; height: 16px;">
+                    Available for Consultation
+                </label>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                <button type="button" class="btn btn-secondary" onclick="closeEditDoctorModal()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function openEditDoctorModal(id, name, phone, age, gender, deptId, isAvailable) {
+    document.getElementById('edit_doctor_id').value = id;
+    document.getElementById('edit_full_name').value = name;
+    document.getElementById('edit_phone').value = phone;
+    document.getElementById('edit_age').value = age;
+    document.getElementById('edit_gender').value = gender;
+    document.getElementById('edit_department_id').value = deptId;
+    document.getElementById('edit_is_available').checked = isAvailable;
+    document.getElementById('editDoctorModal').style.display = 'flex';
+}
+
+function closeEditDoctorModal() {
+    document.getElementById('editDoctorModal').style.display = 'none';
+}
+</script>
+{% endblock %}

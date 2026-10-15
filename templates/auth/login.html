@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In - HospitalFlow AI{% endblock %}
+
+{% block auth_content %}
+<div class="auth-centered-wrapper">
+    <div class="auth-clean-card">
+        <div class="auth-card-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3"/>
+            </svg>
+        </div>
+
+        <div class="auth-card-header" style="margin-bottom: 1.5rem;">
+            <h2>Sign In</h2>
+            <p>Access your HospitalFlow AI account.</p>
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.login') }}">
+            {% if next %}
+                <input type="hidden" name="next" value="{{ next }}">
+            {% endif %}
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="name@example.com" value="{{ email or '' }}" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Enter your password" required>
+                    <button type="button" class="password-toggle-btn" data-target="password">Show</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.25rem;">Sign In</button>
+        </form>
+
+        <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--slate-200); text-align: center; font-size: 0.9rem; color: var(--slate-600); display: flex; flex-direction: column; gap: 0.5rem;">
+            <div>
+                New patient?
+                <a href="{{ url_for('auth.register') }}" style="color: var(--teal-600); font-weight: 600; text-decoration: none;">Register as Patient</a>
+            </div>
+            <div>
+                Are you a physician?
+                <a href="{{ url_for('auth.register_doctor') }}" style="color: var(--teal-600); font-weight: 600; text-decoration: none;">Doctor Registration</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

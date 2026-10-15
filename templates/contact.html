@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+
+{% block title %}Hospital Contact &amp; Clinical Information - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Contact Directory &amp; Location{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto;">
+    <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--navy-900);">
+            {{ hospital_info.hospital_name if hospital_info else 'HospitalFlow General Hospital & Medical Center' }}
+        </h2>
+        <p style="color: var(--slate-500); font-size: 0.95rem;">
+            Official hospital contact directory, emergency lines, acute care services, and physical address.
+        </p>
+    </div>
+
+    <!-- Contact Cards Grid -->
+    <div class="contact-card-grid">
+        <!-- Emergency Hotlines -->
+        <div class="contact-card" style="border-top: 4px solid #ef4444;">
+            <div class="contact-icon" style="background: #fee2e2; color: #dc2626;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h4>Emergency &amp; Acute Triage</h4>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #dc2626;">
+                <a href="tel:{{ hospital_info.emergency_phone if hospital_info else '+1-555-911-3569' }}" style="color: #dc2626;">
+                    {{ hospital_info.emergency_phone if hospital_info else '+1 (555) 911-3569' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">
+                For immediate life-threatening events, chest pain, stroke symptoms, or severe trauma. Available 24/7.
+            </p>
+        </div>
+
+        <!-- General Inquiries -->
+        <div class="contact-card" style="border-top: 4px solid var(--teal-500);">
+            <div class="contact-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h4>Registration &amp; Queue Desk</h4>
+            <div style="font-size: 1.15rem; font-weight: 700; color: var(--navy-900);">
+                <a href="tel:{{ hospital_info.phone if hospital_info else '+1-555-019-2830' }}">
+                    {{ hospital_info.phone if hospital_info else '+1 (555) 019-2830' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">
+                Central reception desk for outpatient clinics, department inquiries, and general appointments.
+            </p>
+        </div>
+
+        <!-- Care Email -->
+        <div class="contact-card" style="border-top: 4px solid var(--navy-700);">
+            <div class="contact-icon" style="background: var(--slate-100); color: var(--navy-700);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <h4>Patient Care &amp; Support</h4>
+            <div style="font-size: 1.05rem; font-weight: 700;">
+                <a href="mailto:{{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}">
+                    {{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500); margin: 0;">
+                Non-urgent inquiries, medical records transfer, patient feedback, and hospital administration.
+            </p>
+        </div>
+    </div>
+
+    <!-- Location & Opening Hours Card -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header">
+            <h3>Physical Address &amp; Operating Hours</h3>
+        </div>
+        <div class="card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+                <div>
+                    <div class="stat-label">Main Hospital Campus</div>
+                    <div style="font-size: 1.05rem; font-weight: 600; color: var(--navy-900); margin: 0.4rem 0;">
+                        {{ hospital_info.address if hospital_info else '1200 Health Science Boulevard, Suite 400, Metro City, MC 98101' }}
+                    </div>
+                    <a href="{{ hospital_info.directions_url if hospital_info and hospital_info.directions_url else 'https://maps.google.com' }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                        Get Driving Directions
+                    </a>
+                </div>
+
+                <div>
+                    <div class="stat-label">Hours of Operation</div>
+                    <div style="font-size: 0.95rem; color: var(--navy-800); margin-top: 0.4rem; line-height: 1.6;">
+                        {{ hospital_info.opening_hours if hospital_info else '24/7 Emergency & Acute Care | OPD: Mon - Sat 8:00 AM - 8:00 PM' }}
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 0.4rem;">
+                        Outpatient clinics operate on scheduled appointments and walk-in priority queues.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- In-Site Assistance Action Banner -->
+    <div style="background: var(--teal-50); border: 1px solid var(--teal-100); border-radius: var(--radius-md); padding: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: gap; gap: 1rem;">
+        <div>
+            <h4 style="font-weight: 700; color: var(--teal-600); margin-bottom: 0.25rem;">Need in-site hospital assistance or callback?</h4>
+            <p style="color: var(--slate-600); font-size: 0.9rem; margin: 0;">Submit an authenticated request for appointment scheduling or general support.</p>
+        </div>
+        <div>
+            {% if current_user.is_authenticated and current_user.role == 'patient' %}
+                <a href="{{ url_for('patient.contact_requests') }}" class="btn btn-primary" style="white-space: nowrap;">Submit Assistance Request</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="btn btn-primary" style="white-space: nowrap;">Sign In to Submit Request</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block auth_content %}
+<div class="public-container">
+    <div style="margin-bottom: 2rem; text-align: center;">
+        <h1 style="font-size: 2rem; font-weight: 800; color: var(--navy-900);">
+            {{ hospital_info.hospital_name if hospital_info else 'HospitalFlow General Hospital & Medical Center' }}
+        </h1>
+        <p style="color: var(--slate-500); font-size: 1.05rem; max-width: 650px; margin: 0.5rem auto 0;">
+            Comprehensive outpatient care, emergency clinical services, and real-time waiting-time prediction.
+        </p>
+    </div>
+
+    <!-- Contact Cards Grid -->
+    <div class="contact-card-grid">
+        <!-- Emergency -->
+        <div class="contact-card" style="border-top: 4px solid #ef4444;">
+            <div class="contact-icon" style="background: #fee2e2; color: #dc2626;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h4>Emergency &amp; Acute Care</h4>
+            <div style="font-size: 1.3rem; font-weight: 800; color: #dc2626;">
+                <a href="tel:{{ hospital_info.emergency_phone if hospital_info else '+1-555-911-3569' }}" style="color: #dc2626;">
+                    {{ hospital_info.emergency_phone if hospital_info else '+1 (555) 911-3569' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500);">
+                Available 24 hours a day, 7 days a week for immediate medical escalation.
+            </p>
+        </div>
+
+        <!-- Central Desk -->
+        <div class="contact-card" style="border-top: 4px solid var(--teal-500);">
+            <div class="contact-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <h4>Hospital Reception</h4>
+            <div style="font-size: 1.15rem; font-weight: 700; color: var(--navy-900);">
+                <a href="tel:{{ hospital_info.phone if hospital_info else '+1-555-019-2830' }}">
+                    {{ hospital_info.phone if hospital_info else '+1 (555) 019-2830' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500);">
+                Outpatient clinic schedules, triage questions, and department information.
+            </p>
+        </div>
+
+        <!-- Email -->
+        <div class="contact-card" style="border-top: 4px solid var(--navy-700);">
+            <div class="contact-icon" style="background: var(--slate-100); color: var(--navy-700);">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <h4>Patient Care Email</h4>
+            <div style="font-size: 1.05rem; font-weight: 700;">
+                <a href="mailto:{{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}">
+                    {{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}
+                </a>
+            </div>
+            <p style="font-size: 0.85rem; color: var(--slate-500);">
+                Written inquiries and records assistance.
+            </p>
+        </div>
+    </div>
+
+    <!-- Campus Address Card -->
+    <div class="card" style="margin-top: 2rem;">
+        <div class="card-header">
+            <h3>Campus Location &amp; Hours</h3>
+        </div>
+        <div class="card-body">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 2rem;">
+                <div>
+                    <div class="stat-label">Physical Address</div>
+                    <div style="font-size: 1.05rem; font-weight: 600; color: var(--navy-900); margin: 0.4rem 0;">
+                        {{ hospital_info.address if hospital_info else '1200 Health Science Boulevard, Suite 400, Metro City, MC 98101' }}
+                    </div>
+                    <a href="{{ hospital_info.directions_url if hospital_info and hospital_info.directions_url else 'https://maps.google.com' }}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="margin-top: 0.5rem; display: inline-flex; align-items: center; gap: 6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+                        Google Maps &amp; Navigation
+                    </a>
+                </div>
+
+                <div>
+                    <div class="stat-label">Operating Schedule</div>
+                    <div style="font-size: 0.95rem; color: var(--navy-800); margin-top: 0.4rem; line-height: 1.6;">
+                        {{ hospital_info.opening_hours if hospital_info else '24/7 Emergency Care | OPD: Mon - Sat 8:00 AM - 8:00 PM' }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

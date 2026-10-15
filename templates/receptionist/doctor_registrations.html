@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Registrations - HospitalFlow AI{% endblock %}
+{% block page_title %}Doctor Self-Registration &amp; Credential Verification{% endblock %}
+
+{% block content %}
+<!-- Metrics Summary -->
+<div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 1.5rem;">
+    <div class="metric-card" style="border-left: 4px solid var(--amber-500);">
+        <div class="metric-title">Pending Verification</div>
+        <div class="metric-value" style="color: var(--amber-600);">{{ pending_count }}</div>
+        <div class="metric-caption">Awaiting receptionist approval</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--emerald-500);">
+        <div class="metric-title">Approved Physicians</div>
+        <div class="metric-value" style="color: var(--emerald-600);">{{ approved_count }}</div>
+        <div class="metric-caption">Active hospital staff</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--rose-500);">
+        <div class="metric-title">Declined Applications</div>
+        <div class="metric-value" style="color: var(--rose-600);">{{ rejected_count }}</div>
+        <div class="metric-caption">Rejected or licensing issues</div>
+    </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="card" style="padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+    <form method="GET" action="{{ url_for('receptionist.doctor_registrations') }}" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <div>
+            <label style="font-size: 0.85rem; font-weight: 600; color: var(--slate-600); margin-right: 6px;">Filter by Status:</label>
+            <select name="status" class="form-control" style="font-size: 0.9rem; display: inline-block; width: auto;" onchange="this.form.submit()">
+                <option value="ALL" {% if status_filter == 'ALL' %}selected{% endif %}>All Requests</option>
+                <option value="Pending" {% if status_filter == 'Pending' %}selected{% endif %}>Pending Review</option>
+                <option value="Approved" {% if status_filter == 'Approved' %}selected{% endif %}>Approved Doctors</option>
+                <option value="Rejected" {% if status_filter == 'Rejected' %}selected{% endif %}>Rejected</option>
+            </select>
+        </div>
+        <a href="{{ url_for('receptionist.doctor_registrations') }}" class="btn btn-outline btn-sm">Reset</a>
+    </form>
+</div>
+
+<!-- Requests Table -->
+<div class="card" style="padding: 0; overflow: hidden; border: 1px solid var(--slate-200);">
+    {% if requests_list and requests_list|length > 0 %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Physician Name</th>
+                        <th>Contact Email &amp; Phone</th>
+                        <th>Credentials &amp; License</th>
+                        <th>Specialization &amp; Dept</th>
+                        <th>Status</th>
+                        <th>Submitted / Reviewed</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for req in requests_list %}
+                        <tr>
+                            <td>
+                                <strong>{{ req.full_name }}</strong>
+                                <div style="font-size: 0.8rem; color: var(--slate-500);">
+                                    {{ req.experience_years }} yrs clinical experience
+                                </div>
+                            </td>
+                            <td>
+                                <div><a href="mailto:{{ req.email }}" style="color: var(--navy-800); text-decoration: none;">{{ req.email }}</a></div>
+                                <div style="font-size: 0.8rem; color: var(--slate-600);">{{ req.phone or 'No phone' }}</div>
+                            </td>
+                            <td>
+                                <div style="font-weight: 600; color: var(--navy-900);">{{ req.qualification }}</div>
+                                <div style="font-size: 0.8rem; color: var(--slate-500); font-family: monospace;">
+                                    License: {{ req.license_number }}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 700;">
+                                    {{ req.department.department_name if req.department else 'N/A' }}
+                                </span>
+                                <div style="font-size: 0.8rem; color: var(--slate-700); margin-top: 3px;">
+                                    {{ req.specialization }}
+                                </div>
+                            </td>
+                            <td>
+                                {% if req.status == 'Pending' %}
+                                    <span class="badge" style="background: #fef3c7; color: #92400e; font-weight: 700;">Pending Review</span>
+                                {% elif req.status == 'Approved' %}
+                                    <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700;">Approved</span>
+                                {% elif req.status == 'Rejected' %}
+                                    <span class="badge" style="background: #fee2e2; color: #b91c1c; font-weight: 700;">Declined</span>
+                                {% else %}
+                                    <span class="badge">{{ req.status }}</span>
+                                {% endif %}
+                                {% if req.rejection_reason %}
+                                    <div style="font-size: 0.75rem; color: #dc2626; margin-top: 3px; max-width: 180px;">
+                                        Reason: {{ req.rejection_reason }}
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td style="font-size: 0.8rem; color: var(--slate-600);">
+                                <div>Applied: {{ req.created_at.strftime('%Y-%m-%d %H:%M') if req.created_at else 'N/A' }}</div>
+                                {% if req.reviewed_at %}
+                                    <div style="color: var(--slate-500); margin-top: 2px;">
+                                        By {{ req.reviewer.full_name if req.reviewer else 'Reception' }} ({{ req.reviewed_at.strftime('%m/%d %H:%M') }})
+                                    </div>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <div style="display: flex; flex-direction: column; gap: 6px; min-width: 130px;">
+                                    {% if req.status == 'Pending' %}
+                                        <!-- Approve Modal / Button -->
+                                        <form method="POST" action="{{ url_for('receptionist.approve_doctor_registration', request_id=req.id) }}">
+                                            <button type="submit" class="btn btn-primary btn-sm" style="font-size: 0.75rem; width: 100%; background: #059669; border-color: #059669;" onclick="return confirm('Approve doctor account and grant clinical privileges?');">
+                                                ✓ Approve &amp; Activate
+                                            </button>
+                                        </form>
+
+                                        <!-- Reject Inline Form -->
+                                        <details style="font-size: 0.75rem;">
+                                            <summary style="cursor: pointer; color: #dc2626; font-weight: 600; padding: 2px 0;">Decline Request...</summary>
+                                            <form method="POST" action="{{ url_for('receptionist.reject_doctor_registration', request_id=req.id) }}" style="margin-top: 4px; display: flex; flex-direction: column; gap: 4px;">
+                                                <input type="text" name="rejection_reason" placeholder="Reason for decline" class="form-control" style="font-size: 0.75rem; padding: 4px;" required>
+                                                <button type="submit" class="btn btn-danger btn-sm" style="font-size: 0.7rem; padding: 2px 6px;">
+                                                    Confirm Decline
+                                                </button>
+                                            </form>
+                                        </details>
+                                    {% elif req.status == 'Approved' %}
+                                        <span style="font-size: 0.8rem; color: #059669; font-weight: 600;">✓ Active Staff</span>
+                                    {% elif req.status == 'Rejected' %}
+                                        <!-- Allow re-evaluating rejected doctor -->
+                                        <form method="POST" action="{{ url_for('receptionist.approve_doctor_registration', request_id=req.id) }}">
+                                            <button type="submit" class="btn btn-outline btn-sm" style="font-size: 0.75rem; width: 100%;" onclick="return confirm('Re-evaluate and approve this previously declined doctor?');">
+                                                Re-Approve
+                                            </button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div style="padding: 3rem 1.5rem; text-align: center; color: var(--slate-500);">
+            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--slate-700);">No doctor registrations found</div>
+            <p style="font-size: 0.9rem; margin: 0;">When physicians register online via the doctor registration portal, their credential applications appear here for verification and approval.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

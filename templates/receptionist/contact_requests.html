@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Assistance Requests - HospitalFlow AI{% endblock %}
+{% block page_title %}Patient Assistance &amp; Inquiries Desk{% endblock %}
+
+{% block content %}
+<div style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+    <div>
+        <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900);">Patient Contact &amp; Assistance Requests</h2>
+        <p style="color: var(--slate-500); font-size: 0.9rem;">
+            Review incoming inquiries, appointment scheduling requests, and callback tickets.
+        </p>
+    </div>
+    <div style="display: flex; gap: 8px;">
+        <a href="{{ url_for('receptionist.dashboard') }}" class="btn btn-secondary btn-sm">&larr; Back to Queue</a>
+    </div>
+</div>
+
+<!-- Filter Bar -->
+<div class="card" style="margin-bottom: 1.5rem;">
+    <div class="card-body" style="padding: 1rem 1.25rem;">
+        <form method="GET" action="{{ url_for('receptionist.contact_requests') }}" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+            <div>
+                <select name="status" class="form-select" onchange="this.form.submit()" style="padding: 0.45rem 0.8rem; font-size: 0.88rem;">
+                    <option value="ALL" {% if status_filter == 'ALL' %}selected{% endif %}>All Statuses</option>
+                    <option value="Submitted" {% if status_filter == 'Submitted' %}selected{% endif %}>Status: Submitted (New)</option>
+                    <option value="Under Review" {% if status_filter == 'Under Review' %}selected{% endif %}>Status: Under Review</option>
+                    <option value="Responded To" {% if status_filter == 'Responded To' %}selected{% endif %}>Status: Responded To</option>
+                    <option value="Closed" {% if status_filter == 'Closed' %}selected{% endif %}>Status: Closed</option>
+                </select>
+            </div>
+            {% if status_filter and status_filter != 'ALL' %}
+                <a href="{{ url_for('receptionist.contact_requests') }}" class="btn btn-secondary btn-sm">Reset</a>
+            {% endif %}
+        </form>
+    </div>
+</div>
+
+<!-- Requests Table -->
+<div class="card">
+    <div class="card-header">
+        <h3>Patient Requests ({{ requests_list|length }} Records)</h3>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        {% if requests_list %}
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Patient Details</th>
+                            <th>Request Nature</th>
+                            <th>Subject &amp; Message</th>
+                            <th>Submitted</th>
+                            <th>Current Status</th>
+                            <th>Review &amp; Respond</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in requests_list %}
+                            <tr>
+                                <td><strong style="color: var(--teal-600);">{{ r.request_reference }}</strong></td>
+                                <td>
+                                    <div style="font-weight: 600; color: var(--navy-900);">{{ r.patient_name }}</div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-500);">
+                                        {{ r.patient_email }}
+                                        {% if r.patient_phone %}&bull; {{ r.patient_phone }}{% endif %}
+                                    </div>
+                                    <div style="font-size: 0.72rem; color: var(--slate-400); margin-top: 2px;">
+                                        Pref: {{ r.preferred_contact_method }}{% if r.preferred_callback_time %} ({{ r.preferred_callback_time }}){% endif %}
+                                    </div>
+                                </td>
+
+                                <td><span style="font-weight: 500;">{{ r.request_type }}</span></td>
+
+                                <td style="max-width: 250px;">
+                                    <div style="font-weight: 600; color: var(--navy-800);">{{ r.subject }}</div>
+                                    <div style="font-size: 0.8rem; color: var(--slate-600); margin-top: 3px; line-height: 1.35;">{{ r.message }}</div>
+                                    {% if r.staff_response %}
+                                        <div style="margin-top: 6px; padding: 4px 8px; background: var(--teal-50); border: 1px solid var(--teal-100); border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--teal-600);">
+                                            <strong>Last Staff Response:</strong> {{ r.staff_response }}
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ r.created_at.strftime('%Y-%m-%d %I:%M %p') }}</td>
+
+                                <td>
+                                    {% if r.status == 'Submitted' %}
+                                        <span class="badge badge-status-submitted">Submitted</span>
+                                    {% elif r.status == 'Under Review' %}
+                                        <span class="badge badge-status-under-review">Under Review</span>
+                                    {% elif r.status == 'Responded To' %}
+                                        <span class="badge badge-status-responded-to">Responded</span>
+                                    {% else %}
+                                        <span class="badge badge-status-closed">{{ r.status }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <form method="POST" action="{{ url_for('receptionist.contact_requests') }}" style="display: flex; flex-direction: column; gap: 4px; min-width: 170px;">
+                                        <input type="hidden" name="request_id" value="{{ r.id }}">
+                                        <select name="status" class="form-select" style="padding: 2px 6px; font-size: 0.78rem;">
+                                            <option value="Submitted" {% if r.status == 'Submitted' %}selected{% endif %}>Submitted</option>
+                                            <option value="Under Review" {% if r.status == 'Under Review' %}selected{% endif %}>Under Review</option>
+                                            <option value="Responded To" {% if r.status == 'Responded To' %}selected{% endif %}>Responded To</option>
+                                            <option value="Closed" {% if r.status == 'Closed' %}selected{% endif %}>Closed</option>
+                                        </select>
+                                        <input type="text" name="staff_response" placeholder="Add staff reply..." class="form-control" style="padding: 2px 6px; font-size: 0.78rem;" value="{{ r.staff_response or '' }}">
+                                        <button type="submit" class="btn btn-secondary btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">Save Update</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="padding: 3rem; text-align: center; color: var(--slate-500);">
+                No patient contact requests found for the selected status.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+
+{% block title %}ML Model &amp; AI Intelligence - HospitalFlow AI{% endblock %}
+{% block page_title %}Machine Learning Pipelines &amp; Clinical Models{% endblock %}
+
+{% block content %}
+<!-- Tabs or Section Header -->
+<div style="margin-bottom: 2rem;">
+    <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900); margin-bottom: 0.25rem;">
+        HospitalFlow AI Machine Learning Architecture
+    </h2>
+    <p style="color: var(--slate-600); font-size: 0.95rem; margin: 0;">
+        Two specialized machine learning pipelines power real-time patient queue predictions and multi-disease symptom screening.
+    </p>
+</div>
+
+<!-- ================= MODEL 1: SYMPTOM CHECKER ================= -->
+<div class="card" style="margin-bottom: 2rem; border-top: 4px solid #2563eb;">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div>
+            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #2563eb; letter-spacing: 0.05em;">Classification Pipeline</span>
+            <h3 style="margin: 2px 0 0; font-size: 1.25rem; color: var(--slate-900);">Multi-Disease Symptom Checker Model</h3>
+        </div>
+        <span class="badge" style="background: #dcfce7; color: #166534; font-weight: 700; padding: 6px 12px;">ACTIVE &bull; IN PRODUCTION</span>
+    </div>
+    <div class="card-body">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.75rem;">
+            <!-- Dataset info -->
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 1.25rem;">
+                <div class="stat-label">Verified Kaggle Dataset Source</div>
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 1rem; margin: 4px 0;">
+                    Disease Prediction Using Machine Learning
+                </div>
+                <div style="font-size: 0.85rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 0.75rem;">
+                    Original Publisher: <strong>Kaushil Patel (kaushil268)</strong> &bull; License: ODbL / CC0 Public Domain
+                </div>
+                <a href="https://www.kaggle.com/datasets/kaushil268/disease-prediction-using-machine-learning" target="_blank" rel="noopener" style="color: #2563eb; font-weight: 600; font-size: 0.85rem; text-decoration: none;">
+                    kaggle.com/datasets/kaushil268/disease-prediction... &nearr;
+                </a>
+                <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 0.75rem;">
+                    Local: <code>datasets/raw/symptom_disease_training.csv</code> (4,920 records) &amp; <code>Testing.csv</code> (41 records)
+                </div>
+            </div>
+
+            <!-- Architecture & Performance -->
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 1.25rem;">
+                <div class="stat-label">Algorithm &amp; Hyperparameters</div>
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 1rem; margin: 4px 0;">
+                    Calibrated Random Forest Classifier
+                </div>
+                <div style="font-size: 0.85rem; color: var(--slate-600); margin-bottom: 0.75rem;">
+                    100 Estimators &bull; Balanced Class Weights &bull; 132 Symptom Features &bull; 41 Disease Targets
+                </div>
+
+                <!-- Metrics Grid -->
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center; margin-top: 0.75rem;">
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">ACCURACY</div>
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #2563eb;">{{ (symptom_meta.accuracy * 100)|round(1) if symptom_meta else '100.0' }}%</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">PRECISION</div>
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #10b981;">{{ (symptom_meta.precision_weighted * 100)|round(1) if symptom_meta else '100.0' }}%</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">RECALL</div>
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #f59e0b;">{{ (symptom_meta.recall_weighted * 100)|round(1) if symptom_meta else '100.0' }}%</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">F1-SCORE</div>
+                        <div style="font-size: 1.1rem; font-weight: 800; color: #8b5cf6;">{{ (symptom_meta.f1_weighted * 100)|round(1) if symptom_meta else '100.0' }}%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evaluation Graphic & Retrain Action -->
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+            <div>
+                <img src="{{ url_for('static', filename='images/symptom_model_evaluation.png') }}?v=1" alt="Symptom Model Evaluation Chart" style="max-height: 200px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            </div>
+            <div>
+                <form method="POST" action="{{ url_for('receptionist.model_management') }}">
+                    <input type="hidden" name="action" value="retrain_symptom">
+                    <button type="submit" class="btn btn-primary" onclick="return confirm('Retrain Random Forest symptom model on 4,920 records?');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                        Retrain Symptom Model Now
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODEL 2: WAITING TIME PREDICTION ================= -->
+<div class="card" style="margin-bottom: 2rem; border-top: 4px solid #0d9488;">
+    <div class="card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;">
+        <div>
+            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #0d9488; letter-spacing: 0.05em;">Regression Pipeline</span>
+            <h3 style="margin: 2px 0 0; font-size: 1.25rem; color: var(--slate-900);">Hospital Waiting-Time Prediction Model</h3>
+        </div>
+        <span class="badge" style="background: #dcfce7; color: #166534; font-weight: 700; padding: 6px 12px;">ACTIVE &bull; IN PRODUCTION</span>
+    </div>
+    <div class="card-body">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 1.75rem;">
+            <!-- Dataset info -->
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 1.25rem;">
+                <div class="stat-label">Verified Kaggle Dataset Source</div>
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 1rem; margin: 4px 0;">
+                    Hospital Emergency Room Dataset
+                </div>
+                <div style="font-size: 0.85rem; color: var(--slate-600); line-height: 1.5; margin-bottom: 0.75rem;">
+                    Original Publisher: <strong>Laxdip Patel</strong> &bull; Local: <code>datasets/raw/Hospital_ER.csv</code>
+                </div>
+                <a href="https://www.kaggle.com/datasets/laxdippatel/hospital-emergency-room-dataset" target="_blank" rel="noopener" style="color: #0d9488; font-weight: 600; font-size: 0.85rem; text-decoration: none;">
+                    kaggle.com/datasets/laxdippatel/hospital-emergency... &nearr;
+                </a>
+                <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 0.75rem;">
+                    Target: <code>patient_waittime</code> (Minutes from check-in to exam)
+                </div>
+            </div>
+
+            <!-- Performance Metrics -->
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 8px; padding: 1.25rem;">
+                <div class="stat-label">Algorithm &amp; Evaluation</div>
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 1rem; margin: 4px 0;">
+                    {{ model_meta.model_name }}
+                </div>
+                <div style="font-size: 0.85rem; color: var(--slate-600); margin-bottom: 0.75rem;">
+                    Calibrated over historical emergency room arrival surges &amp; active department queues.
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; margin-top: 0.75rem;">
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">MAE</div>
+                        <div style="font-size: 1.15rem; font-weight: 800; color: #0d9488;">{{ model_meta.mae }}</div>
+                        <div style="font-size: 0.68rem; color: var(--slate-500);">Minutes</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">RMSE</div>
+                        <div style="font-size: 1.15rem; font-weight: 800; color: var(--navy-800);">{{ model_meta.rmse }}</div>
+                        <div style="font-size: 0.68rem; color: var(--slate-500);">Root MSE</div>
+                    </div>
+                    <div style="background: #fff; border: 1px solid var(--slate-200); padding: 6px 4px; border-radius: 6px;">
+                        <div style="font-size: 0.7rem; color: var(--slate-500); font-weight: 700;">R² SCORE</div>
+                        <div style="font-size: 1.15rem; font-weight: 800; color: var(--slate-700);">{{ model_meta.r2_score }}</div>
+                        <div style="font-size: 0.68rem; color: var(--slate-500);">Test Split</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+            {% if chart_exists %}
+                <img src="{{ url_for('static', filename='images/model_evaluation.png') }}?v=1" alt="Waiting Time Regression Chart" style="max-height: 220px; border-radius: 8px; border: 1px solid var(--slate-200);">
+            {% endif %}
+            <form method="POST" action="{{ url_for('receptionist.model_management') }}">
+                <input type="hidden" name="action" value="retrain">
+                <button type="submit" class="btn btn-secondary" onclick="return confirm('Retrain waiting-time model on ER dataset?');">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                    Retrain Waiting-Time Model
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

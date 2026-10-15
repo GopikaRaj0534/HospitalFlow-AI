@@ -1,0 +1,565 @@
+{% extends "base.html" %}
+
+{% block title %}HospitalFlow AI - AI-Powered Hospital & Patient Queue Management{% endblock %}
+
+{% block auth_content %}
+<div class="landing-page-wrapper">
+    <!-- Hero Section -->
+    <section class="landing-hero">
+        <div class="hero-container">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Next-Gen Healthcare Flow Optimization</span>
+            </div>
+            <h1 class="hero-title">
+                Smarter Hospital Flow<br>
+                <span class="text-gradient">Real-Time AI Triage</span>
+            </h1>
+            <p class="hero-subtitle">
+                HospitalFlow AI connects patients, doctors, and hospital operations in a unified platform.
+                Check symptoms using calibrated machine learning, request physician consultations, and monitor live waiting times with zero guesswork.
+            </p>
+            <div class="hero-actions">
+                <a href="{{ url_for('auth.login', next='/patient/symptom-checker') }}" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M4.93 10.93l2.83-2.83M2 18h4M20 18h2M19.07 10.93l-2.83-2.83M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+                    Start AI Symptom Checker
+                </a>
+                <a href="{{ url_for('auth.register') }}" class="btn btn-secondary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                    New Patient Registration
+                </a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+                    Staff &amp; Patient Sign In
+                </a>
+            </div>
+
+            <!-- Operational Highlights -->
+            <div class="hero-metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-value">41</div>
+                    <div class="metric-label">Diseases Screened by ML</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">132</div>
+                    <div class="metric-label">Structured Clinical Symptoms</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">Real-Time</div>
+                    <div class="metric-label">Dynamic Queue Predictions</div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Section -->
+    <section id="features" class="landing-section">
+        <div class="section-container">
+            <div class="section-header text-center">
+                <span class="section-tag">Platform Capabilities</span>
+                <h2 class="section-title">Designed for Modern Healthcare Operations</h2>
+                <p class="section-desc">Streamlining the entire hospital journey from initial symptom screening to physician consultation and post-visit discharge.</p>
+            </div>
+
+            <div class="features-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-blue">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    </div>
+                    <h3>ML-Powered Symptom Checker</h3>
+                    <p>Select from 132 structured symptoms. Our trained Random Forest machine-learning model computes probable conditions with calibrated confidence estimates and differential diagnoses.</p>
+                    <a href="{{ url_for('auth.login', next='/patient/symptom-checker') }}" class="feature-link">Explore Symptom Checker &rarr;</a>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-teal">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3>Doctor Consultation Requests</h3>
+                    <p>Request consultations with verified department specialists directly after symptom screening or straight from your patient dashboard, linking health records for physician review.</p>
+                    <a href="{{ url_for('auth.login', next='/patient/request-consultation') }}" class="feature-link">Request Consultation &rarr;</a>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-amber">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h3>Smart Queue &amp; Wait Predictions</h3>
+                    <p>Dynamic token sequencing with clinical priority routing. Our ML regression model predicts realistic wait times based on historical hospital arrival data and active queue depth.</p>
+                    <a href="{{ url_for('auth.login') }}" class="feature-link">Track Live Queue &rarr;</a>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                    <div class="feature-icon bg-purple">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+                    </div>
+                    <h3>Unified Hospital Management</h3>
+                    <p>Receptionists oversee the complete hospital flow: walk-in patient intake, doctor assignment, department workloads, consultation queues, and operational AI metrics.</p>
+                    <a href="{{ url_for('auth.login') }}" class="feature-link">Staff Portal Access &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="workflow" class="landing-section bg-alt">
+        <div class="section-container">
+            <div class="section-header text-center">
+                <span class="section-tag">Step-by-Step Patient Journey</span>
+                <h2 class="section-title">How HospitalFlow AI Works</h2>
+                <p class="section-desc">A frictionless experience connecting patients and clinicians through intelligent triage.</p>
+            </div>
+
+            <div class="workflow-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h4>Check Symptoms</h4>
+                    <p>Input symptoms via our interactive checklist to view preliminary disease probabilities and critical safety alerts.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h4>Request Consultation</h4>
+                    <p>Seamlessly request an appointment with an on-duty specialist with prefilled symptoms and health concerns.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h4>Reception Triage &amp; Queue</h4>
+                    <p>Receptionist reviews your intake, confirms clinical priority, assigns an eligible physician, and issues a live queue token.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h4>Clinical Consultation</h4>
+                    <p>The attending doctor reviews your history, conducts the exam, and completes digital diagnosis and prescriptions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Clinical Safety & Medical Disclaimer -->
+    <section id="about" class="landing-section">
+        <div class="section-container">
+            <div class="safety-advisory-card">
+                <div class="advisory-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <div class="advisory-content">
+                    <h3 style="color: var(--slate-900); margin-bottom: 0.5rem; font-size: 1.25rem;">Medical Safety &amp; Clinical Governance</h3>
+                    <p style="color: var(--slate-600); font-size: 0.95rem; line-height: 1.6; margin-bottom: 0.75rem;">
+                        <strong>HospitalFlow AI is a clinical decision-support and patient flow optimization system.</strong> The AI Symptom Checker provides preliminary informational screenings based on trained machine-learning patterns and does NOT substitute for qualified medical diagnosis, emergency services, or professional healthcare advice.
+                    </p>
+                    <p style="color: #b91c1c; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                        If you experience acute chest pain, severe shortness of breath, sudden numbness, or loss of consciousness, seek immediate emergency medical care or call 911 / emergency services directly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hospital Information & Contact Section -->
+    <section id="contact" class="landing-section bg-alt">
+        <div class="section-container">
+            <div class="section-header text-center">
+                <span class="section-tag">Hospital Contact &amp; Hours</span>
+                <h2 class="section-title">{{ hospital_info.hospital_name if hospital_info else 'HospitalFlow Medical Center' }}</h2>
+                <p class="section-desc">Our medical staff and emergency department are available around the clock.</p>
+            </div>
+
+            <div class="contact-info-grid">
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    </div>
+                    <h4>Telephone &amp; Emergency</h4>
+                    <p><strong>Main Line:</strong> {{ hospital_info.phone if hospital_info else '+1 (555) 019-2830' }}</p>
+                    <p style="color: #b91c1c;"><strong>24/7 ER:</strong> {{ hospital_info.emergency_phone if hospital_info else '+1 (555) 911-3569' }}</p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    </div>
+                    <h4>Location &amp; Directions</h4>
+                    <p>{{ hospital_info.address if hospital_info else '1200 Health Science Boulevard, Suite 400, Metro City' }}</p>
+                    <p><a href="{{ hospital_info.directions_url if hospital_info and hospital_info.directions_url else 'https://maps.google.com' }}" target="_blank" rel="noopener" style="color: var(--primary-600); font-weight: 500;">Open Map Directions &rarr;</a></p>
+                </div>
+
+                <div class="contact-card">
+                    <div class="card-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </div>
+                    <h4>Hours of Operation</h4>
+                    <p>{{ hospital_info.opening_hours if hospital_info else '24/7 Emergency Care | OPD: Mon - Sat 8:00 AM - 8:00 PM' }}</p>
+                    <p><strong>Email:</strong> {{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 2.5rem;">
+                <a href="{{ url_for('contact') }}" class="btn btn-secondary">
+                    View Full Hospital Contact &amp; Inquiry Page
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                    <span>HospitalFlow AI</span>
+                </div>
+                <p>AI-Based Hospital Waiting-Time Prediction, Patient Flow Optimization, and Intelligent Symptom Screening.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h5>Quick Portals</h5>
+                    <a href="{{ url_for('auth.login') }}">Staff &amp; Patient Sign In</a>
+                    <a href="{{ url_for('auth.register') }}">New Patient Registration</a>
+                    <a href="{{ url_for('contact') }}">Hospital Directory</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Clinical Tools</h5>
+                    <a href="{{ url_for('auth.login', next='/patient/symptom-checker') }}">AI Symptom Checker</a>
+                    <a href="{{ url_for('auth.login', next='/patient/request-consultation') }}">Doctor Consultation</a>
+                    <a href="{{ url_for('auth.login') }}">Live Queue Monitor</a>
+                </div>
+                <div class="footer-col">
+                    <h5>Hospital Roles</h5>
+                    <span>Receptionist Management</span>
+                    <span>Physician Practice</span>
+                    <span>Patient Health Portal</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; {{ current_year }} HospitalFlow AI. All rights reserved. Hospital management &amp; patient flow system.</p>
+        </div>
+    </footer>
+</div>
+
+<style>
+/* Landing Page Styles */
+.landing-page-wrapper {
+    background: #ffffff;
+    color: var(--slate-800);
+}
+.landing-hero {
+    padding: 5rem 1.5rem 4rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 50%, #f0fdfa 100%);
+    border-bottom: 1px solid var(--slate-200);
+    text-align: center;
+}
+.hero-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: #e0f2fe;
+    color: #0369a1;
+    border-radius: 9999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+.badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #0284c7;
+    animation: pulse 2s infinite;
+}
+.hero-title {
+    font-size: 3.25rem;
+    font-weight: 800;
+    line-height: 1.15;
+    color: var(--slate-900);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.025em;
+}
+.text-gradient {
+    background: linear-gradient(135deg, #2563eb 0%, #0d9488 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+.hero-subtitle {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: var(--slate-600);
+    max-width: 760px;
+    margin: 0 auto 2.25rem;
+}
+.hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+}
+.btn-lg {
+    padding: 0.85rem 1.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+.hero-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+.metric-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+.metric-value {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #2563eb;
+    margin-bottom: 0.25rem;
+}
+.metric-label {
+    font-size: 0.9rem;
+    color: var(--slate-600);
+    font-weight: 500;
+}
+.landing-section {
+    padding: 5rem 1.5rem;
+}
+.bg-alt {
+    background: #f8fafc;
+}
+.section-container {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+.section-header {
+    margin-bottom: 3.5rem;
+}
+.section-tag {
+    display: inline-block;
+    color: #2563eb;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+}
+.section-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: var(--slate-900);
+    margin-bottom: 0.75rem;
+}
+.section-desc {
+    font-size: 1.1rem;
+    color: var(--slate-600);
+    max-width: 650px;
+    margin: 0 auto;
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+}
+.feature-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feature-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -5px rgba(0,0,0,0.08);
+}
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+.bg-blue { background: #dbeafe; color: #1d4ed8; }
+.bg-teal { background: #ccfbf1; color: #0f766e; }
+.bg-amber { background: #fef3c7; color: #b45309; }
+.bg-purple { background: #ede9fe; color: #6d28d9; }
+.feature-card h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 0.75rem;
+}
+.feature-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--slate-600);
+    margin-bottom: 1.25rem;
+}
+.feature-link {
+    color: #2563eb;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+.workflow-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+.step-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    position: relative;
+}
+.step-number {
+    width: 44px;
+    height: 44px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.25rem;
+}
+.step-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--slate-900);
+    margin-bottom: 0.5rem;
+}
+.step-card p {
+    font-size: 0.9rem;
+    color: var(--slate-600);
+    line-height: 1.5;
+}
+.safety-advisory-card {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-left: 6px solid #16a34a;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+.contact-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+.contact-card {
+    background: #ffffff;
+    border: 1px solid var(--slate-200);
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+}
+.contact-card .card-icon {
+    width: 48px;
+    height: 48px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+}
+.contact-card h4 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--slate-900);
+}
+.contact-card p {
+    color: var(--slate-600);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 0.35rem;
+}
+.landing-footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 4rem 1.5rem 2rem;
+}
+.footer-container {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.5fr 2fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+}
+@media (max-width: 768px) {
+    .footer-container { grid-template-columns: 1fr; }
+    .hero-title { font-size: 2.25rem; }
+}
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+.footer-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 2rem;
+}
+.footer-col h5 {
+    color: #ffffff;
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+.footer-col a, .footer-col span {
+    display: block;
+    color: #94a3b8;
+    font-size: 0.85rem;
+    margin-bottom: 0.6rem;
+    text-decoration: none;
+}
+.footer-col a:hover {
+    color: #38bdf8;
+}
+.footer-bottom {
+    max-width: 1140px;
+    margin: 0 auto;
+    border-top: 1px solid #1e293b;
+    padding-top: 1.5rem;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #64748b;
+}
+</style>
+{% endblock %}

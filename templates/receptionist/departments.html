@@ -1,0 +1,49 @@
+```html
+{% extends "base.html" %}
+
+{% block title %}Department Management - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Departments{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: center; align-items: flex-start; width: 100%;">
+
+    <!-- Add Department Form -->
+    <div class="card" style="width: 100%; max-width: 600px;">
+        <div class="card-header">
+            <h3>Add Clinical Department</h3>
+        </div>
+
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('receptionist.departments') }}">
+                <input type="hidden" name="action" value="create">
+
+                <div class="form-group">
+                    <label class="form-label" for="department_name">Department Name *</label>
+                    <input type="text" id="department_name" name="department_name"
+                           class="form-control" placeholder="e.g. Pediatrics" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="code">Department Code (2-5 Letters) *</label>
+                    <input type="text" id="code" name="code"
+                           class="form-control" placeholder="e.g. PED"
+                           maxlength="10" required style="text-transform: uppercase;">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="description">Service Description</label>
+                    <textarea id="description" name="description" rows="3"
+                              class="form-control"
+                              placeholder="Description of care services and consultation type..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">
+                    Register Department
+                </button>
+            </form>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+```

@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+
+{% block title %}Medical Records - HospitalFlow AI{% endblock %}
+{% block page_title %}My Clinical Consultations &amp; Medical Records{% endblock %}
+
+{% block content %}
+<div class="content-container" style="max-width: 1050px; margin: 0 auto;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--navy-900); margin-bottom: 0.25rem;">
+                Completed Clinical Consultations
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--slate-600); margin: 0;">
+                Review official clinical diagnoses, structured prescriptions, medical instructions, and referrals from your hospital visits.
+            </p>
+        </div>
+        <a href="{{ url_for('patient.dashboard') }}" class="btn btn-outline btn-sm">
+            &larr; Patient Dashboard
+        </a>
+    </div>
+
+    {% if records and records|length > 0 %}
+        <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+            {% for rec in records %}
+                <div class="card" style="padding: 1.5rem; border: 1px solid var(--slate-200); border-radius: var(--radius-md);">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem; border-bottom: 1px solid var(--slate-100); padding-bottom: 0.75rem;">
+                        <div>
+                            <div style="display: flex; align-items: center; gap: 8px;">
+                                <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 700;">
+                                    {{ rec.department.department_name if rec.department else 'Clinical OPD' }}
+                                </span>
+                                <strong style="font-size: 1.1rem; color: var(--navy-900);">
+                                    Consultation with Dr. {{ rec.doctor_user.full_name if rec.doctor_user else 'Physician' }}
+                                </strong>
+                            </div>
+                            <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 4px;">
+                                Completed: {{ rec.completed_at.strftime('%A, %B %d, %Y at %I:%M %p') if rec.completed_at else rec.started_at.strftime('%Y-%m-%d %H:%M') }}
+                                {% if rec.registration %} &bull; Token: {{ rec.registration.token_number }}{% endif %}
+                            </div>
+                        </div>
+                        <a href="{{ url_for('patient.view_medical_record', id=rec.id) }}" class="btn btn-primary btn-sm">
+                            View Full Record &amp; Print
+                        </a>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem;">
+                        <!-- Diagnosis & Observations -->
+                        <div style="background: #f8fafc; border-radius: 8px; padding: 1rem; border: 1px solid var(--slate-200);">
+                            <div style="font-size: 0.78rem; text-transform: uppercase; font-weight: 700; color: var(--slate-500); margin-bottom: 4px;">
+                                Clinical Diagnosis
+                            </div>
+                            <div style="font-size: 0.95rem; font-weight: 700; color: var(--navy-900); margin-bottom: 0.5rem;">
+                                {{ rec.diagnosis or 'Consultation completed; diagnosis on file' }}
+                            </div>
+                            {% if rec.chief_complaint %}
+                                <div style="font-size: 0.82rem; color: var(--slate-600); margin-top: 4px;">
+                                    <strong>Reported Concern:</strong> {{ rec.chief_complaint }}
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Structured Prescription / Treatment -->
+                        <div style="background: #f0fdf4; border-radius: 8px; padding: 1rem; border: 1px solid #bbf7d0;">
+                            <div style="font-size: 0.78rem; text-transform: uppercase; font-weight: 700; color: #166534; margin-bottom: 4px;">
+                                Prescription &amp; Treatment Plan
+                            </div>
+                            <div style="font-size: 0.88rem; color: #14532d; white-space: pre-line; line-height: 1.4;">
+                                {{ rec.prescription or rec.treatment_plan or 'Follow standard medical instructions.' }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Follow-up & Referrals -->
+                    {% if rec.follow_up_date or rec.is_referred or rec.follow_up_instructions %}
+                        <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px dashed var(--slate-200); display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.85rem;">
+                            {% if rec.follow_up_date %}
+                                <div>
+                                    <strong style="color: #0369a1;">📅 Follow-up Date:</strong> {{ rec.follow_up_date }}
+                                </div>
+                            {% endif %}
+                            {% if rec.is_referred and rec.referral_department %}
+                                <div>
+                                    <strong style="color: #7e22ce;">🏥 Department Referral:</strong> {{ rec.referral_department.department_name }}
+                                    {% if rec.referral_notes %}<span style="color: var(--slate-600);">({{ rec.referral_notes }})</span>{% endif %}
+                                </div>
+                            {% endif %}
+                            {% if rec.follow_up_instructions %}
+                                <div style="color: var(--slate-600); width: 100%;">
+                                    <strong>Doctor's Advice:</strong> {{ rec.follow_up_instructions }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="card text-center" style="padding: 3rem 1.5rem;">
+            <div style="width: 56px; height: 56px; background: #f0fdf4; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <h4 style="color: var(--navy-800); margin-bottom: 0.5rem;">No Completed Consultations Yet</h4>
+            <p style="color: var(--slate-600); max-width: 480px; margin: 0 auto 1.5rem; font-size: 0.95rem;">
+                Your official medical summaries, physician diagnoses, and medication prescriptions will be archived here once your consultations are completed.
+            </p>
+            <a href="{{ url_for('patient.request_consultation') }}" class="btn btn-primary">
+                Request a Consultation
+            </a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

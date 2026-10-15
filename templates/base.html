@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HospitalFlow AI - Hospital Waiting-Time Prediction & Flow Optimization{% endblock %}</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+{% if current_user.is_authenticated %}
+<div class="app-container">
+    <!-- Sidebar -->
+    <aside class="app-sidebar">
+        <div class="sidebar-brand">
+            <div class="user-avatar" style="background: var(--teal-500); width: 34px; height: 34px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+            <div class="logo-text">HospitalFlow<span>.AI</span></div>
+        </div>
+
+        <div class="sidebar-user">
+            <div class="user-avatar">
+                {{ current_user.full_name[0] }}
+            </div>
+            <div class="user-info">
+                <div class="user-name">{{ current_user.full_name }}</div>
+                <div class="user-role">{{ current_user.role }} Portal</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            {% if current_user.role == 'receptionist' %}
+                <div class="nav-section-title">Front Desk &amp; Queue</div>
+                <a href="{{ url_for('receptionist.dashboard') }}" class="nav-link {% if request.endpoint == 'receptionist.dashboard' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Live Queue Desk
+                </a>
+                <a href="{{ url_for('receptionist.register_patient') }}" class="nav-link {% if request.endpoint == 'receptionist.register_patient' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                    Register Walk-In
+                </a>
+                <a href="{{ url_for('receptionist.consultation_requests') }}" class="nav-link {% if request.endpoint == 'receptionist.consultation_requests' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+                    Consultation Requests
+                </a>
+                <a href="{{ url_for('receptionist.doctor_registrations') }}" class="nav-link {% if request.endpoint == 'receptionist.doctor_registrations' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+                    Doctor Registrations
+                </a>
+                <a href="{{ url_for('receptionist.contact_requests') }}" class="nav-link {% if request.endpoint == 'receptionist.contact_requests' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Assistance Inquiries
+                </a>
+
+                <div class="nav-section-title">Hospital Management</div>
+                <a href="{{ url_for('receptionist.doctors') }}" class="nav-link {% if request.endpoint == 'receptionist.doctors' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v14M5 12h14"/></svg>
+                    Physicians &amp; Workload
+                </a>
+                <a href="{{ url_for('receptionist.patients') }}" class="nav-link {% if request.endpoint == 'receptionist.patients' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Patient Directory
+                </a>
+                <a href="{{ url_for('receptionist.departments') }}" class="nav-link {% if request.endpoint == 'receptionist.departments' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><rect width="12" height="12" x="6" y="8" rx="2"/></svg>
+                    Departments
+                </a>
+                <a href="{{ url_for('receptionist.users') }}" class="nav-link {% if request.endpoint == 'receptionist.users' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    User Accounts
+                </a>
+                <a href="{{ url_for('receptionist.model_management') }}" class="nav-link {% if request.endpoint == 'receptionist.model_management' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4"/><path d="m4.93 10.93 2.83-2.83"/><path d="M2 18h4"/><path d="M20 18h2"/><path d="m19.07 10.93-2.83-2.83"/><circle cx="12" cy="18" r="4"/></svg>
+                    AI &amp; ML Pipelines
+                </a>
+                <a href="{{ url_for('receptionist.hospital_settings') }}" class="nav-link {% if request.endpoint == 'receptionist.hospital_settings' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                    Facility Settings
+                </a>
+
+            {% elif current_user.role == 'doctor' %}
+                <div class="nav-section-title">Clinical Practice</div>
+                <a href="{{ url_for('doctor.dashboard') }}" class="nav-link {% if request.endpoint == 'doctor.dashboard' and not request.args.get('tab') %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    Doctor Dashboard
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='waiting') }}" class="nav-link {% if request.args.get('tab') == 'waiting' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    Waiting Patients
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='in_consultation') }}" class="nav-link {% if request.args.get('tab') == 'in_consultation' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    In Consultation
+                </a>
+                <a href="{{ url_for('doctor.dashboard', tab='completed') }}" class="nav-link {% if request.args.get('tab') == 'completed' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Completed Today
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Hospital Contact Info
+                </a>
+
+            {% elif current_user.role == 'patient' %}
+                <div class="nav-section-title">Patient Portal</div>
+                <a href="{{ url_for('patient.dashboard') }}" class="nav-link {% if request.endpoint == 'patient.dashboard' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    My Queue &amp; Wait Time
+                </a>
+                <a href="{{ url_for('patient.symptom_checker') }}" class="nav-link {% if request.endpoint == 'patient.symptom_checker' %}active{% endif %}" style="color: #2563eb; font-weight: 700;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 2v4M4.93 10.93l2.83-2.83M2 18h4M20 18h2M19.07 10.93l-2.83-2.83M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+                    AI Symptom Checker
+                </a>
+                <a href="{{ url_for('patient.doctors') }}" class="nav-link {% if request.endpoint == 'patient.doctors' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v14M5 12h14"/></svg>
+                    Find a Doctor
+                </a>
+                <a href="{{ url_for('patient.request_consultation') }}" class="nav-link {% if request.endpoint == 'patient.request_consultation' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    Consult a Doctor
+                </a>
+                <a href="{{ url_for('patient.consultation_requests') }}" class="nav-link {% if request.endpoint == 'patient.consultation_requests' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+                    My Consult Requests
+                </a>
+                <a href="{{ url_for('patient.medical_records') }}" class="nav-link {% if request.endpoint in ['patient.medical_records', 'patient.view_medical_record'] %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Medical Records
+                </a>
+                <a href="{{ url_for('patient.assessments') }}" class="nav-link {% if request.endpoint == 'patient.assessments' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                    Past Assessments
+                </a>
+                <a href="{{ url_for('patient.submit_concern') }}" class="nav-link {% if request.endpoint == 'patient.submit_concern' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                    Report Symptoms / Visit
+                </a>
+                <a href="{{ url_for('patient.contact_requests') }}" class="nav-link {% if request.endpoint == 'patient.contact_requests' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    My Inquiries
+                </a>
+                <a href="{{ url_for('patient.profile') }}" class="nav-link {% if request.endpoint == 'patient.profile' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    My Profile
+                </a>
+                <a href="{{ url_for('contact') }}" class="nav-link {% if request.endpoint == 'contact' %}active{% endif %}">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Contact Hospital
+                </a>
+            {% endif %}
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="{{ url_for('auth.logout') }}" class="nav-link" style="color: #f87171;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+        <header class="app-topbar">
+            <div class="topbar-left">
+                <span class="topbar-title">{% block page_title %}HospitalFlow AI{% endblock %}</span>
+            </div>
+            <div class="topbar-right">
+                <a href="{{ url_for('contact') }}" style="font-size: 0.85rem; color: var(--slate-600); text-decoration: none; display: flex; align-items: center; gap: 6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                    Hospital Contact
+                </a>
+                <div class="live-indicator">
+                    <div class="live-pulse"></div>
+                    <span>Live Flow Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="app-content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }}">
+                                <span>{{ message }}</span>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+</div>
+{% else %}
+    <!-- Public Header Navigation -->
+    <header class="public-navbar">
+        <a href="{{ url_for('auth.index') }}" class="auth-logo-row" style="text-decoration: none; color: #fff;">
+            <div class="logo-icon">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                </svg>
+            </div>
+            <span>HospitalFlow AI</span>
+        </a>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <a href="{{ url_for('contact') }}">Contact Hospital</a>
+            <a href="{{ url_for('auth.login') }}">Sign In</a>
+            <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-sm">Patient Registration</a>
+        </div>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div style="max-width: 550px; margin: 1.5rem auto 0; padding: 0 1rem;">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <span>{{ message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    {% block auth_content %}{% endblock %}
+{% endif %}
+
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}Clinical Consultation Summary - HospitalFlow AI{% endblock %}
+{% block page_title %}Official Consultation Record{% endblock %}
+
+{% block content %}
+<div class="content-container" style="max-width: 850px; margin: 0 auto;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;" class="no-print">
+        <a href="{{ url_for('patient.medical_records') }}" class="btn btn-secondary btn-sm">
+            &larr; Back to Medical Records
+        </a>
+        <button onclick="window.print()" class="btn btn-primary btn-sm">
+            🖨️ Print Clinical Summary
+        </button>
+    </div>
+
+    <!-- Official Clinical Paper Card -->
+    <div class="card" style="padding: 2.5rem; border: 1px solid var(--slate-300); border-radius: 8px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        
+        <!-- Hospital Letterhead -->
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid var(--teal-600); padding-bottom: 1.25rem; margin-bottom: 1.5rem;">
+            <div>
+                <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900); margin: 0;">
+                    {{ hospital_info.hospital_name if hospital_info else 'HospitalFlow General Hospital' }}
+                </h2>
+                <div style="font-size: 0.85rem; color: var(--slate-600); margin-top: 4px;">
+                    {{ hospital_info.address if hospital_info else '1200 Health Science Blvd' }}
+                </div>
+                <div style="font-size: 0.82rem; color: var(--slate-500); margin-top: 2px;">
+                    Phone: {{ hospital_info.phone if hospital_info else '+1 (555) 019-2830' }} | Email: {{ hospital_info.email if hospital_info else 'care@hospitalflow.ai' }}
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <span class="badge" style="background: #e0f2fe; color: #0369a1; font-size: 0.85rem; font-weight: 700;">
+                    Official Medical Record
+                </span>
+                <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 6px;">
+                    Date: {{ consult.completed_at.strftime('%Y-%m-%d') if consult.completed_at else consult.started_at.strftime('%Y-%m-%d') }}
+                </div>
+            </div>
+        </div>
+
+        <!-- Demographic Details -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 6px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.88rem;">
+            <div>
+                <div style="font-weight: 700; color: var(--slate-500); text-transform: uppercase; font-size: 0.72rem; margin-bottom: 4px;">Patient Information</div>
+                <div style="font-weight: 700; font-size: 1rem; color: var(--navy-900);">{{ current_user.full_name }}</div>
+                <div style="color: var(--slate-600); margin-top: 2px;">Age: {{ current_user.age or '35' }} yrs | Gender: {{ current_user.gender or 'Female' }}</div>
+                <div style="color: var(--slate-600);">Phone: {{ current_user.phone or 'N/A' }}</div>
+            </div>
+            <div>
+                <div style="font-weight: 700; color: var(--slate-500); text-transform: uppercase; font-size: 0.72rem; margin-bottom: 4px;">Attending Physician</div>
+                <div style="font-weight: 700; font-size: 1rem; color: var(--navy-900);">Dr. {{ consult.doctor_user.full_name if consult.doctor_user else 'Physician' }}</div>
+                <div style="color: var(--teal-600); font-weight: 600;">{{ consult.department.department_name if consult.department else 'OPD' }}</div>
+                {% if consult.doctor_user and consult.doctor_user.staff_record and consult.doctor_user.staff_record.qualification %}
+                    <div style="color: var(--slate-600); font-size: 0.82rem;">{{ consult.doctor_user.staff_record.qualification }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Clinical Notes & Chief Complaint -->
+        {% if consult.chief_complaint %}
+            <div style="margin-bottom: 1.25rem;">
+                <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--slate-500); margin-bottom: 4px;">Reason for Consultation / Chief Complaint</div>
+                <div style="font-size: 0.92rem; color: var(--slate-800); background: #fff; padding: 8px 12px; border: 1px solid var(--slate-200); border-radius: 4px;">
+                    {{ consult.chief_complaint }}
+                </div>
+            </div>
+        {% endif %}
+
+        {% if consult.clinical_observations %}
+            <div style="margin-bottom: 1.25rem;">
+                <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--slate-500); margin-bottom: 4px;">Clinical Examination &amp; Observations</div>
+                <div style="font-size: 0.92rem; color: var(--slate-800); background: #fff; padding: 8px 12px; border: 1px solid var(--slate-200); border-radius: 4px;">
+                    {{ consult.clinical_observations }}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Clinical Diagnosis -->
+        <div style="margin-bottom: 1.5rem; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 6px; padding: 1rem 1.25rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #1e40af; margin-bottom: 4px;">Attending Diagnosis</div>
+            <div style="font-size: 1.1rem; font-weight: 800; color: #1e3a8a;">
+                {{ consult.diagnosis or 'Consultation successfully concluded.' }}
+            </div>
+        </div>
+
+        <!-- Prescription & Treatment Plan -->
+        <div style="margin-bottom: 1.5rem;">
+            <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #166534; margin-bottom: 6px;">Rx: Prescription &amp; Treatment Plan</div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 1rem 1.25rem; font-size: 0.95rem; color: #14532d; white-space: pre-line; line-height: 1.5;">
+                {{ consult.prescription or consult.treatment_plan or 'Follow general medical guidance.' }}
+            </div>
+        </div>
+
+        <!-- Advice & Instructions -->
+        {% if consult.follow_up_instructions %}
+            <div style="margin-bottom: 1.5rem;">
+                <div style="font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--slate-500); margin-bottom: 4px;">Physician Advice &amp; Care Guidance</div>
+                <div style="font-size: 0.9rem; color: var(--slate-700); background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: 6px; padding: 0.75rem 1rem;">
+                    {{ consult.follow_up_instructions }}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Follow-up & Referrals -->
+        {% if consult.follow_up_date or consult.is_referred %}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--slate-200);">
+                {% if consult.follow_up_date %}
+                    <div style="background: #eff6ff; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.88rem;">
+                        <strong style="color: #1e40af;">Scheduled Follow-Up:</strong>
+                        <div style="color: #1e3a8a; font-weight: 700; font-size: 1rem; margin-top: 2px;">{{ consult.follow_up_date }}</div>
+                    </div>
+                {% endif %}
+                {% if consult.is_referred and consult.referral_department %}
+                    <div style="background: #faf5ff; padding: 0.75rem 1rem; border-radius: 6px; font-size: 0.88rem;">
+                        <strong style="color: #7e22ce;">Specialist Referral:</strong>
+                        <div style="color: #581c87; font-weight: 700; font-size: 1rem; margin-top: 2px;">{{ consult.referral_department.department_name }}</div>
+                        {% if consult.referral_notes %}<div style="color: var(--slate-600); font-size: 0.82rem; margin-top: 2px;">{{ consult.referral_notes }}</div>{% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <!-- Signature Block -->
+        <div style="display: flex; justify-content: flex-end; margin-top: 3rem; padding-top: 1.5rem;">
+            <div style="text-align: center; min-width: 200px; border-top: 1px solid var(--slate-400); padding-top: 6px;">
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 0.95rem;">
+                    Dr. {{ consult.doctor_user.full_name if consult.doctor_user else 'Physician' }}
+                </div>
+                <div style="font-size: 0.78rem; color: var(--slate-500);">Authorized Clinical Sign-off</div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+@media print {
+    .app-sidebar, .app-topbar, .no-print {
+        display: none !important;
+    }
+    .app-main {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+    }
+}
+</style>
+{% endblock %}

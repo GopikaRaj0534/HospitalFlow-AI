@@ -1,0 +1,373 @@
+{% extends "base.html" %}
+
+{% block title %}Consultation: {{ registration.patient_name }} ({{ registration.token_number }}) - HospitalFlow AI{% endblock %}
+{% block page_title %}Patient Consultation &amp; Clinical Chart{% endblock %}
+
+{% block content %}
+<!-- Clinical Header -->
+<div class="card" style="margin-bottom: 1.5rem; border-top: 4px solid var(--teal-500);">
+    <div class="card-body" style="padding: 1.25rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div style="display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap;">
+            <div style="display: flex; flex-direction: column;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-500); font-weight: 700;">Queue Token</span>
+                <span style="font-family: monospace; font-size: 1.5rem; font-weight: 800; color: var(--navy-900);">
+                    {{ registration.token_number }}
+                </span>
+            </div>
+
+            <div style="height: 36px; width: 1px; background: var(--slate-200);"></div>
+
+            <div>
+                <h2 style="margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--navy-900);">
+                    {{ registration.patient_name }}
+                </h2>
+                <div style="font-size: 0.85rem; color: var(--slate-600); margin-top: 2px;">
+                    {{ registration.patient_age }} yrs &bull; {{ registration.patient_gender }}
+                    {% if registration.patient_phone %}&bull; Phone: {{ registration.patient_phone }}{% endif %}
+                </div>
+            </div>
+
+            <div>
+                {% if registration.triage_priority == 1 %}
+                    <span class="badge" style="background: #fee2e2; color: #b91c1c; font-weight: 700; padding: 6px 12px;">P1 - Immediate Emergency</span>
+                {% elif registration.triage_priority == 2 %}
+                    <span class="badge" style="background: #ffedd5; color: #c2410c; font-weight: 700; padding: 6px 12px;">P2 - Urgent Attention</span>
+                {% elif registration.triage_priority == 3 %}
+                    <span class="badge" style="background: #e0f2fe; color: #0369a1; font-weight: 600; padding: 6px 12px;">P3 - Routine Consultation</span>
+                {% else %}
+                    <span class="badge" style="background: #f1f5f9; color: #475569; padding: 6px 12px;">P4 - Low Priority</span>
+                {% endif %}
+            </div>
+
+            <div>
+                {% if queue_record.queue_status == 'Waiting' %}
+                    <span class="badge" style="background: #fef3c7; color: #b45309; font-weight: 700; padding: 6px 12px;">Waiting</span>
+                {% elif queue_record.queue_status == 'Called' %}
+                    <span class="badge" style="background: #ede9fe; color: #6d28d9; font-weight: 700; padding: 6px 12px;">Called</span>
+                {% elif queue_record.queue_status == 'In Consultation' %}
+                    <span class="badge" style="background: #dbeafe; color: #1d4ed8; font-weight: 700; padding: 6px 12px;">In Consultation</span>
+                {% elif queue_record.queue_status == 'Completed' %}
+                    <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 6px 12px;">Completed &amp; Discharged</span>
+                {% else %}
+                    <span class="badge" style="background: #f1f5f9; color: #475569; padding: 6px 12px;">{{ queue_record.queue_status }}</span>
+                {% endif %}
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; align-items: center;">
+            {% if queue_record.queue_status in ['Waiting', 'Called'] %}
+                <form method="POST" action="{{ url_for('doctor.start_consultation') }}" style="margin: 0;">
+                    <input type="hidden" name="registration_id" value="{{ registration.id }}">
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        Start Examination Now &rarr;
+                    </button>
+                </form>
+            {% endif %}
+            <a href="{{ url_for('doctor.dashboard') }}" class="btn btn-secondary btn-sm">
+                &larr; Back to Queue
+            </a>
+        </div>
+    </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 360px 1fr; gap: 1.5rem; align-items: flex-start;">
+    <!-- Left Column: Patient Intake & Medical History -->
+    <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+        <!-- Current Visit Health Concern -->
+        <div class="card" style="margin-bottom: 0;">
+            <div class="card-header">
+                <h3>Reported Health Concern</h3>
+            </div>
+            <div class="card-body">
+                <div style="font-size: 0.95rem; font-weight: 700; color: var(--navy-900); margin-bottom: 0.5rem;">
+                    {{ registration.health_concern_category or 'General Medical Consultation' }}
+                </div>
+
+                <div style="margin-bottom: 0.75rem;">
+                    <span style="font-size: 0.75rem; color: var(--slate-500); text-transform: uppercase; font-weight: 700; display: block;">Reported Symptoms</span>
+                    <p style="margin: 4px 0 0; font-size: 0.88rem; color: var(--slate-700); line-height: 1.5; background: var(--slate-50); padding: 8px 12px; border-radius: 6px;">
+                        {{ registration.symptoms_description or 'No specific symptoms described by patient.' }}
+                    </p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.82rem; margin-bottom: 0.5rem;">
+                    <div>
+                        <span style="color: var(--slate-500); font-weight: 600;">Duration:</span>
+                        <div style="font-weight: 600; color: var(--navy-900);">{{ registration.symptom_duration or 'Not specified' }}</div>
+                    </div>
+                    <div>
+                        <span style="color: var(--slate-500); font-weight: 600;">Prior Appointment:</span>
+                        <div style="font-weight: 600; color: var(--navy-900);">{{ 'Yes' if registration.has_appointment else 'Walk-in' }}</div>
+                    </div>
+                </div>
+
+                {% if registration.appointment_notes %}
+                    <div style="font-size: 0.8rem; color: var(--slate-600); margin-top: 4px;">
+                        <span style="font-weight: 600;">Notes:</span> {{ registration.appointment_notes }}
+                    </div>
+                {% endif %}
+
+                <div style="font-size: 0.78rem; color: var(--slate-500); border-top: 1px solid var(--slate-200); padding-top: 8px; margin-top: 12px;">
+                    Arrival Time: <strong>{{ registration.arrival_time.strftime('%Y-%m-%d %H:%M') }}</strong>
+                </div>
+            </div>
+        </div>
+
+        {% if symptom_assessments %}
+            <!-- AI Symptom Assessments (Kaggle Multi-Disease Model) -->
+            <div class="card" style="margin-bottom: 0; border-top: 3px solid var(--teal-500);">
+                <div class="card-header" style="background: var(--teal-50); padding: 0.75rem 1rem;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center; gap: 6px;">
+                            <span style="font-size: 1.1rem;">🔬</span>
+                            <h3 style="margin: 0; font-size: 0.95rem; color: var(--teal-900);">AI Symptom Assessments</h3>
+                        </div>
+                        <span class="badge" style="background: var(--teal-700); color: white; font-size: 0.7rem;">Kaggle ML</span>
+                    </div>
+                </div>
+                <div class="card-body" style="padding: 0.85rem;">
+                    {% for sa in symptom_assessments %}
+                        <div style="border: 1px solid var(--slate-200); border-radius: 6px; padding: 0.75rem; margin-bottom: 0.75rem; background: white;">
+                            {% if sa.has_urgent_symptoms %}
+                                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 4px 8px; margin-bottom: 6px;">
+                                    <span style="color: #b91c1c; font-weight: 700; font-size: 0.75rem;">⚠️ Urgent Red-Flag Symptom Present</span>
+                                </div>
+                            {% endif %}
+                            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                <div style="font-weight: 800; font-size: 0.95rem; color: var(--navy-900);">
+                                    {{ sa.predicted_disease }}
+                                </div>
+                                {% if sa.confidence_score %}
+                                    <span class="badge" style="background: #ccfbf1; color: #0f766e; font-weight: 700; font-size: 0.75rem;">
+                                        {{ (sa.confidence_score * 100)|round|int }}%
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--slate-500); margin-top: 2px;">
+                                {{ sa.created_at.strftime('%Y-%m-%d %H:%M') }} &bull; Severity: {{ sa.severity_level or 'Moderate' }}
+                            </div>
+                            <div style="margin-top: 6px; display: flex; flex-wrap: wrap; gap: 3px;">
+                                {% for s in sa.to_dict().selected_symptoms %}
+                                    <span style="font-size: 0.68rem; background: var(--slate-100); color: var(--navy-800); padding: 2px 6px; border-radius: 3px; border: 1px solid var(--slate-200);">
+                                        {{ s.replace('_', ' ') }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+
+        <!-- Historical Visits & Prior Consultations -->
+        <div class="card" style="margin-bottom: 0;">
+            <div class="card-header">
+                <h3>Medical History &amp; Prior Visits ({{ past_registrations|length }})</h3>
+            </div>
+            <div class="card-body" style="padding: 1rem;">
+                {% if past_registrations %}
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        {% for past in past_registrations %}
+                            {% set past_c = past.consultation %}
+                            <div style="border: 1px solid var(--slate-200); border-radius: 8px; padding: 0.75rem; background: white;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <span style="font-family: monospace; font-weight: 700; font-size: 0.85rem; color: var(--navy-900);">
+                                        {{ past.token_number }}
+                                    </span>
+                                    <span style="font-size: 0.75rem; color: var(--slate-500);">
+                                        {{ past.arrival_time.strftime('%Y-%m-%d') }}
+                                    </span>
+                                </div>
+                                <div style="font-size: 0.82rem; font-weight: 600; color: var(--teal-600);">
+                                    {{ past.department.department_name }}
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--slate-700); margin-top: 2px;">
+                                    {{ past.health_concern_category or 'Consultation' }}
+                                </div>
+
+                                {% if past_c and past_c.diagnosis %}
+                                    <div style="margin-top: 6px; padding: 6px 8px; background: var(--teal-50); border-radius: 4px; font-size: 0.78rem;">
+                                        <div style="font-weight: 700; color: var(--teal-800);">Diagnosis: {{ past_c.diagnosis }}</div>
+                                        {% if past_c.prescription %}
+                                            <div style="color: var(--slate-700); margin-top: 2px;">Rx: {{ past_c.prescription }}</div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div style="text-align: center; color: var(--slate-400); font-size: 0.85rem; padding: 1rem 0;">
+                        No previous hospital visits recorded for this patient account.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Physician Clinical Examination & Treatment Form -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header" style="justify-content: space-between; align-items: center;">
+            <div>
+                <h3 style="margin: 0;">Physician Clinical Documentation</h3>
+                <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 2px;">
+                    Attending Physician: <strong>{{ current_user.full_name }}</strong> &bull; Status: 
+                    <span style="font-weight: 700; color: {% if consultation.consultation_status == 'Completed' %}var(--status-completed){% else %}var(--status-consulting){% endif %};">
+                        {{ consultation.consultation_status }}
+                    </span>
+                </div>
+            </div>
+
+            {% if consultation.consultation_status == 'Completed' %}
+                <span class="badge" style="background: #dcfce7; color: #15803d; font-weight: 700; padding: 6px 12px;">
+                    Discharged on {{ consultation.completed_at.strftime('%Y-%m-%d %H:%M') if consultation.completed_at else 'Today' }}
+                </span>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            <form method="POST" id="consultationForm">
+                <input type="hidden" name="registration_id" value="{{ registration.id }}">
+
+                <!-- Chief Complaint -->
+                <div class="form-group">
+                    <label class="form-label" for="chief_complaint">Chief Complaint / Presenting Problem</label>
+                    <input type="text" id="chief_complaint" name="chief_complaint" class="form-control" 
+                           value="{{ consultation.chief_complaint or registration.health_concern_category or '' }}" 
+                           placeholder="e.g. Acute chest discomfort radiating to left arm for 2 hours"
+                           {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>
+                </div>
+
+                <!-- Clinical Observations & Examination -->
+                <div class="form-group">
+                    <label class="form-label" for="clinical_observations">Clinical Observations &amp; Physical Examination</label>
+                    <textarea id="clinical_observations" name="clinical_observations" class="form-control" rows="3"
+                              placeholder="Blood pressure, heart rate, physical examination findings, vital signs, lung sounds..."
+                              {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>{{ consultation.clinical_observations or '' }}</textarea>
+                </div>
+
+                <!-- Physician Notes -->
+                <div class="form-group">
+                    <label class="form-label" for="doctor_notes">Physician Clinical Notes</label>
+                    <textarea id="doctor_notes" name="doctor_notes" class="form-control" rows="3"
+                              placeholder="Subjective assessment, clinical impression, diagnostic rationale, differential diagnoses..."
+                              {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>{{ consultation.doctor_notes or '' }}</textarea>
+                </div>
+
+                <!-- Primary Diagnosis -->
+                <div class="form-group" style="background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid var(--slate-200);">
+                    <label class="form-label" for="diagnosis" style="color: var(--navy-900); font-weight: 700;">
+                        Primary Clinical Diagnosis *
+                    </label>
+                    <input type="text" id="diagnosis" name="diagnosis" class="form-control" 
+                           value="{{ consultation.diagnosis or '' }}" 
+                           placeholder="e.g. Acute Bronchitis, Essential Hypertension, Type 2 Diabetes"
+                           required
+                           {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>
+                    <div style="font-size: 0.75rem; color: var(--slate-500); margin-top: 4px;">
+                        Final confirmed medical diagnosis. Visible on patient discharge summary.
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <!-- Treatment Plan -->
+                    <div class="form-group">
+                        <label class="form-label" for="treatment_plan">Treatment Plan &amp; Interventions</label>
+                        <textarea id="treatment_plan" name="treatment_plan" class="form-control" rows="4"
+                                  placeholder="Lifestyle guidance, dietary restrictions, rest, hydration, physical therapy..."
+                                  {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>{{ consultation.treatment_plan or '' }}</textarea>
+                    </div>
+
+                    <!-- Prescription -->
+                    <div class="form-group">
+                        <label class="form-label" for="prescription">Prescription &amp; Medications</label>
+                        <textarea id="prescription" name="prescription" class="form-control" rows="4"
+                                  placeholder="Drug name, dosage, frequency, and duration (e.g. Amoxicillin 500mg TDS for 5 days)..."
+                                  {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>{{ consultation.prescription or '' }}</textarea>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <!-- Follow-up Instructions -->
+                    <div class="form-group">
+                        <label class="form-label" for="follow_up_instructions">Follow-up Instructions &amp; Discharge Advice</label>
+                        <input type="text" id="follow_up_instructions" name="follow_up_instructions" class="form-control" 
+                               value="{{ consultation.follow_up_instructions or '' }}" 
+                               placeholder="e.g. Return to clinic in 7 days. Seek immediate emergency care if symptoms worsen."
+                               {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>
+                    </div>
+
+                    <!-- Recommended Follow-up Date -->
+                    <div class="form-group">
+                        <label class="form-label" for="follow_up_date">Recommended Follow-up Date</label>
+                        <input type="date" id="follow_up_date" name="follow_up_date" class="form-control"
+                               value="{{ consultation.follow_up_date or '' }}"
+                               {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>
+                    </div>
+                </div>
+
+                <!-- Inter-Department Referral Section -->
+                <div style="background: #f8fafc; border: 1px solid var(--slate-200); border-radius: 8px; padding: 1rem; margin-top: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 0.75rem;">
+                        <input type="checkbox" id="is_referred" name="is_referred" value="1"
+                               {% if consultation.is_referred %}checked{% endif %}
+                               {% if consultation.consultation_status == 'Completed' %}disabled{% endif %}
+                               onchange="document.getElementById('referral_details').style.display = this.checked ? 'grid' : 'none';">
+                        <label for="is_referred" style="font-weight: 700; color: var(--navy-900); margin: 0; cursor: pointer;">
+                            Refer Patient to Another Specialist / Department
+                        </label>
+                    </div>
+
+                    <div id="referral_details" style="display: {{ 'grid' if consultation.is_referred else 'none' }}; grid-template-columns: 1fr 2fr; gap: 1rem;">
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="referral_department_id">Referral Department</label>
+                            <select id="referral_department_id" name="referral_department_id" class="form-control" {% if consultation.consultation_status == 'Completed' %}disabled{% endif %}>
+                                <option value="">-- Select Department --</option>
+                                {% for d in departments %}
+                                    <option value="{{ d.id }}" {% if consultation.referral_department_id == d.id %}selected{% endif %}>
+                                        {{ d.department_name }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group" style="margin-bottom: 0;">
+                            <label class="form-label" for="referral_notes">Referral Clinical Notes / Reason</label>
+                            <input type="text" id="referral_notes" name="referral_notes" class="form-control"
+                                   value="{{ consultation.referral_notes or '' }}"
+                                   placeholder="Reason for specialist consultation, specific investigations needed..."
+                                   {% if consultation.consultation_status == 'Completed' %}readonly{% endif %}>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--slate-200); flex-wrap: wrap; gap: 0.75rem;">
+                    <a href="{{ url_for('doctor.dashboard') }}" class="btn btn-secondary">
+                        &larr; Back to Dashboard
+                    </a>
+
+                    {% if consultation.consultation_status != 'Completed' %}
+                        <div style="display: flex; gap: 0.75rem;">
+                            <!-- Save Draft -->
+                            <button type="submit" formaction="{{ url_for('doctor.save_consultation') }}" class="btn btn-secondary">
+                                Save Draft Notes
+                            </button>
+
+                            <!-- Complete Consultation & Discharge -->
+                            <button type="submit" formaction="{{ url_for('doctor.complete_consultation') }}" class="btn btn-primary" onclick="return confirm('Complete consultation and discharge patient {{ registration.patient_name }} from the active queue?');">
+                                Complete Consultation &amp; Discharge &rarr;
+                            </button>
+                        </div>
+                    {% else %}
+                        <div style="display: flex; gap: 0.75rem;">
+                            <button type="button" class="btn btn-secondary" onclick="window.print();">
+                                Print Summary
+                            </button>
+                        </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

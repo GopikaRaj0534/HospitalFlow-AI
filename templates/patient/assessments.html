@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}My Symptom Assessments - HospitalFlow AI{% endblock %}
+{% block page_title %}My Symptom Assessment History{% endblock %}
+
+{% block content %}
+<div class="content-container" style="max-width: 1000px; margin: 0 auto;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--slate-900); margin-bottom: 0.25rem;">
+                Previous AI Symptom Assessments
+            </h3>
+            <p style="font-size: 0.9rem; color: var(--slate-600); margin: 0;">
+                Review your historical machine-learning disease assessments, confidence scores, and reported symptoms.
+            </p>
+        </div>
+        <a href="{{ url_for('patient.symptom_checker') }}" class="btn btn-primary btn-sm">
+            + New Symptom Check
+        </a>
+    </div>
+
+    {% if assessments and assessments|length > 0 %}
+        <div class="card" style="padding: 0; overflow: hidden; border: 1px solid var(--slate-200);">
+            <div class="table-responsive">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Date &amp; Time</th>
+                            <th>Predicted Condition</th>
+                            <th>Confidence</th>
+                            <th>Symptoms Evaluated</th>
+                            <th>Urgent Flag</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for a in assessments %}
+                            {% set data = a.to_dict() %}
+                            <tr>
+                                <td>
+                                    <strong style="color: #2563eb;">{{ a.assessment_reference }}</strong>
+                                </td>
+                                <td style="font-size: 0.85rem; color: var(--slate-700);">
+                                    {{ a.created_at.strftime('%Y-%m-%d %H:%M') }}
+                                </td>
+                                <td>
+                                    <strong style="font-size: 0.95rem; color: var(--slate-900);">{{ a.predicted_disease }}</strong>
+                                </td>
+                                <td>
+                                    {% if a.confidence_score %}
+                                        <span class="badge" style="background: #eff6ff; color: #1d4ed8; font-weight: 700;">
+                                            {{ a.confidence_score }}%
+                                        </span>
+                                    {% else %}
+                                        <span style="color: var(--slate-600); font-size: 0.8rem;">Inconclusive</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span style="font-size: 0.85rem; color: var(--slate-700);">
+                                        {{ data.selected_symptoms|length }} symptoms reported
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if a.has_urgent_symptoms %}
+                                        <span class="badge" style="background: #fee2e2; color: #b91c1c; font-weight: 700;">URGENT</span>
+                                    {% else %}
+                                        <span class="badge" style="background: #f1f5f9; color: var(--slate-600);">Routine</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div style="display: flex; gap: 6px;">
+                                        <a href="{{ url_for('patient.view_assessment', id=a.id) }}" class="btn btn-secondary btn-sm">
+                                            View Report
+                                        </a>
+                                        <a href="{{ url_for('patient.request_consultation', assessment_id=a.id) }}" class="btn btn-outline btn-sm">
+                                            Consult Doctor
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {% else %}
+        <div class="card text-center" style="padding: 3rem 1.5rem;">
+            <div style="width: 56px; height: 56px; background: #eff6ff; color: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M4.93 10.93l2.83-2.83M2 18h4M20 18h2M19.07 10.93l-2.83-2.83M12 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/></svg>
+            </div>
+            <h4 style="color: var(--slate-800); margin-bottom: 0.5rem;">No Symptom Assessments Recorded</h4>
+            <p style="color: var(--slate-600); max-width: 480px; margin: 0 auto 1.5rem; font-size: 0.95rem;">
+                You haven't performed any symptom checks yet. Try our ML symptom assessment tool to screen your symptoms across 41 conditions.
+            </p>
+            <a href="{{ url_for('patient.symptom_checker') }}" class="btn btn-primary">
+                Start Symptom Assessment
+            </a>
+        </div>
+    {% endif %}
+
+    <div style="margin-top: 1.5rem;">
+        <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary">
+            &larr; Back to Patient Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

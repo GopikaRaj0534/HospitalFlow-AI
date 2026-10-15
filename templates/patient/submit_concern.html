@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Report Health Concern - HospitalFlow AI{% endblock %}
+{% block page_title %}Patient Intake &amp; Symptom Submission{% endblock %}
+
+{% block content %}
+<div style="max-width: 780px; margin: 0 auto;">
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900);">Describe Your Health Concern</h2>
+            <p style="color: var(--slate-500); font-size: 0.9rem;">
+                Select your primary concern category, describe your symptoms, and choose the appropriate department to join the live consultation queue.
+            </p>
+        </div>
+        <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary btn-sm">&larr; Back to Dashboard</a>
+    </div>
+
+    <!-- Clinical Disclaimer Box -->
+    <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: var(--radius-sm); padding: 1rem 1.25rem; margin-bottom: 1.5rem; font-size: 0.88rem; color: #1e40af; display: flex; gap: 10px; align-items: flex-start;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        <div>
+            <strong>Important Medical Advisory:</strong> Your submitted information is stored as a patient-reported health concern to assist queue routing and clinical intake. It does <em>not</em> constitute a confirmed medical diagnosis. Medical priority and treatment are determined by certified healthcare staff upon consultation.
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body" style="padding: 2rem;">
+            <form method="POST" action="{{ url_for('patient.submit_concern') }}">
+                <!-- 1. Health Concern Category -->
+                <div style="font-weight: 700; color: var(--navy-800); margin-bottom: 1rem; border-bottom: 1px solid var(--slate-200); padding-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em;">
+                    1. Primary Health Concern
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="health_concern_category">Health Concern Category *</label>
+                    <select id="health_concern_category" name="health_concern_category" class="form-select" required autofocus>
+                        <option value="">— Select primary health concern —</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat }}" {% if selected_category == cat %}selected{% endif %}>{{ cat }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- 2. Symptom Description & Duration -->
+                <div style="font-weight: 700; color: var(--navy-800); margin: 1.5rem 0 1rem; border-bottom: 1px solid var(--slate-200); padding-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em;">
+                    2. Symptoms &amp; Duration
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="symptoms_description">Describe your symptoms in your own words *</label>
+                    <textarea id="symptoms_description" name="symptoms_description" rows="3" class="form-control" placeholder="Please describe what you are experiencing, when it started, and any pain or discomfort..." required minlength="5">{{ symptoms_description or '' }}</textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="symptom_duration">How long have you had these symptoms?</label>
+                        <select id="symptom_duration" name="symptom_duration" class="form-select">
+                            <option value="">— Select duration —</option>
+                            {% for dur in durations %}
+                                <option value="{{ dur }}" {% if selected_duration == dur %}selected{% endif %}>{{ dur }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="department_id">Hospital Department *</label>
+                        <select id="department_id" name="department_id" class="form-select" required>
+                            <option value="">— Choose hospital department —</option>
+                            {% for d in departments %}
+                                <option value="{{ d.id }}" {% if selected_dept == d.id %}selected{% endif %}>{{ d.department_name }} ({{ d.code }})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- 3. Existing Appointment Check -->
+                <div style="font-weight: 700; color: var(--navy-800); margin: 1.5rem 0 1rem; border-bottom: 1px solid var(--slate-200); padding-bottom: 0.4rem; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em;">
+                    3. Prior Appointment or Referral (Optional)
+                </div>
+
+                <div style="margin-bottom: 1rem;">
+                    <label style="display: flex; align-items: center; gap: 8px; font-weight: 500; cursor: pointer;">
+                        <input type="checkbox" id="has_appointment" name="has_appointment" value="1" onchange="document.getElementById('appointment_box').style.display = this.checked ? 'block' : 'none';">
+                        <span>I have an existing appointment or physician referral for this visit</span>
+                    </label>
+                </div>
+
+                <div id="appointment_box" style="display: none;" class="form-group">
+                    <label class="form-label" for="appointment_notes">Appointment or Doctor Referral Details</label>
+                    <input type="text" id="appointment_notes" name="appointment_notes" class="form-control" placeholder="e.g. Referred by Dr. Smith / Appointment booked for 2:30 PM">
+                </div>
+
+                <!-- Patient Profile Confirmation Notice -->
+                <div style="background: var(--slate-50); border: 1px solid var(--slate-200); border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--slate-600);">
+                    <strong>Submitting as:</strong> {{ current_user.full_name }} &bull; Age: {{ current_user.age or '35' }} &bull; Gender: {{ current_user.gender or 'Female' }} &bull; Phone: {{ current_user.phone or 'None' }}.
+                    <a href="{{ url_for('patient.profile') }}" style="color: var(--teal-600); margin-left: 6px;">Update profile details</a>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                    <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary" style="padding-left: 2rem; padding-right: 2rem;">
+                        Submit Health Concern &amp; Enter Queue
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

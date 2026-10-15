@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Assessment Result - HospitalFlow AI{% endblock %}
+{% block page_title %}AI Symptom Assessment Results{% endblock %}
+
+{% block content %}
+<div class="content-container" style="max-width: 900px; margin: 0 auto;">
+
+    <!-- Emergency Red-Flag Banner (if urgent symptoms reported) -->
+    {% if result.has_urgent_symptoms %}
+        <div style="background: #fef2f2; border: 2px solid #ef4444; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; display: flex; gap: 1rem; align-items: flex-start;">
+            <div style="width: 44px; height: 44px; background: #dc2626; color: #fff; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div>
+                <h3 style="font-size: 1.2rem; font-weight: 800; color: #991b1b; margin-bottom: 0.35rem;">
+                    Immediate Medical Warning: Potentially Critical Symptoms Detected
+                </h3>
+                <p style="font-size: 0.95rem; color: #7f1d1d; line-height: 1.5; margin-bottom: 0.5rem;">
+                    You have reported serious symptoms: <strong>{{ result.urgent_symptoms_reported|join(', ') if result.urgent_symptoms_reported else 'Critical clinical indicators' }}</strong>.
+                    These symptoms may require immediate emergency intervention regardless of AI prediction scores.
+                </p>
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-top: 0.75rem;">
+                    <a href="tel:{{ hospital_info.emergency_phone if hospital_info else '911' }}" class="btn btn-sm" style="background: #dc2626; color: #fff; font-weight: 700;">
+                        Call Emergency Hotline: {{ hospital_info.emergency_phone if hospital_info else '+1 (555) 911-3569' }}
+                    </a>
+                    <span style="font-size: 0.85rem; color: #991b1b; font-weight: 600;">Proceed to the Emergency Room without delay</span>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Assessment Overview Card -->
+    <div class="card" style="margin-bottom: 2rem; overflow: hidden; border: 1px solid var(--slate-200); box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+        <div style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%); color: #fff; padding: 1.75rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
+                <span style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9; font-weight: 600;">
+                    Assessment Reference: {{ assessment.assessment_reference }}
+                </span>
+                <span style="background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 9999px; font-size: 0.8rem; font-weight: 600;">
+                    ML Model v{{ assessment.model_version }}
+                </span>
+            </div>
+            <h2 style="font-size: 1.85rem; font-weight: 800; margin-bottom: 0.35rem; color: #ffffff;">
+                {{ assessment.predicted_disease }}
+            </h2>
+            <p style="opacity: 0.9; font-size: 0.95rem; margin: 0;">
+                Preliminary Clinical Indication (Screening Analysis)
+            </p>
+        </div>
+
+        <div style="padding: 1.75rem;">
+            <!-- Confidence Score Bar -->
+            {% if assessment.confidence_score is not none and assessment.confidence_score > 0 %}
+                <div style="margin-bottom: 1.75rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <span style="font-weight: 700; font-size: 0.95rem; color: var(--slate-800);">
+                            Model Confidence Score:
+                        </span>
+                        <span style="font-weight: 800; font-size: 1.1rem; color: #2563eb;">
+                            {{ assessment.confidence_score }}%
+                        </span>
+                    </div>
+                    <div style="width: 100%; height: 10px; background: var(--slate-200); border-radius: 9999px; overflow: hidden;">
+                        <div style="width: {{ assessment.confidence_score }}%; height: 100%; background: linear-gradient(90deg, #2563eb, #10b981); border-radius: 9999px;"></div>
+                    </div>
+                    <p style="font-size: 0.8rem; color: var(--slate-600); margin-top: 0.35rem;">
+                        Statistical probability estimated by Random Forest classification over multi-disease clinical feature vectors.
+                    </p>
+                </div>
+            {% endif %}
+
+            <!-- Top Differential Alternatives -->
+            {% set alts = result.top_alternatives if result.top_alternatives else assessment.to_dict().top_predictions %}
+            {% if alts and alts|length > 0 %}
+                <div style="margin-bottom: 1.75rem; background: var(--slate-100); border-radius: 8px; padding: 1.25rem;">
+                    <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.75rem;">
+                        Other Differential Conditions Considered:
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem;">
+                        {% for alt in alts %}
+                            <div style="background: #fff; border: 1px solid var(--slate-200); border-radius: 6px; padding: 0.75rem 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-weight: 600; font-size: 0.9rem; color: var(--slate-800);">
+                                    {{ alt.disease if alt.disease else alt.name }}
+                                </span>
+                                {% if alt.confidence_pct %}
+                                    <span style="font-size: 0.8rem; font-weight: 700; color: #2563eb; background: #eff6ff; padding: 2px 6px; border-radius: 4px;">
+                                        {{ alt.confidence_pct }}%
+                                    </span>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+
+            <!-- Reported Symptoms Summary -->
+            <div style="margin-bottom: 1.75rem;">
+                <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--slate-800); margin-bottom: 0.75rem;">
+                    Symptoms Analyzed ({{ result.submitted_symptoms|length if result.submitted_symptoms else assessment.to_dict().selected_symptoms|length }} items):
+                </h4>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                    {% set sym_items = result.submitted_symptoms if result.submitted_symptoms else assessment.to_dict().selected_symptoms %}
+                    {% for item in sym_items %}
+                        <span style="background: #f1f5f9; border: 1px solid var(--slate-300); border-radius: 6px; padding: 4px 10px; font-size: 0.85rem; font-weight: 600; color: var(--slate-700);">
+                            {{ item.name if item.name is defined else item }}
+                        </span>
+                    {% endfor %}
+                </div>
+                <div style="display: flex; gap: 1.5rem; margin-top: 0.85rem; font-size: 0.85rem; color: var(--slate-600);">
+                    <span><strong>Duration:</strong> {{ assessment.symptom_duration or 'Not specified' }}</span>
+                    <span><strong>Severity Context:</strong> {{ assessment.severity_level or 'Moderate' }}</span>
+                    <span><strong>Assessed At:</strong> {{ assessment.created_at.strftime('%Y-%m-%d %H:%M') }}</span>
+                </div>
+            </div>
+
+            <!-- Medical Disclaimer Box -->
+            <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 8px; padding: 1rem; margin-bottom: 1.75rem;">
+                <h5 style="color: #92400e; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.25rem;">
+                    Medical Disclaimer &amp; Patient Guidance
+                </h5>
+                <p style="color: #b45309; font-size: 0.82rem; line-height: 1.5; margin: 0;">
+                    {{ result.disclaimer if result.disclaimer else 'This AI assessment is a preliminary informational screening generated by machine learning, not a definitive clinical diagnosis. Do not initiate or alter medical treatments without professional consultation.' }}
+                </p>
+            </div>
+
+            <!-- Action Buttons: Prominent "Consult a Doctor" -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1rem; border-top: 1px solid var(--slate-200);">
+                <a href="{{ url_for('patient.symptom_checker') }}" class="btn btn-secondary">
+                    &larr; Re-check Symptoms
+                </a>
+                <div style="display: flex; gap: 0.75rem;">
+                    <a href="{{ url_for('patient.assessments') }}" class="btn btn-outline">
+                        View Past Assessments
+                    </a>
+                    <a href="{{ url_for('patient.request_consultation', assessment_id=assessment.id) }}" class="btn btn-primary btn-lg" style="box-shadow: 0 4px 12px rgba(37,99,235,0.25);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                        Consult a Doctor Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+
+{% block title %}ML Model Management - HospitalFlow AI{% endblock %}
+{% block page_title %}Machine Learning Pipeline &amp; Dataset Governance{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 1.5rem; margin-bottom: 2rem;">
+    <!-- Dataset & Provenance Card -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <h3>Kaggle Dataset Provenance &amp; Target Variable</h3>
+        </div>
+        <div class="card-body">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.25rem;">
+                <div>
+                    <div class="stat-label">Dataset Title</div>
+                    <div style="font-weight: 700; color: var(--navy-900);">Hospital Emergency Room Dataset</div>
+                    <div style="font-size: 0.82rem; color: var(--slate-500);">Publisher: Laxdip Patel</div>
+                </div>
+                <div>
+                    <div class="stat-label">Verified Kaggle Source</div>
+                    <a href="https://www.kaggle.com/datasets/laxdippatel/hospital-emergency-room-dataset" target="_blank" style="color: var(--teal-600); font-weight: 600; font-size: 0.88rem; text-decoration: none;">
+                        kaggle.com/datasets/laxdippatel/... &nearr;
+                    </a>
+                    <div style="font-size: 0.82rem; color: var(--slate-500);">Public Emergency Department visits</div>
+                </div>
+            </div>
+
+            <div style="background: var(--slate-50); border: 1px solid var(--slate-200); padding: 1rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+                <div style="font-weight: 700; color: var(--navy-900); font-size: 0.88rem; margin-bottom: 4px;">
+                    Target Definition: <code>patient_waittime</code> (Minutes)
+                </div>
+                <div style="font-size: 0.82rem; color: var(--slate-600); line-height: 1.5;">
+                    The prediction target represents the verified waiting duration in minutes from initial patient check-in at triage to clinical consultation start. Post-visit survey scores are explicitly excluded to prevent future data leakage.
+                </div>
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--slate-600);">
+                <strong>Local Storage:</strong> <code>datasets/raw/Hospital_ER.csv</code> &bull; Cleaned: <code>datasets/processed/cleaned_hospital_er.csv</code>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Model Performance Card -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <h3>Active Model Evaluation Metrics</h3>
+            <span class="badge badge-completed">{{ model_meta.status }}</span>
+        </div>
+        <div class="card-body">
+            <div style="font-size: 1.15rem; font-weight: 700; color: var(--navy-900); margin-bottom: 1rem;">
+                {{ model_meta.model_name }}
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-bottom: 1.5rem; text-align: center;">
+                <div style="background: var(--slate-50); padding: 0.8rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);">
+                    <div class="stat-label">MAE</div>
+                    <div style="font-size: 1.35rem; font-weight: 800; color: var(--teal-600);">{{ model_meta.mae }}</div>
+                    <div style="font-size: 0.72rem; color: var(--slate-500);">Minutes Error</div>
+                </div>
+                <div style="background: var(--slate-50); padding: 0.8rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);">
+                    <div class="stat-label">RMSE</div>
+                    <div style="font-size: 1.35rem; font-weight: 800; color: var(--navy-800);">{{ model_meta.rmse }}</div>
+                    <div style="font-size: 0.72rem; color: var(--slate-500);">Minutes Root MSE</div>
+                </div>
+                <div style="background: var(--slate-50); padding: 0.8rem 0.5rem; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);">
+                    <div class="stat-label">R² Score</div>
+                    <div style="font-size: 1.35rem; font-weight: 800; color: var(--slate-700);">{{ model_meta.r2_score }}</div>
+                    <div style="font-size: 0.72rem; color: var(--slate-500);">Held-out Test</div>
+                </div>
+            </div>
+
+            <form method="POST" action="{{ url_for('admin.model_management') }}">
+                <input type="hidden" name="action" value="retrain">
+                <button type="submit" class="btn btn-primary btn-block" onclick="return confirm('Retrain ML models using raw dataset? This will run Linear Regression, Random Forest, and XGBoost.');">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                    Retrain Model Pipeline Now
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Evaluation Charts Section -->
+<div class="card">
+    <div class="card-header">
+        <h3>Model Test Set Evaluation Chart (Held-out 20% Test Split)</h3>
+    </div>
+    <div class="card-body" style="text-align: center;">
+        {% if chart_exists %}
+            <img src="{{ url_for('static', filename='images/model_evaluation.png') }}?v=1" alt="Model Evaluation Charts" style="max-width: 100%; height: auto; border-radius: var(--radius-sm); border: 1px solid var(--slate-200);">
+        {% else %}
+            <div style="padding: 2rem; color: var(--slate-500);">
+                Evaluation chart not yet generated. Click "Retrain Model Pipeline Now" above to train and render the chart.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Past Model Runs & Audit Log -->
+<div class="card">
+    <div class="card-header">
+        <h3>Model Training Audit Log</h3>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        {% if past_runs %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Model Run ID</th>
+                            <th>Algorithm</th>
+                            <th>Dataset Reference</th>
+                            <th>MAE (min)</th>
+                            <th>RMSE (min)</th>
+                            <th>R² Score</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in past_runs %}
+                            <tr>
+                                <td><code>#MR-{{ r.id }}</code></td>
+                                <td><strong>{{ r.model_name }}</strong></td>
+                                <td><code>{{ r.dataset_reference }}</code></td>
+                                <td>{{ r.mae }} min</td>
+                                <td>{{ r.rmse }} min</td>
+                                <td>{{ r.r2_score }}</td>
+                                <td><span class="badge badge-completed">{{ r.training_status }}</span></td>
+                                <td>{{ r.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="padding: 2rem; text-align: center; color: var(--slate-500);">
+                No model training runs logged yet.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}User Management - HospitalFlow AI{% endblock %}
+{% block page_title %}System User Accounts &amp; RBAC Control{% endblock %}
+
+{% block content %}
+<div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem; align-items: flex-start;">
+    <!-- Create User Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Provision New User Account</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('admin.users') }}">
+                <input type="hidden" name="action" value="create">
+
+                <div class="form-group">
+                    <label class="form-label" for="full_name">Full Name *</label>
+                    <input type="text" id="full_name" name="full_name" class="form-control" placeholder="Dr. Alice Smith" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="staff@hospitalflow.ai" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 000-0000">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="role">Assign Role *</label>
+                    <select id="role" name="role" class="form-select" required>
+                        <option value="receptionist" selected>Receptionist / Registration Staff</option>
+                        <option value="admin">System Administrator</option>
+                        <option value="patient">Patient / User</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="department_id">Department (If Staff)</label>
+                    <select id="department_id" name="department_id" class="form-select">
+                        <option value="">— Optional Department —</option>
+                        {% for d in departments %}
+                            <option value="{{ d.id }}">{{ d.department_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Initial Password *</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Users Table Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Registered Accounts ({{ users|length }})</h3>
+        </div>
+        <div class="card-body" style="padding: 0;">
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                            <tr>
+                                <td>
+                                    <div style="font-weight: 600; color: var(--navy-900);">{{ u.full_name }}</div>
+                                    <div style="font-size: 0.75rem; color: var(--slate-500);">{{ u.phone or 'No phone' }}</div>
+                                </td>
+                                <td><code>{{ u.email }}</code></td>
+                                <td>
+                                    {% if u.role == 'admin' %}
+                                        <span class="badge" style="background: #e0e7ff; color: #4338ca;">Admin</span>
+                                    {% elif u.role == 'receptionist' %}
+                                        <span class="badge" style="background: var(--teal-50); color: var(--teal-600);">Receptionist</span>
+                                    {% else %}
+                                        <span class="badge" style="background: #f1f5f9; color: #475569;">Patient</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if u.is_active %}
+                                        <span style="color: var(--status-completed); font-weight: 600; font-size: 0.85rem;">Active</span>
+                                    {% else %}
+                                        <span style="color: var(--status-cancelled); font-weight: 600; font-size: 0.85rem;">Disabled</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ u.created_at.strftime('%Y-%m-%d') }}</td>
+                                <td>
+                                    {% if u.id != current_user.id %}
+                                        <form method="POST" action="{{ url_for('admin.users') }}" style="display: inline;">
+                                            <input type="hidden" name="action" value="toggle_status">
+                                            <input type="hidden" name="user_id" value="{{ u.id }}">
+                                            {% if u.is_active %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="color: #ef4444;" onclick="return confirm('Deactivate this account?');">
+                                                    Deactivate
+                                                </button>
+                                            {% else %}
+                                                <button type="submit" class="btn btn-secondary btn-sm" style="color: var(--status-completed);">
+                                                    Activate
+                                                </button>
+                                            {% endif %}
+                                        </form>
+                                    {% else %}
+                                        <span style="font-size: 0.75rem; color: var(--slate-400);">Current Session</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

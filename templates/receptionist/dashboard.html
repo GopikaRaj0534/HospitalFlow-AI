@@ -1,0 +1,400 @@
+{% extends "base.html" %}
+
+{% block title %}Receptionist Queue Desk - HospitalFlow AI{% endblock %}
+{% block page_title %}Patient Registration &amp; Live Queue Desk{% endblock %}
+
+{% block content %}
+<!-- KPI Stats Row -->
+<div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); margin-bottom: 1.5rem;">
+    <div class="metric-card" style="border-top: 4px solid var(--amber-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Currently Waiting</span>
+            <div class="metric-icon" style="background: #fef3c7; color: var(--amber-600); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--amber-600);">{{ total_waiting }}</div>
+        <div class="metric-caption">Awaiting consultation</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid var(--blue-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">In Consultation</span>
+            <div class="metric-icon" style="background: #dbeafe; color: var(--blue-600); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--blue-600);">{{ total_in_consult }}</div>
+        <div class="metric-caption">Currently with clinician</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid #b45309;">
+        <div class="metric-card-header">
+            <span class="metric-title">Consult Requests</span>
+            <div class="metric-icon" style="background: #fef3c7; color: #b45309; width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: #b45309;">
+            <a href="{{ url_for('receptionist.consultation_requests') }}" style="color: inherit; text-decoration: none;">
+                {{ pending_consultations }}
+            </a>
+        </div>
+        <div class="metric-caption">Awaiting assignment</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid var(--teal-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Available Doctors</span>
+            <div class="metric-icon" style="background: var(--teal-50); color: var(--teal-600); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v14M5 12h14"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--teal-600);">
+            <a href="{{ url_for('receptionist.doctors') }}" style="color: inherit; text-decoration: none;">
+                {{ total_available_doctors }}
+            </a>
+        </div>
+        <div class="metric-caption">On duty &amp; ready</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid var(--navy-800);">
+        <div class="metric-card-header">
+            <span class="metric-title">Total Registered</span>
+            <div class="metric-icon" style="background: var(--slate-100); color: var(--navy-900); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--navy-900);">
+            <a href="{{ url_for('receptionist.patients') }}" style="color: inherit; text-decoration: none;">
+                {{ total_registered_patients }}
+            </a>
+        </div>
+        <div class="metric-caption">Registered patients</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid var(--emerald-500);">
+        <div class="metric-card-header">
+            <span class="metric-title">Today's Visits</span>
+            <div class="metric-icon" style="background: #dcfce7; color: var(--emerald-600); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--emerald-600);">{{ total_today }}</div>
+        <div class="metric-caption">Registered today</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid #0284c7;">
+        <div class="metric-card-header">
+            <span class="metric-title">Assistance Inquiries</span>
+            <div class="metric-icon" style="background: #e0f2fe; color: #0284c7; width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: #0284c7;">
+            <a href="{{ url_for('receptionist.contact_requests') }}" style="color: inherit; text-decoration: none;">
+                {{ pending_requests }}
+            </a>
+        </div>
+        <div class="metric-caption">Inquiries to review</div>
+    </div>
+    <div class="metric-card" style="border-top: 4px solid var(--purple-600);">
+        <div class="metric-card-header">
+            <span class="metric-title">Doctor Applications</span>
+            <div class="metric-icon" style="background: #f3e8ff; color: var(--purple-600); width: 30px; height: 30px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="16 11 18 13 22 9"/></svg>
+            </div>
+        </div>
+        <div class="metric-value" style="color: var(--purple-600);">
+            <a href="{{ url_for('receptionist.doctor_registrations') }}" style="color: inherit; text-decoration: none;">
+                {{ pending_doctor_registrations }}
+            </a>
+        </div>
+        <div class="metric-caption">Awaiting credential check</div>
+    </div>
+</div>
+
+<!-- Management Quick Navigation Bar -->
+<div class="card" style="padding: 0.85rem 1.25rem; margin-bottom: 1.5rem; background: #ffffff; border: 1px solid var(--slate-200);">
+    <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+            <span style="font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: var(--slate-500); margin-right: 4px;">Management:</span>
+            <a href="{{ url_for('receptionist.dashboard') }}" class="btn btn-primary btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Queue Monitor
+            </a>
+            <a href="{{ url_for('receptionist.consultation_requests') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Consultation Requests {% if pending_consultations > 0 %}<span class="badge" style="background: #f59e0b; color: #fff; font-size: 0.7rem; padding: 1px 6px; margin-left: 3px;">{{ pending_consultations }}</span>{% endif %}
+            </a>
+            <a href="{{ url_for('receptionist.doctor_registrations') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Doctor Registrations {% if pending_doctor_registrations > 0 %}<span class="badge" style="background: #7c3aed; color: #fff; font-size: 0.7rem; padding: 1px 6px; margin-left: 3px;">{{ pending_doctor_registrations }}</span>{% endif %}
+            </a>
+            <a href="{{ url_for('receptionist.doctors') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Physicians &amp; Workload
+            </a>
+            <a href="{{ url_for('receptionist.patients') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Patient Directory
+            </a>
+            <a href="{{ url_for('receptionist.departments') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Departments
+            </a>
+            <a href="{{ url_for('receptionist.users') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                User Accounts
+            </a>
+            <a href="{{ url_for('receptionist.model_management') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                AI &amp; ML Models
+            </a>
+            <a href="{{ url_for('receptionist.hospital_settings') }}" class="btn btn-outline btn-sm" style="font-size: 0.82rem; padding: 5px 12px;">
+                Facility Settings
+            </a>
+        </div>
+        <a href="{{ url_for('receptionist.register_patient') }}" class="btn btn-primary btn-sm" style="font-size: 0.82rem; padding: 5px 14px; white-space: nowrap;">
+            + Register Walk-In
+        </a>
+    </div>
+</div>
+
+<!-- Controls & Filter Bar -->
+<div class="filter-bar">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <!-- Filter Form -->
+        <form method="GET" action="{{ url_for('receptionist.dashboard') }}" class="filter-form">
+            <div class="filter-select">
+                <select name="department_id" class="form-select" onchange="this.form.submit()" style="height: 40px; font-size: 0.88rem;">
+                    <option value="">All Departments</option>
+                    {% for d in departments %}
+                        <option value="{{ d.id }}" {% if dept_filter == d.id %}selected{% endif %}>{{ d.department_name }} ({{ d.code }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-select">
+                <select name="status" class="form-select" onchange="this.form.submit()" style="height: 40px; font-size: 0.88rem;">
+                    <option value="Waiting" {% if status_filter == 'Waiting' %}selected{% endif %}>Status: Waiting</option>
+                    <option value="Called" {% if status_filter == 'Called' %}selected{% endif %}>Status: Called</option>
+                    <option value="In Consultation" {% if status_filter == 'In Consultation' %}selected{% endif %}>Status: In Consultation</option>
+                    <option value="Completed" {% if status_filter == 'Completed' %}selected{% endif %}>Status: Completed</option>
+                    <option value="Skipped" {% if status_filter == 'Skipped' %}selected{% endif %}>Status: Skipped</option>
+                    <option value="Cancelled" {% if status_filter == 'Cancelled' %}selected{% endif %}>Status: Cancelled</option>
+                    <option value="ALL" {% if status_filter == 'ALL' %}selected{% endif %}>Status: All Statuses</option>
+                </select>
+            </div>
+            <div class="filter-search">
+                <input type="text" name="q" value="{{ search_query }}" placeholder="Search name, token, concern..." class="form-control" data-table-search="queue-table" style="height: 40px; font-size: 0.88rem; min-width: 220px;">
+            </div>
+            {% if dept_filter or (status_filter and status_filter != 'Waiting') or search_query %}
+                <a href="{{ url_for('receptionist.dashboard') }}" class="btn btn-outline btn-sm" style="height: 40px; display: inline-flex; align-items: center;">Reset Filters</a>
+            {% endif %}
+        </form>
+
+        <div style="display: flex; gap: 8px;">
+            <a href="{{ url_for('receptionist.contact_requests') }}" class="btn btn-outline btn-sm" style="display: inline-flex; align-items: center; gap: 6px; height: 40px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                Assistance Requests ({{ pending_requests }})
+            </a>
+            <a href="{{ url_for('receptionist.register_patient') }}" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; height: 40px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+                Register Walk-In Patient
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Department Queue Table -->
+<div class="card" style="padding: 0; margin-bottom: 2rem;">
+    <div class="card-header" style="background: #ffffff; border-bottom: 1px solid var(--slate-200); padding: 1rem 1.4rem;">
+        <h3 style="margin: 0; font-size: 1.05rem; color: var(--navy-900);">Live Queue Records ({{ queue_entries|length }} Patients)</h3>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        {% if queue_entries %}
+            <div class="table-responsive">
+                <table class="data-table" id="queue-table">
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Patient Information</th>
+                            <th>Department</th>
+                            <th>Assigned Doctor</th>
+                            <th>Reported Concern / Symptoms</th>
+                            <th>Triage Priority</th>
+                            <th>Ahead</th>
+                            <th>Est. Wait</th>
+                            <th>Status</th>
+                            <th>Workflow Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for q in queue_entries %}
+                            {% set wait_duration_minutes = ((current_time - q.registration.arrival_time).total_seconds() / 60)|round(0)|int %}
+                            <tr {% if q.queue_status == 'Called' %}style="background: #faf5ff;"{% endif %}>
+                                <td>
+                                    <strong style="color: var(--teal-600); font-size: 1.05rem;">{{ q.registration.token_number }}</strong>
+                                    {% if q.queue_status == 'Waiting' and wait_duration_minutes > 30 %}
+                                        <div style="margin-top: 4px;">
+                                            <span class="badge badge-wait-alert" title="Patient has been waiting {{ wait_duration_minutes }} minutes since arrival">
+                                                Waited {{ wait_duration_minutes }}m
+                                            </span>
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <div style="font-weight: 600; color: var(--navy-900);">{{ q.registration.patient_name }}</div>
+                                    <div style="font-size: 0.78rem; color: var(--slate-500);">
+                                        Age: {{ q.registration.patient_age }} | {{ q.registration.patient_gender }}
+                                        {% if q.registration.patient_phone %}&bull; {{ q.registration.patient_phone }}{% endif %}
+                                    </div>
+                                    <div style="font-size: 0.75rem; color: var(--slate-400); margin-top: 2px;">
+                                        Arrival: {{ q.registration.arrival_time.strftime('%I:%M %p') }}
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <span style="font-weight: 600;">{{ q.registration.department.department_name }}</span>
+                                    <div style="font-size: 0.75rem; color: var(--slate-400);">Code: {{ q.registration.department.code }}</div>
+                                </td>
+
+                                <td>
+                                    <form method="POST" action="{{ url_for('receptionist.assign_doctor') }}" style="margin: 0;">
+                                        <input type="hidden" name="registration_id" value="{{ q.registration.id }}">
+                                        <select name="doctor_id" onchange="this.form.submit()" class="form-select" style="font-size: 0.78rem; padding: 3px 6px; width: auto; max-width: 165px; font-weight: 600;" {% if q.queue_status in ['Completed', 'Cancelled'] %}disabled{% endif %}>
+                                            <option value="">— Unassigned —</option>
+                                            {% for doc in active_doctors %}
+                                                {% if doc.staff_record and doc.staff_record.department_id == q.registration.department_id %}
+                                                    <option value="{{ doc.id }}" {% if q.registration.assigned_doctor_id == doc.id %}selected{% endif %}>
+                                                        Dr. {{ doc.full_name }}
+                                                    </option>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </select>
+                                    </form>
+                                    {% if q.registration.assigned_doctor %}
+                                        <div style="font-size: 0.72rem; color: var(--teal-600); margin-top: 2px; font-weight: 600;">
+                                            ● Assigned
+                                        </div>
+                                    {% else %}
+                                        <div style="font-size: 0.72rem; color: var(--slate-400); margin-top: 2px;">
+                                            Awaiting Doctor
+                                        </div>
+                                    {% endif %}
+                                </td>
+
+                                <td style="max-width: 240px;">
+                                    {% if q.registration.health_concern_category %}
+                                        <div style="font-weight: 600; color: var(--teal-600); font-size: 0.85rem;">
+                                            {{ q.registration.health_concern_category }}
+                                        </div>
+                                    {% endif %}
+                                    {% if q.registration.symptoms_description %}
+                                        <div style="font-size: 0.78rem; color: var(--slate-600); line-height: 1.35; margin-top: 2px;" title="{{ q.registration.symptoms_description }}">
+                                            {{ q.registration.symptoms_description[:80] }}{% if q.registration.symptoms_description|length > 80 %}...{% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% if q.registration.symptom_duration %}
+                                        <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 2px;">Duration: {{ q.registration.symptom_duration }}</div>
+                                    {% endif %}
+                                    {% if q.registration.has_appointment %}
+                                        <div style="font-size: 0.72rem; color: #059669; font-weight: 600; margin-top: 2px;">[Scheduled Appointment]</div>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <!-- Priority Selector Form with Immediate Audit Logging -->
+                                    <form method="POST" action="{{ url_for('receptionist.update_priority') }}" style="display: flex; flex-direction: column; gap: 4px;">
+                                        <input type="hidden" name="registration_id" value="{{ q.registration.id }}">
+                                        <select name="triage_priority" onchange="this.form.submit()" class="form-select" style="padding: 2px 6px; font-size: 0.78rem; font-weight: 700; width: auto; max-width: 140px;" title="Change clinical priority to reorder queue">
+                                            <option value="1" {% if q.registration.triage_priority == 1 %}selected{% endif %} style="color: #b91c1c; font-weight: 700;">P1 - Emergency</option>
+                                            <option value="2" {% if q.registration.triage_priority == 2 %}selected{% endif %} style="color: #b45309; font-weight: 700;">P2 - Urgent</option>
+                                            <option value="3" {% if q.registration.triage_priority == 3 %}selected{% endif %} style="color: #475569;">P3 - Routine</option>
+                                            <option value="4" {% if q.registration.triage_priority == 4 %}selected{% endif %} style="color: #64748b;">P4 - Low</option>
+                                        </select>
+                                        {% if q.registration.priority_assigned_by %}
+                                            <span style="font-size: 0.7rem; color: var(--slate-400);">
+                                                Set by {{ q.registration.priority_assigner.full_name[:14] if q.registration.priority_assigner else 'Staff' }}
+                                            </span>
+                                        {% endif %}
+                                    </form>
+                                </td>
+
+                                <td>
+                                    <strong style="color: var(--navy-800); font-size: 1rem;">{{ q.patients_ahead }}</strong>
+                                </td>
+
+                                <td>
+                                    {% if q.queue_status in ['Waiting', 'Called'] %}
+                                        <strong style="color: var(--teal-600);">{{ q.estimated_wait_minutes }} min</strong>
+                                    {% else %}
+                                        <span style="color: var(--slate-400);">—</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    {% if q.queue_status == 'Waiting' %}
+                                        <span class="badge badge-waiting">Waiting</span>
+                                    {% elif q.queue_status == 'Called' %}
+                                        <span class="badge badge-called">Called</span>
+                                    {% elif q.queue_status == 'In Consultation' %}
+                                        <span class="badge badge-consult">In Consultation</span>
+                                    {% elif q.queue_status == 'Completed' %}
+                                        <span class="badge badge-completed">Completed</span>
+                                    {% elif q.queue_status == 'Skipped' %}
+                                        <span class="badge badge-skipped">Skipped</span>
+                                    {% else %}
+                                        <span class="badge badge-cancelled">{{ q.queue_status }}</span>
+                                    {% endif %}
+                                </td>
+
+                                <td>
+                                    <form method="POST" action="{{ url_for('receptionist.update_status') }}" style="display: flex; gap: 4px; flex-wrap: wrap;">
+                                        <input type="hidden" name="queue_id" value="{{ q.id }}">
+                                        
+                                        {% if q.queue_status == 'Waiting' %}
+                                            <button type="submit" name="new_status" value="Called" class="btn btn-primary btn-sm" style="background: #7c3aed; border-color: #7c3aed;" title="Call Patient to Desk">
+                                                Call
+                                            </button>
+                                            <button type="submit" name="new_status" value="In Consultation" class="btn btn-primary btn-sm" title="Move into Consultation Room">
+                                                Start
+                                            </button>
+                                            <button type="submit" name="new_status" value="Skipped" class="btn btn-secondary btn-sm" title="Patient Absent / Skipped" onclick="return confirm('Mark patient as skipped/absent?');">
+                                                Skip
+                                            </button>
+                                            <button type="submit" name="new_status" value="Cancelled" class="btn btn-secondary btn-sm" title="Cancel Ticket" onclick="return confirm('Cancel this patient ticket?');">
+                                                Cancel
+                                            </button>
+
+                                        {% elif q.queue_status == 'Called' %}
+                                            <button type="submit" name="new_status" value="In Consultation" class="btn btn-primary btn-sm" title="Doctor began consultation">
+                                                Start Consult
+                                            </button>
+                                            <button type="submit" name="new_status" value="Waiting" class="btn btn-secondary btn-sm" title="Return to Waiting line">
+                                                Hold
+                                            </button>
+                                            <button type="submit" name="new_status" value="Skipped" class="btn btn-secondary btn-sm" title="Did not respond / absent">
+                                                Skip
+                                            </button>
+
+                                        {% elif q.queue_status == 'In Consultation' %}
+                                            <button type="submit" name="new_status" value="Completed" class="btn btn-primary btn-sm" style="background: var(--status-completed); border-color: var(--status-completed);" title="Mark consultation completed">
+                                                Complete Visit
+                                            </button>
+
+                                        {% else %}
+                                            <!-- Completed, Skipped, Cancelled -->
+                                            <button type="submit" name="new_status" value="Waiting" class="btn btn-secondary btn-sm" title="Re-open into waiting queue">
+                                                Re-queue
+                                            </button>
+                                        {% endif %}
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <div class="empty-state-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="8" y1="12" x2="16" y2="12"/>
+                    </svg>
+                </div>
+                <h4>No Queue Entries Found</h4>
+                <p>No patient records match the selected department or status filters. Click below to register an arriving patient.</p>
+                <a href="{{ url_for('receptionist.register_patient') }}" class="btn btn-primary btn-sm">Register First Patient</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

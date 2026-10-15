@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Self-Registration - HospitalFlow AI{% endblock %}
+
+{% block auth_content %}
+<div class="auth-centered-wrapper">
+    <div class="auth-clean-card card-wide">
+        <div class="auth-card-icon" style="background: rgba(14, 165, 233, 0.1); color: var(--sky-500);">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                <path d="M12 5v14M5 12h14"/>
+            </svg>
+        </div>
+
+        <div class="auth-card-header" style="margin-bottom: 1.25rem;">
+            <h2>Doctor Registration</h2>
+            <p>Apply for clinical privileges and doctor access at HospitalFlow Medical Center.</p>
+        </div>
+
+        <div class="alert alert-info" style="margin-bottom: 1.5rem; font-size: 0.85rem;">
+            <strong>Verification Policy:</strong> Doctor accounts are verified and approved by the hospital receptionist before clinical access is activated. Please provide accurate licensing credentials.
+        </div>
+
+        <form method="POST" action="{{ url_for('auth.register_doctor') }}" data-validate="true">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group" style="grid-column: span 2;">
+                    <label class="form-label" for="full_name">Full Legal Name (with title) *</label>
+                    <input type="text" id="full_name" name="full_name" class="form-control" placeholder="e.g. Dr. Arthur Pendelton, MD" value="{{ full_name or '' }}" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Medical / Professional Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" placeholder="doctor.name@hospitalflow.ai" value="{{ email or '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phone">Direct Contact Phone *</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 019-3382" value="{{ phone or '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="department_id">Primary Clinical Department *</label>
+                    <select id="department_id" name="department_id" class="form-select" required>
+                        <option value="" disabled {% if not department_id %}selected{% endif %}>Select department...</option>
+                        {% for dept in departments %}
+                            <option value="{{ dept.id }}" {% if department_id == dept.id|string %}selected{% endif %}>
+                                {{ dept.department_name }} ({{ dept.code }})
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="qualification">Degrees &amp; Qualifications *</label>
+                    <input type="text" id="qualification" name="qualification" class="form-control" placeholder="e.g. MBBS, MD, FACC" value="{{ qualification or '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="license_number">Medical License / Registration No. *</label>
+                    <input type="text" id="license_number" name="license_number" class="form-control" placeholder="e.g. ML-948201-A" value="{{ license_number or '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="experience_years">Years of Clinical Experience *</label>
+                    <input type="number" id="experience_years" name="experience_years" class="form-control" min="0" max="60" placeholder="e.g. 10" value="{{ experience_years or '5' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="password">Create Password *</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+                        <button type="button" class="password-toggle-btn" data-target="password">Show</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="confirm_password">Confirm Password *</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="confirm_password" name="confirm_password" class="form-control" placeholder="Re-type password" minlength="6" required>
+                        <button type="button" class="password-toggle-btn" data-target="confirm_password">Show</button>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1rem;">Submit Doctor Registration</button>
+        </form>
+
+        <div style="margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid var(--slate-200); text-align: center; font-size: 0.9rem; color: var(--slate-600); display: flex; flex-direction: column; gap: 0.5rem;">
+            <div>
+                Already have an approved account?
+                <a href="{{ url_for('auth.login') }}" style="color: var(--teal-600); font-weight: 600; text-decoration: none;">Sign In</a>
+            </div>
+            <div>
+                Looking for patient registration?
+                <a href="{{ url_for('auth.register') }}" style="color: var(--teal-600); font-weight: 600; text-decoration: none;">Patient Registration</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

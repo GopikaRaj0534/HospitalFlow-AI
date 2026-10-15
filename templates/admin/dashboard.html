@@ -1,0 +1,209 @@
+{% extends "base.html" %}
+
+{% block title %}System Administrator Dashboard - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Operations &amp; AI Analytics Dashboard{% endblock %}
+
+{% block content %}
+<!-- Executive Statistics Grid -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <span class="stat-label">Total Patient Visits</span>
+        <div class="stat-value">{{ total_patients }}</div>
+        <span class="stat-subtext">Registered hospital intake records</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">System Accounts</span>
+        <div class="stat-value">{{ total_users }}</div>
+        <span class="stat-subtext">{{ total_staff }} Clinical/Staff profiles</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Active Departments</span>
+        <div class="stat-value">{{ total_departments }}</div>
+        <span class="stat-subtext">Configured clinical service units</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-label">Active Queue Flow</span>
+        <div class="stat-value" style="color: var(--status-waiting);">{{ waiting_count }} <span style="font-size: 1rem; color: #6d28d9; font-weight: 600;">({{ called_count }} Called)</span></div>
+        <span class="stat-subtext">{{ in_consult_count }} Currently in consultation</span>
+    </div>
+</div>
+
+<!-- AI Model Status Banner -->
+<div class="card" style="border-left: 4px solid var(--teal-500);">
+    <div class="card-body" style="padding: 1.25rem 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+        <div>
+            <div style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--teal-600); letter-spacing: 0.04em;">
+                Machine Learning Waiting-Time Model Status
+            </div>
+            <div style="font-size: 1.15rem; font-weight: 700; color: var(--navy-900); margin-top: 2px;">
+                {{ model_meta.model_name }} (Version {{ model_meta.version }}) &bull; Status: <span style="color: var(--status-completed);">{{ model_meta.status }}</span>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--slate-500); margin-top: 4px;">
+                Evaluated Test MAE: <strong>{{ model_meta.mae }} mins</strong> &bull; RMSE: <strong>{{ model_meta.rmse }} mins</strong> &bull; R² Score: <strong>{{ model_meta.r2_score }}</strong>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <a href="{{ url_for('admin.contact_requests') }}" class="btn btn-secondary btn-sm">
+                Assistance Requests ({{ pending_requests }})
+            </a>
+            <a href="{{ url_for('admin.model_management') }}" class="btn btn-primary btn-sm">
+                Manage Dataset &amp; Retrain Model &rarr;
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Operational Visualizations (Chart.js) -->
+<div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+    <!-- Department Load Chart -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <h3>Department Patient Volume &amp; Waiting Queue</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="deptChart" height="240"></canvas>
+        </div>
+    </div>
+
+    <!-- Live Queue Status Distribution -->
+    <div class="card" style="margin-bottom: 0;">
+        <div class="card-header">
+            <h3>Live Queue Status Breakdown</h3>
+        </div>
+        <div class="card-body">
+            <canvas id="statusChart" height="240"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Queue Registrations Table -->
+<div class="card">
+    <div class="card-header">
+        <h3>Recent Queue Registrations</h3>
+        <a href="{{ url_for('receptionist.dashboard') }}" class="btn btn-secondary btn-sm">Open Live Queue Monitor &rarr;</a>
+    </div>
+    <div class="card-body" style="padding: 0;">
+        {% if recent_registrations %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Token</th>
+                            <th>Patient Name</th>
+                            <th>Department</th>
+                            <th>Reported Concern</th>
+                            <th>Arrival Time</th>
+                            <th>Priority</th>
+                            <th>Estimated Wait</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reg in recent_registrations %}
+                            <tr>
+                                <td><strong style="color: var(--teal-600);">{{ reg.token_number }}</strong></td>
+                                <td>{{ reg.patient_name }}</td>
+                                <td>{{ reg.department.department_name }}</td>
+                                <td>{{ reg.health_concern_category or 'General' }}</td>
+                                <td>{{ reg.arrival_time.strftime('%I:%M %p') }}</td>
+                                <td><span class="badge badge-priority-{{ reg.triage_priority }}">P{{ reg.triage_priority }}</span></td>
+                                <td>{{ reg.queue_record.estimated_wait_minutes }} min</td>
+                                <td>
+                                    {% if reg.queue_record.queue_status == 'Waiting' %}
+                                        <span class="badge badge-waiting">Waiting</span>
+                                    {% elif reg.queue_record.queue_status == 'Called' %}
+                                        <span class="badge badge-called">Called</span>
+                                    {% elif reg.queue_record.queue_status == 'In Consultation' %}
+                                        <span class="badge badge-consult">In Consultation</span>
+                                    {% elif reg.queue_record.queue_status == 'Completed' %}
+                                        <span class="badge badge-completed">Completed</span>
+                                    {% elif reg.queue_record.queue_status == 'Skipped' %}
+                                        <span class="badge badge-skipped">Skipped</span>
+                                    {% else %}
+                                        <span class="badge badge-cancelled">{{ reg.queue_record.queue_status }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div style="padding: 2rem; text-align: center; color: var(--slate-500);">
+                No recent queue registrations found in database.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Department Patient Load Chart
+    const deptCtx = document.getElementById('deptChart');
+    if (deptCtx) {
+        const deptNames = {{ dept_stats|map(attribute='name')|list|tojson }};
+        const deptWaiting = {{ dept_stats|map(attribute='waiting')|list|tojson }};
+        const deptTotals = {{ dept_stats|map(attribute='total')|list|tojson }};
+
+        new Chart(deptCtx, {
+            type: 'bar',
+            data: {
+                labels: deptNames,
+                datasets: [
+                    {
+                        label: 'Active in Queue',
+                        data: deptWaiting,
+                        backgroundColor: '#d97706',
+                        borderRadius: 4
+                    },
+                    {
+                        label: 'Total Registered',
+                        data: deptTotals,
+                        backgroundColor: '#0d9488',
+                        borderRadius: 4
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'top' }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { stepSize: 1 }
+                    }
+                }
+            }
+        });
+    }
+
+    // 2. Queue Status Doughnut Chart
+    const statusCtx = document.getElementById('statusChart');
+    if (statusCtx) {
+        new Chart(statusCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Waiting', 'Called', 'In Consultation', 'Completed'],
+                datasets: [{
+                    data: [{{ waiting_count }}, {{ called_count }}, {{ in_consult_count }}, {{ completed_count }}],
+                    backgroundColor: ['#f59e0b', '#7c3aed', '#3b82f6', '#10b981'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

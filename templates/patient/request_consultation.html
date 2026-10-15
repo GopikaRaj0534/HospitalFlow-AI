@@ -1,0 +1,153 @@
+{% extends "base.html" %}
+
+{% block title %}Request Doctor Consultation - HospitalFlow AI{% endblock %}
+{% block page_title %}Doctor Consultation Request{% endblock %}
+
+{% block content %}
+<div class="content-container" style="max-width: 800px; margin: 0 auto;">
+
+    {% if linked_assessment %}
+        <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center;">
+            <div style="width: 36px; height: 36px; background: #2563eb; color: #fff; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div>
+                <strong style="color: #1e40af; font-size: 0.95rem;">Linked Symptom Assessment: {{ linked_assessment.assessment_reference }}</strong>
+                <p style="color: #1e3a8a; font-size: 0.85rem; margin: 2px 0 0;">
+                    Predicted Condition: <strong>{{ linked_assessment.predicted_disease }}</strong> (Confidence: {{ linked_assessment.confidence_score }}%). This information has been prefilled into your clinical notes below.
+                </p>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if preferred_doc %}
+        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 10px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: #166534; font-weight: 700;">Requested Physician:</span>
+                <div style="font-size: 1rem; font-weight: 700; color: #14532d;">Dr. {{ preferred_doc.full_name }}</div>
+                <div style="font-size: 0.82rem; color: #15803d;">
+                    {{ preferred_doc.staff_record.department.department_name if preferred_doc.staff_record else '' }}
+                    {% if preferred_doc.staff_record and preferred_doc.staff_record.qualification %} &bull; {{ preferred_doc.staff_record.qualification }}{% endif %}
+                </div>
+            </div>
+            <a href="{{ url_for('patient.doctors') }}" class="btn btn-outline btn-sm" style="font-size: 0.78rem;">Change Doctor</a>
+        </div>
+    {% endif %}
+
+    <div class="card" style="padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+            <div>
+                <h3 style="font-size: 1.3rem; font-weight: 800; color: var(--navy-900); margin: 0 0 0.4rem;">
+                    Submit Consultation Request
+                </h3>
+                <p style="font-size: 0.92rem; color: var(--slate-600); margin: 0;">
+                    Provide your symptoms and preferred schedule. Hospital reception will review your request and confirm your appointment.
+                </p>
+            </div>
+            <a href="{{ url_for('patient.doctors') }}" class="btn btn-outline btn-sm" style="white-space: nowrap;">
+                🔍 Browse Doctors
+            </a>
+        </div>
+
+        <form method="POST" action="{{ url_for('patient.request_consultation') }}">
+            {% if linked_assessment %}
+                <input type="hidden" name="assessment_id" value="{{ linked_assessment.id }}">
+            {% endif %}
+
+            <!-- Patient Profile Prefilled Summary -->
+            <div style="background: var(--slate-100); border-radius: 8px; padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem;">
+                <div>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-600); font-weight: 700; display: block;">Patient Full Name</span>
+                    <strong style="color: var(--slate-900);">{{ current_user.full_name }}</strong>
+                </div>
+                <div>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-600); font-weight: 700; display: block;">Email Contact</span>
+                    <span style="color: var(--slate-800);">{{ current_user.email }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-600); font-weight: 700; display: block;">Phone Number</span>
+                    <span style="color: var(--slate-800);">{{ current_user.phone or 'Not provided' }}</span>
+                </div>
+                <div>
+                    <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--slate-600); font-weight: 700; display: block;">Age &amp; Gender</span>
+                    <span style="color: var(--slate-800);">{{ current_user.age or '35' }} yrs | {{ current_user.gender or 'Female' }}</span>
+                </div>
+            </div>
+
+            <!-- Department Selection -->
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" for="department_id" style="font-weight: 700;">
+                    Hospital Department / Specialty <span style="color: red;">*</span>
+                </label>
+                <select name="department_id" id="department_id" class="form-control" required>
+                    <option value="">-- Select Medical Department --</option>
+                    {% for dept in departments %}
+                        <option value="{{ dept.id }}" {% if preselected_dept_id == dept.id %}selected{% endif %}>
+                            {{ dept.department_name }} ({{ dept.code }}) - {{ dept.description or 'Specialty Care' }}
+                        </option>
+                    {% endfor %}
+                </select>
+                <small style="color: var(--slate-600); font-size: 0.8rem; margin-top: 4px; display: block;">
+                    Select General Practice (GP) if you are unsure which specialist to visit.
+                </small>
+            </div>
+
+            <!-- Optional Preferred Doctor -->
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" for="preferred_doctor_id">
+                    Preferred Doctor (Optional)
+                </label>
+                <select name="preferred_doctor_id" id="preferred_doctor_id" class="form-control">
+                    <option value="">-- Any Available Department Physician --</option>
+                    {% for doc in available_doctors %}
+                        <option value="{{ doc.id }}" {% if preferred_doc and preferred_doc.id == doc.id %}selected{% endif %}>
+                            Dr. {{ doc.full_name }} ({{ doc.staff_record.department.department_name if doc.staff_record else 'General' }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Health Concern Description -->
+            <div class="form-group" style="margin-bottom: 1.25rem;">
+                <label class="form-label" for="health_concern" style="font-weight: 700;">
+                    Health Concern / Symptoms Description <span style="color: red;">*</span>
+                </label>
+                <textarea name="health_concern" id="health_concern" rows="5" class="form-control" required placeholder="Describe your symptoms, how you feel, and when they started...">{{ prefilled_concern or concern or '' }}</textarea>
+            </div>
+
+            <!-- Scheduling Preferences -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+                <div class="form-group">
+                    <label class="form-label" for="preferred_date">Preferred Date</label>
+                    <input type="date" name="preferred_date" id="preferred_date" class="form-control" value="{{ pref_date or '' }}">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="preferred_time_slot">Preferred Time Slot</label>
+                    <select name="preferred_time_slot" id="preferred_time_slot" class="form-control">
+                        <option value="Morning (8:00 AM - 12:00 PM)">Morning (8:00 AM - 12:00 PM)</option>
+                        <option value="Afternoon (12:00 PM - 4:00 PM)">Afternoon (12:00 PM - 4:00 PM)</option>
+                        <option value="Evening (4:00 PM - 8:00 PM)">Evening (4:00 PM - 8:00 PM)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Additional Notes -->
+            <div class="form-group" style="margin-bottom: 1.75rem;">
+                <label class="form-label" for="additional_notes">Additional Information for the Doctor (Optional)</label>
+                <input type="text" name="additional_notes" id="additional_notes" class="form-control" placeholder="Existing medications, allergies, previous surgeries, or specific questions..." value="{{ notes or '' }}">
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Confirm &amp; Submit Request
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

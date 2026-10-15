@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Directory - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Registered Patients Directory{% endblock %}
+
+{% block content %}
+<div class="metrics-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-bottom: 1.5rem;">
+    <div class="metric-card">
+        <div class="metric-title">Total Registered Patients</div>
+        <div class="metric-value">{{ total_patients }}</div>
+        <div class="metric-caption">Unique registered accounts in system</div>
+    </div>
+    <div class="metric-card" style="border-left: 4px solid var(--teal-500);">
+        <div class="metric-title">Total Patient Visits</div>
+        <div class="metric-value" style="color: var(--teal-600);">{{ total_visits }}</div>
+        <div class="metric-caption">Cumulative hospital visit entries</div>
+    </div>
+</div>
+
+<!-- Search Bar & Actions -->
+<div class="card" style="padding: 1rem 1.25rem; margin-bottom: 1.5rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <form method="GET" action="{{ url_for('receptionist.patients') }}" style="display: flex; gap: 0.75rem; align-items: center; flex: 1; max-width: 500px;">
+            <input type="text" name="q" value="{{ search_query or '' }}" placeholder="Search patient by name, email, or phone..." class="form-control" style="font-size: 0.9rem;">
+            <button type="submit" class="btn btn-secondary btn-sm">Search</button>
+            {% if search_query %}
+                <a href="{{ url_for('receptionist.patients') }}" class="btn btn-outline btn-sm">Clear</a>
+            {% endif %}
+        </form>
+
+        <a href="{{ url_for('receptionist.register_patient') }}" class="btn btn-primary btn-sm">
+            + Register Patient Visit
+        </a>
+    </div>
+</div>
+
+<!-- Patients List -->
+<div class="card" style="padding: 0; overflow: hidden; border: 1px solid var(--slate-200);">
+    {% if patients and patients|length > 0 %}
+        <div class="table-responsive">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Age / Gender</th>
+                        <th>Total Visits</th>
+                        <th>Registered Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in patients %}
+                        <tr>
+                            <td>
+                                <strong>{{ p.full_name }}</strong>
+                                {% if not p.is_active %}
+                                    <span class="badge" style="background: #fee2e2; color: #b91c1c; font-size: 0.7rem; margin-left: 4px;">Deactivated</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ p.email }}</td>
+                            <td>{{ p.phone or 'Not provided' }}</td>
+                            <td>{{ p.age or '35' }} yrs | {{ p.gender or 'Female' }}</td>
+                            <td>
+                                <span class="badge" style="background: #eff6ff; color: #1e40af; font-weight: 700;">
+                                    {{ p.registrations|length }} visits
+                                </span>
+                            </td>
+                            <td style="font-size: 0.85rem; color: var(--slate-600);">
+                                {{ p.created_at.strftime('%Y-%m-%d') if p.created_at else 'N/A' }}
+                            </td>
+                            <td>
+                                <a href="{{ url_for('receptionist.register_patient') }}?patient_user_id={{ p.id }}" class="btn btn-outline btn-sm" style="font-size: 0.78rem; padding: 3px 8px;">
+                                    Create Visit &rarr;
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div style="padding: 3rem 1.5rem; text-align: center; color: var(--slate-500);">
+            <div style="font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--slate-700);">No patient records found</div>
+            <p style="font-size: 0.9rem; margin: 0;">Try adjusting your search criteria or register a new patient visit.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

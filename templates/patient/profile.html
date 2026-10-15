@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - HospitalFlow AI{% endblock %}
+{% block page_title %}Patient Account &amp; Profile Details{% endblock %}
+
+{% block content %}
+<div style="max-width: 680px; margin: 0 auto;">
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900);">Personal Demographic Profile</h2>
+            <p style="color: var(--slate-500); font-size: 0.9rem;">
+                Keep your contact and demographic information up to date for clinical intake and waiting-time estimation.
+            </p>
+        </div>
+        <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary btn-sm">&larr; Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body" style="padding: 2rem;">
+            <form method="POST" action="{{ url_for('patient.profile') }}">
+                <div class="form-group">
+                    <label class="form-label" for="full_name">Full Legal Name *</label>
+                    <input type="text" id="full_name" name="full_name" class="form-control" value="{{ current_user.full_name }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Email Address (Account Identifier)</label>
+                    <input type="email" id="email" class="form-control" value="{{ current_user.email }}" disabled style="background: var(--slate-100); color: var(--slate-500);">
+                    <small style="color: var(--slate-400); font-size: 0.78rem;">Email address is your secure primary login identifier and cannot be modified directly.</small>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="phone">Contact Phone Number</label>
+                    <input type="tel" id="phone" name="phone" class="form-control" placeholder="+1 (555) 000-0000" value="{{ current_user.phone or '' }}">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="age">Age</label>
+                        <input type="number" id="age" name="age" class="form-control" min="0" max="115" value="{{ current_user.age or '' }}" placeholder="e.g. 35">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="gender">Gender</label>
+                        <select id="gender" name="gender" class="form-select">
+                            <option value="Female" {% if current_user.gender == 'Female' %}selected{% endif %}>Female</option>
+                            <option value="Male" {% if current_user.gender == 'Male' %}selected{% endif %}>Male</option>
+                            <option value="Other" {% if current_user.gender == 'Other' %}selected{% endif %}>Other / Prefer not to say</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.5rem;">
+                    <a href="{{ url_for('patient.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary" style="padding-left: 1.75rem; padding-right: 1.75rem;">
+                        Save Profile Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}Hospital Contact Settings - HospitalFlow AI{% endblock %}
+{% block page_title %}Hospital Contact &amp; Campus Settings{% endblock %}
+
+{% block content %}
+<div style="max-width: 780px; margin: 0 auto;">
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900);">Hospital Contact &amp; Facility Settings</h2>
+            <p style="color: var(--slate-500); font-size: 0.9rem;">
+                Configure the official hospital contact numbers, emergency line, location, and operating hours displayed to patients and visitors.
+            </p>
+        </div>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary btn-sm">&larr; Back to Dashboard</a>
+    </div>
+
+    <div class="card">
+        <div class="card-body" style="padding: 2rem;">
+            <form method="POST" action="{{ url_for('admin.hospital_settings') }}">
+                <div class="form-group">
+                    <label class="form-label" for="hospital_name">Official Hospital / Medical Center Name *</label>
+                    <input type="text" id="hospital_name" name="hospital_name" class="form-control" value="{{ setting.hospital_name }}" required>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="phone">Central Reception Phone *</label>
+                        <input type="tel" id="phone" name="phone" class="form-control" value="{{ setting.phone }}" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="emergency_phone">24/7 Emergency Line *</label>
+                        <input type="tel" id="emergency_phone" name="emergency_phone" class="form-control" value="{{ setting.emergency_phone }}" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="email">Patient Care &amp; Support Email *</label>
+                    <input type="email" id="email" name="email" class="form-control" value="{{ setting.email }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="address">Physical Street Address &amp; Suite *</label>
+                    <input type="text" id="address" name="address" class="form-control" value="{{ setting.address }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="opening_hours">Hours of Operation *</label>
+                    <input type="text" id="opening_hours" name="opening_hours" class="form-control" value="{{ setting.opening_hours }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="directions_url">Maps / Driving Directions URL</label>
+                    <input type="url" id="directions_url" name="directions_url" class="form-control" value="{{ setting.directions_url or '' }}" placeholder="https://maps.google.com/...">
+                </div>
+
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 1.5rem;">
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary" style="padding-left: 2rem; padding-right: 2rem;">
+                        Save Contact Settings
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

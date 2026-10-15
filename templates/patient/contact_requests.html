@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Hospital Assistance Requests - HospitalFlow AI{% endblock %}
+{% block page_title %}In-Site Assistance &amp; Inquiries{% endblock %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 0 auto;">
+    <div style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between;">
+        <div>
+            <h2 style="font-size: 1.4rem; font-weight: 800; color: var(--navy-900);">Hospital Contact &amp; Assistance Requests</h2>
+            <p style="color: var(--slate-500); font-size: 0.9rem;">
+                Submit an in-site inquiry, appointment request, or callback ticket. Hospital staff will review and respond directly to your portal.
+            </p>
+        </div>
+        <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 6px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            Hospital Directory
+        </a>
+    </div>
+
+    <!-- Notice Box -->
+    <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-sm); padding: 0.9rem 1.1rem; margin-bottom: 1.5rem; font-size: 0.85rem; color: #166534;">
+        <strong>Notice on Queue Entry:</strong> Submitting an assistance or appointment inquiry does <em>not</em> issue an active queue token. Active tokens are generated exclusively when you <a href="{{ url_for('patient.submit_concern') }}" style="color: #166534; font-weight: 700; text-decoration: underline;">submit a health concern to enter the queue</a> or register in-person at the front desk.
+    </div>
+
+    <!-- Request Submission Card -->
+    <div class="card">
+        <div class="card-header">
+            <h3>Submit New Assistance Request</h3>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('patient.contact_requests') }}">
+                <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="request_type">Request Type *</label>
+                        <select id="request_type" name="request_type" class="form-select" required>
+                            <option value="">— Select request nature —</option>
+                            <option value="General Inquiry">General Hospital Inquiry</option>
+                            <option value="Appointment Request">Appointment Scheduling Request</option>
+                            <option value="Callback Request">Telephone Callback Request</option>
+                            <option value="Visit Assistance">Current Visit-Related Assistance</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="subject">Subject / Brief Summary *</label>
+                        <input type="text" id="subject" name="subject" class="form-control" placeholder="e.g. Question regarding cardiology clinic hours" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="message">Detailed Message / Inquiry *</label>
+                    <textarea id="message" name="message" rows="3" class="form-control" placeholder="Please provide specific details so our reception staff can best assist you..." required minlength="10"></textarea>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+                    <div class="form-group">
+                        <label class="form-label" for="preferred_contact_method">Preferred Response Channel</label>
+                        <select id="preferred_contact_method" name="preferred_contact_method" class="form-select">
+                            <option value="Email" selected>Portal &amp; Email Response ({{ current_user.email }})</option>
+                            <option value="Phone">Telephone Call ({{ current_user.phone or 'Phone on file' }})</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="preferred_callback_time">Preferred Callback Time (Optional)</label>
+                        <input type="text" id="preferred_callback_time" name="preferred_callback_time" class="form-control" placeholder="e.g. Weekday mornings, or after 3 PM">
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+                    <button type="submit" class="btn btn-primary" style="padding-left: 2rem; padding-right: 2rem;">
+                        Send Request to Hospital Staff
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Previously Submitted Requests -->
+    <div class="card">
+        <div class="card-header">
+            <h3>My Previous Requests ({{ user_requests|length }})</h3>
+        </div>
+        <div class="card-body" style="padding: 0;">
+            {% if user_requests %}
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Type</th>
+                                <th>Subject</th>
+                                <th>Submitted</th>
+                                <th>Status</th>
+                                <th>Staff Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in user_requests %}
+                                <tr>
+                                    <td><strong style="color: var(--teal-600);">{{ r.request_reference }}</strong></td>
+                                    <td><span style="font-weight: 500;">{{ r.request_type }}</span></td>
+                                    <td>
+                                        <div style="font-weight: 600; color: var(--navy-900);">{{ r.subject }}</div>
+                                        <div style="font-size: 0.8rem; color: var(--slate-500); margin-top: 2px;">{{ r.message[:90] }}{% if r.message|length > 90 %}...{% endif %}</div>
+                                    </td>
+                                    <td>{{ r.created_at.strftime('%Y-%m-%d %I:%M %p') }}</td>
+                                    <td>
+                                        {% if r.status == 'Submitted' %}
+                                            <span class="badge badge-status-submitted">Submitted</span>
+                                        {% elif r.status == 'Under Review' %}
+                                            <span class="badge badge-status-under-review">Under Review</span>
+                                        {% elif r.status == 'Responded To' %}
+                                            <span class="badge badge-status-responded-to">Responded</span>
+                                        {% else %}
+                                            <span class="badge badge-status-closed">{{ r.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if r.staff_response %}
+                                            <div style="background: var(--teal-50); border: 1px solid var(--teal-100); border-radius: var(--radius-sm); padding: 0.5rem 0.75rem; font-size: 0.82rem; color: var(--navy-900);">
+                                                <strong>Staff Note:</strong> {{ r.staff_response }}
+                                                <div style="font-size: 0.72rem; color: var(--slate-500); margin-top: 3px;">
+                                                    Responded {{ r.responded_at.strftime('%b %d, %I:%M %p') if r.responded_at else '' }}
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <span style="color: var(--slate-400); font-size: 0.82rem;">Pending review</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div style="padding: 2.5rem; text-align: center; color: var(--slate-500); font-size: 0.9rem;">
+                    You have not submitted any hospital contact or assistance requests yet.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
