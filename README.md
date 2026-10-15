@@ -153,13 +153,3 @@ http://127.0.0.1:5000
 
 ---
 
-## 5. Seed Accounts & Credentials
-
-| Role | Email | Password | Description |
-|---|---|---|---|
-| **Receptionist** | `receptionist@hospitalflow.ai` | `Reception@12345` | Front Desk, Queue & Hospital Operations |
-| **Receptionist (Lead)** | `admin@hospitalflow.ai` | `Admin@12345` | Migrated Operations Account (Full Managerial Access) |
-| **Doctor** | `doctor.chen@hospitalflow.ai` | `Doctor@12345` | General Practice Physician Station |
-| **Doctor** | `doctor.patel@hospitalflow.ai` | `Doctor@12345` | Cardiology Physician Station |
-| **Patient** | `patient@hospitalflow.ai` | `Patient@12345` | Patient Health Portal & Symptom Screening |
-
