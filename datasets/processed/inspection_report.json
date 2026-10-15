@@ -1,0 +1,155 @@
+{
+  "total_records": 3064,
+  "total_columns": 11,
+  "duplicate_records": 0,
+  "target_summary": {
+    "count": 3063,
+    "mean_minutes": 35.47,
+    "median_minutes": 35.0,
+    "std_minutes": 14.74,
+    "min_minutes": 10.0,
+    "max_minutes": 60.0,
+    "p25_minutes": 23.0,
+    "p75_minutes": 48.0
+  },
+  "columns_summary": {
+    "date": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "3/20/2020 8:47",
+        "6/15/2020 11:29",
+        "6/20/2020 9:13",
+        "2/4/2020 22:34",
+        "9/4/2020 17:48"
+      ]
+    },
+    "patient_id": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "145-39-5406",
+        "316-34-3057",
+        "897-46-3852",
+        "358-31-9711",
+        "289-26-0537"
+      ]
+    },
+    "patient_gender": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "M",
+        "F",
+        "NC"
+      ]
+    },
+    "patient_age": {
+      "dtype": "int64",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "69",
+        "4",
+        "56",
+        "24",
+        "5"
+      ]
+    },
+    "patient_sat_score": {
+      "dtype": "float64",
+      "null_count": 2219,
+      "null_pct": 72.42,
+      "sample_values": [
+        "10.0",
+        "9.0",
+        "8.0",
+        "1.0",
+        "2.0"
+      ]
+    },
+    "patient_first_inital": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "H",
+        "X",
+        "P",
+        "U",
+        "Y"
+      ]
+    },
+    "patient_last_name": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "Glasspool",
+        "Methuen",
+        "Schubuser",
+        "Titcombe",
+        "Gionettitti"
+      ]
+    },
+    "patient_race": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "White",
+        "Native American/Alaska Native",
+        "African American",
+        "Asian",
+        "Two or More Races"
+      ]
+    },
+    "patient_admin_flag": {
+      "dtype": "object",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "sample_values": [
+        "FALSE",
+        "TRUE",
+        "FA"
+      ]
+    },
+    "patient_waittime": {
+      "dtype": "float64",
+      "null_count": 1,
+      "null_pct": 0.03,
+      "sample_values": [
+        "39.0",
+        "27.0",
+        "55.0",
+        "31.0",
+        "10.0"
+      ]
+    },
+    "department_referral": {
+      "dtype": "object",
+      "null_count": 1812,
+      "null_pct": 59.14,
+      "sample_values": [
+        "General Practice",
+        "Orthopedics",
+        "Gastroenterology",
+        "Physiotherapy",
+        "Neurology"
+      ]
+    }
+  },
+  "departments_breakdown": {
+    "General Emergency": 1812,
+    "General Practice": 595,
+    "Orthopedics": 315,
+    "Physiotherapy": 113,
+    "Cardiology": 87,
+    "Neurology": 56,
+    "Gastroenterology": 53,
+    "Renal": 33
+  }
+}

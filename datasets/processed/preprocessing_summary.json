@@ -1,0 +1,26 @@
+{
+  "raw_record_count": 3064,
+  "dropped_missing_target": 1,
+  "clean_record_count": 3063,
+  "train_record_count": 2450,
+  "test_record_count": 613,
+  "train_date_range": [
+    "2019-04-01 01:21:00",
+    "2020-07-10 12:11:00"
+  ],
+  "test_date_range": [
+    "2020-07-10 20:34:00",
+    "2020-10-30 08:22:00"
+  ],
+  "features": [
+    "department",
+    "arrival_hour",
+    "arrival_dayofweek",
+    "is_weekend",
+    "patient_age",
+    "patient_gender",
+    "patients_ahead",
+    "triage_priority"
+  ],
+  "target": "patient_waittime"
+}

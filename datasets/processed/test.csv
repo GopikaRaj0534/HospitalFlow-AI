@@ -1,0 +1,614 @@
+date,patient_id,patient_gender,patient_age,patient_sat_score,patient_first_inital,patient_last_name,patient_race,patient_admin_flag,patient_waittime,department_referral,department,arrival_hour,arrival_dayofweek,is_weekend,arrival_month,triage_priority,patients_ahead
+2020-07-10 20:34:00,736-54-2232,Female,56,,W,Yoxen,Asian,FALSE,37.0,,General Emergency,20,4,0,7,3,0
+2020-07-11 03:42:00,304-16-6136,Female,52,,U,Folomkin,White,FALSE,37.0,,General Emergency,3,5,1,7,3,0
+2020-07-11 06:35:00,816-20-1565,Female,9,,T,Conyard,African American,FALSE,31.0,General Practice,General Practice,6,5,1,7,3,0
+2020-07-11 12:12:00,699-94-6597,Male,52,,K,Basey,Declined to Identify,FALSE,45.0,Cardiology,Cardiology,12,5,1,7,3,0
+2020-07-11 17:49:00,292-95-6291,Male,65,8.0,H,Walkling,African American,FALSE,31.0,,General Emergency,17,5,1,7,3,0
+2020-07-11 21:37:00,155-08-4866,Female,30,,Q,MacConnal,Asian,TRUE,26.0,,General Emergency,21,5,1,7,2,0
+2020-07-11 23:07:00,373-37-3790,Male,67,3.0,J,Sumers,Two or More Races,FALSE,56.0,,General Emergency,23,5,1,7,3,1
+2020-07-12 08:19:00,475-34-5223,Male,53,,A,Bagnal,Asian,FALSE,20.0,,General Emergency,8,6,1,7,3,0
+2020-07-12 09:35:00,831-25-4717,Male,31,,X,McGriffin,White,TRUE,58.0,Orthopedics,Orthopedics,9,6,1,7,2,0
+2020-07-12 13:12:00,285-41-0221,Male,39,,N,Aggiss,Two or More Races,FALSE,52.0,Orthopedics,Orthopedics,13,6,1,7,3,0
+2020-07-12 13:45:00,816-61-0800,Female,59,,F,Dumbell,African American,FALSE,58.0,Neurology,Neurology,13,6,1,7,3,0
+2020-07-12 19:18:00,558-14-1217,Male,53,8.0,G,Lead,Native American/Alaska Native,TRUE,51.0,Orthopedics,Orthopedics,19,6,1,7,2,0
+2020-07-12 19:23:00,808-01-8111,Male,14,,Y,Craine,African American,TRUE,30.0,,General Emergency,19,6,1,7,2,0
+2020-07-13 04:50:00,306-59-8935,Male,44,,O,Urpeth,Native American/Alaska Native,TRUE,39.0,Cardiology,Cardiology,4,0,0,7,2,0
+2020-07-13 05:26:00,805-74-2795,Male,25,,T,Mizzi,Native American/Alaska Native,TRUE,59.0,,General Emergency,5,0,0,7,2,0
+2020-07-13 06:12:00,557-05-5863,Male,64,,L,Gillford,Two or More Races,FALSE,29.0,Orthopedics,Orthopedics,6,0,0,7,3,0
+2020-07-13 15:24:00,506-68-8909,Male,21,,F,Hundall,White,TRUE,35.0,,General Emergency,15,0,0,7,2,0
+2020-07-13 15:30:00,204-52-5423,Female,11,,W,Lobe,White,FALSE,55.0,Orthopedics,Orthopedics,15,0,0,7,3,0
+2020-07-13 15:43:00,884-03-2208,Male,31,1.0,Z,Effemy,African American,TRUE,38.0,,General Emergency,15,0,0,7,2,1
+2020-07-13 17:03:00,162-06-9717,Male,18,,V,Brabon,White,TRUE,31.0,,General Emergency,17,0,0,7,2,2
+2020-07-13 19:48:00,734-01-2423,Female,1,,W,Oleshunin,African American,TRUE,40.0,Orthopedics,Orthopedics,19,0,0,7,2,0
+2020-07-13 23:24:00,372-20-5389,Female,5,,A,Aleksich,Asian,FALSE,58.0,,General Emergency,23,0,0,7,3,0
+2020-07-14 01:28:00,404-78-8737,Male,75,,A,O'Fallowne,Declined to Identify,TRUE,25.0,,General Emergency,1,1,0,7,2,0
+2020-07-14 09:21:00,803-38-7077,Female,18,,B,Atton,African American,TRUE,24.0,General Practice,General Practice,9,1,0,7,2,0
+2020-07-14 12:51:00,861-79-7549,Male,71,4.0,H,MacHarg,Two or More Races,FALSE,58.0,,General Emergency,12,1,0,7,3,0
+2020-07-14 21:58:00,732-27-6608,Male,32,,N,Guirard,Pacific Islander,FALSE,17.0,,General Emergency,21,1,0,7,3,0
+2020-07-14 22:37:00,342-04-5123,Female,55,5.0,M,Aronowitz,African American,TRUE,55.0,,General Emergency,22,1,0,7,2,1
+2020-07-14 23:53:00,393-70-5356,Male,70,,Q,Buzzing,Two or More Races,TRUE,42.0,General Practice,General Practice,23,1,0,7,2,0
+2020-07-15 16:49:00,429-49-3591,Female,6,,N,Polon,African American,FALSE,44.0,Orthopedics,Orthopedics,16,2,0,7,3,0
+2020-07-16 02:15:00,763-35-7575,Female,78,,V,Snarie,Declined to Identify,FALSE,51.0,Orthopedics,Orthopedics,2,3,0,7,3,0
+2020-07-16 06:58:00,639-32-1869,Male,19,,U,Surby,African American,TRUE,43.0,,General Emergency,6,3,0,7,2,0
+2020-07-16 12:28:00,432-40-5889,Male,19,,A,Capenor,White,TRUE,26.0,,General Emergency,12,3,0,7,2,0
+2020-07-16 19:55:00,459-64-0919,Male,49,,G,Lorey,Declined to Identify,TRUE,24.0,,General Emergency,19,3,0,7,2,0
+2020-07-17 03:40:00,184-21-1948,Female,50,,K,Guppey,Two or More Races,TRUE,46.0,General Practice,General Practice,3,4,0,7,2,0
+2020-07-17 08:19:00,663-86-9324,Female,56,7.0,Q,Hawkshaw,White,TRUE,32.0,,General Emergency,8,4,0,7,2,0
+2020-07-18 09:37:00,869-39-7477,Male,45,,I,Zecchini,African American,TRUE,19.0,,General Emergency,9,5,1,7,2,0
+2020-07-18 13:57:00,514-65-3918,Male,18,,H,Chestney,African American,TRUE,22.0,General Practice,General Practice,13,5,1,7,2,0
+2020-07-18 15:38:00,890-87-2756,Female,11,,Z,Bernhardi,White,TRUE,42.0,,General Emergency,15,5,1,7,2,0
+2020-07-18 16:24:00,109-11-0500,Female,25,,D,Becket,White,FALSE,22.0,General Practice,General Practice,16,5,1,7,3,0
+2020-07-18 22:29:00,825-76-3394,Male,63,0.0,Y,Kerrey,White,FALSE,45.0,General Practice,General Practice,22,5,1,7,3,0
+2020-07-19 02:11:00,178-38-6834,Female,16,,C,Strand,African American,FALSE,45.0,,General Emergency,2,6,1,7,3,0
+2020-07-19 05:43:00,364-59-6845,Male,60,8.0,M,Stopps,Two or More Races,TRUE,15.0,,General Emergency,5,6,1,7,2,0
+2020-07-19 08:24:00,318-96-4834,Female,6,,E,Timewell,White,TRUE,18.0,,General Emergency,8,6,1,7,2,0
+2020-07-19 13:27:00,745-14-6527,Male,17,,F,Theze,White,FALSE,10.0,,General Emergency,13,6,1,7,3,0
+2020-07-19 21:30:00,575-64-1293,Female,55,9.0,F,Mellem,Two or More Races,TRUE,25.0,General Practice,General Practice,21,6,1,7,2,0
+2020-07-19 22:26:00,522-70-1823,Female,10,,H,McKeighen,White,FALSE,20.0,,General Emergency,22,6,1,7,3,0
+2020-07-20 00:00:00,360-05-3720,Female,22,1.0,A,Francesch,White,TRUE,15.0,Orthopedics,Orthopedics,0,0,0,7,2,0
+2020-07-20 08:32:00,789-85-5518,Male,56,,E,McLagan,White,FALSE,14.0,General Practice,General Practice,8,0,0,7,3,0
+2020-07-20 09:16:00,489-19-3938,Male,32,8.0,T,Yes,White,FALSE,44.0,,General Emergency,9,0,0,7,3,0
+2020-07-20 10:06:00,655-01-4978,Female,14,,O,Nettleship,African American,TRUE,35.0,,General Emergency,10,0,0,7,2,1
+2020-07-20 12:39:00,420-85-5170,Female,3,3.0,H,Marlon,Two or More Races,FALSE,57.0,,General Emergency,12,0,0,7,3,0
+2020-07-20 20:11:00,314-97-4194,Male,47,,C,Petett,African American,TRUE,23.0,General Practice,General Practice,20,0,0,7,2,0
+2020-07-21 00:32:00,370-94-7789,Male,49,,C,Bevir,Declined to Identify,FALSE,18.0,,General Emergency,0,1,0,7,3,0
+2020-07-21 01:30:00,673-44-9918,Female,67,,O,Lindelof,White,TRUE,34.0,Orthopedics,Orthopedics,1,1,0,7,2,0
+2020-07-21 06:09:00,128-72-0119,Male,51,,V,Irce,White,TRUE,27.0,Orthopedics,Orthopedics,6,1,0,7,2,0
+2020-07-21 15:43:00,844-81-6009,Female,43,,L,Wroath,White,FALSE,53.0,,General Emergency,15,1,0,7,3,0
+2020-07-21 21:29:00,735-59-0676,Male,49,,H,Artist,Pacific Islander,TRUE,34.0,,General Emergency,21,1,0,7,2,0
+2020-07-21 21:45:00,442-29-2860,Female,23,10.0,F,Adran,White,TRUE,53.0,,General Emergency,21,1,0,7,2,1
+2020-07-22 02:03:00,517-78-7068,Male,7,8.0,U,Larvin,White,TRUE,47.0,,General Emergency,2,2,0,7,2,0
+2020-07-22 23:15:00,459-19-7205,Female,8,,S,Semmence,African American,TRUE,57.0,,General Emergency,23,2,0,7,2,0
+2020-07-23 04:57:00,237-05-9734,Male,37,3.0,E,Forsdike,Two or More Races,FALSE,12.0,Cardiology,Cardiology,4,3,0,7,3,0
+2020-07-23 09:38:00,810-62-4735,Male,44,,G,Chanders,Declined to Identify,TRUE,49.0,,General Emergency,9,3,0,7,2,0
+2020-07-23 16:49:00,105-08-1976,Female,16,,J,Klyn,Native American/Alaska Native,TRUE,58.0,Physiotherapy,Physiotherapy,16,3,0,7,2,0
+2020-07-23 22:40:00,796-63-0118,Female,78,,G,Elflain,Two or More Races,TRUE,23.0,,General Emergency,22,3,0,7,2,0
+2020-07-24 02:03:00,353-36-6428,Male,29,,P,Durrant,Pacific Islander,FALSE,42.0,,General Emergency,2,4,0,7,3,0
+2020-07-24 06:26:00,317-21-5070,Male,70,,B,Kimble,Two or More Races,TRUE,20.0,,General Emergency,6,4,0,7,2,0
+2020-07-24 22:06:00,709-21-1735,Male,19,,I,Thaxton,African American,TRUE,48.0,,General Emergency,22,4,0,7,2,0
+2020-07-25 00:45:00,869-11-9024,Female,67,,C,Trebbett,White,FALSE,15.0,Physiotherapy,Physiotherapy,0,5,1,7,3,0
+2020-07-25 05:49:00,259-41-9306,Male,25,,H,Woolvin,Asian,FALSE,49.0,Orthopedics,Orthopedics,5,5,1,7,3,0
+2020-07-25 12:01:00,192-95-3144,Male,43,,O,Dwire,Declined to Identify,FALSE,32.0,,General Emergency,12,5,1,7,3,0
+2020-07-25 17:01:00,197-60-5950,Male,34,,H,Rudland,White,FALSE,59.0,,General Emergency,17,5,1,7,3,0
+2020-07-25 17:31:00,358-64-0690,Female,61,,C,Jerrim,Asian,FALSE,41.0,Neurology,Neurology,17,5,1,7,3,0
+2020-07-25 23:15:00,884-99-1419,Male,77,1.0,N,Harmston,White,FALSE,39.0,,General Emergency,23,5,1,7,3,0
+2020-07-26 01:45:00,497-14-6812,Female,73,,Q,Churchard,White,TRUE,34.0,Gastroenterology,Gastroenterology,1,6,1,7,2,0
+2020-07-26 07:16:00,846-85-3469,Male,4,,S,Garrity,White,FALSE,53.0,General Practice,General Practice,7,6,1,7,3,0
+2020-07-26 11:30:00,522-31-4708,Male,63,,Q,Stennet,Pacific Islander,TRUE,43.0,,General Emergency,11,6,1,7,2,0
+2020-07-26 19:21:00,171-23-3641,Male,77,,H,Witcomb,Two or More Races,FALSE,24.0,,General Emergency,19,6,1,7,3,0
+2020-07-27 02:42:00,494-56-0322,Female,8,8.0,H,Jagger,Two or More Races,FALSE,37.0,General Practice,General Practice,2,0,0,7,3,0
+2020-07-27 09:58:00,738-81-7786,Female,49,,M,Michelin,African American,TRUE,50.0,General Practice,General Practice,9,0,0,7,2,0
+2020-07-27 12:32:00,338-30-6597,Female,43,,O,Giberd,Two or More Races,FALSE,32.0,,General Emergency,12,0,0,7,3,0
+2020-07-27 12:53:00,866-31-3592,Male,19,7.0,T,Colegate,Two or More Races,FALSE,16.0,Physiotherapy,Physiotherapy,12,0,0,7,3,0
+2020-07-27 13:08:00,270-65-3632,Male,59,,H,Northedge,African American,TRUE,34.0,,General Emergency,13,0,0,7,2,1
+2020-07-28 01:02:00,476-12-0189,Male,31,,C,Creffeild,Asian,TRUE,28.0,,General Emergency,1,1,0,7,2,0
+2020-07-28 02:50:00,898-64-3273,Male,56,,L,Chillistone,Pacific Islander,TRUE,27.0,General Practice,General Practice,2,1,0,7,2,0
+2020-07-28 04:44:00,896-82-2567,Female,9,,X,Schoffel,White,FALSE,48.0,General Practice,General Practice,4,1,0,7,3,1
+2020-07-28 06:17:00,851-10-2629,Female,75,,O,Baudi,White,TRUE,10.0,,General Emergency,6,1,0,7,2,0
+2020-07-28 13:37:00,123-29-1223,Female,10,,G,Kingdom,African American,FALSE,18.0,,General Emergency,13,1,0,7,3,0
+2020-07-28 14:16:00,634-99-3068,Male,10,,E,Colbridge,White,TRUE,57.0,General Practice,General Practice,14,1,0,7,2,0
+2020-07-28 19:07:00,553-72-9772,Male,22,,Y,Jasik,Two or More Races,FALSE,37.0,,General Emergency,19,1,0,7,3,0
+2020-07-28 21:08:00,880-96-7672,Male,53,8.0,M,Huncoot,Two or More Races,TRUE,23.0,,General Emergency,21,1,0,7,2,0
+2020-07-28 23:33:00,815-91-7298,Male,58,,E,Stuchberry,Declined to Identify,FALSE,22.0,,General Emergency,23,1,0,7,3,0
+2020-07-29 05:58:00,103-26-4528,Male,60,10.0,D,Ambrozewicz,Declined to Identify,FALSE,16.0,,General Emergency,5,2,0,7,3,0
+2020-07-29 07:21:00,132-85-8091,Female,10,,Q,Goucher,Native American/Alaska Native,FALSE,54.0,,General Emergency,7,2,0,7,3,1
+2020-07-29 12:11:00,325-53-6475,Female,68,3.0,Z,Denslow,Asian,FALSE,45.0,,General Emergency,12,2,0,7,3,0
+2020-07-29 12:29:00,616-96-8379,Female,58,2.0,G,Blagburn,White,TRUE,15.0,,General Emergency,12,2,0,7,2,1
+2020-07-29 20:34:00,275-36-1151,Female,9,,C,Tumilson,White,FALSE,21.0,,General Emergency,20,2,0,7,3,0
+2020-07-29 22:47:00,560-18-9530,Female,43,5.0,I,Patsall,Asian,TRUE,48.0,,General Emergency,22,2,0,7,2,0
+2020-07-30 03:22:00,761-02-7059,Male,66,5.0,T,Pietasch,White,FALSE,16.0,,General Emergency,3,3,0,7,3,0
+2020-07-30 22:16:00,394-04-2226,Male,7,,X,Fargie,Two or More Races,TRUE,27.0,Orthopedics,Orthopedics,22,3,0,7,2,0
+2020-07-31 02:59:00,255-15-5945,Male,44,,B,Shortcliffe,Pacific Islander,TRUE,30.0,Orthopedics,Orthopedics,2,4,0,7,2,0
+2020-07-31 06:01:00,411-11-8513,Male,57,,P,Alessandretti,Two or More Races,FALSE,34.0,,General Emergency,6,4,0,7,3,0
+2020-07-31 15:22:00,718-40-9446,Female,31,1.0,A,Mitrikhin,Two or More Races,FALSE,55.0,Orthopedics,Orthopedics,15,4,0,7,3,0
+2020-07-31 22:00:00,412-11-9829,Male,7,,K,Wines,Pacific Islander,FALSE,49.0,Cardiology,Cardiology,22,4,0,7,3,0
+2020-08-01 01:12:00,283-13-1525,Female,3,1.0,W,Gyde,Two or More Races,FALSE,55.0,,General Emergency,1,5,1,8,3,0
+2020-08-01 10:21:00,669-23-3949,Male,7,,A,Gadsdon,Two or More Races,FALSE,32.0,General Practice,General Practice,10,5,1,8,3,0
+2020-08-01 10:40:00,741-98-3267,Male,8,10.0,J,Branton,Declined to Identify,FALSE,33.0,,General Emergency,10,5,1,8,3,0
+2020-08-01 11:09:00,665-57-2100,Female,72,,H,Gorrissen,White,FALSE,30.0,,General Emergency,11,5,1,8,3,1
+2020-08-01 12:07:00,397-69-1392,Female,10,,I,Oddie,African American,FALSE,58.0,General Practice,General Practice,12,5,1,8,3,1
+2020-08-01 16:25:00,229-64-6626,Male,72,,F,Leggott,White,FALSE,46.0,,General Emergency,16,5,1,8,3,0
+2020-08-01 16:39:00,842-41-3604,Male,37,,J,Fairfoull,Asian,FALSE,25.0,,General Emergency,16,5,1,8,3,1
+2020-08-01 23:42:00,858-03-5171,Male,36,,L,Luty,White,FALSE,26.0,,General Emergency,23,5,1,8,3,0
+2020-08-02 00:06:00,398-76-7789,Female,50,,K,Putt,Declined to Identify,FALSE,26.0,Orthopedics,Orthopedics,0,6,1,8,3,0
+2020-08-02 02:14:00,345-53-1572,Female,24,,D,Pippard,Declined to Identify,FALSE,34.0,,General Emergency,2,6,1,8,3,0
+2020-08-02 02:38:00,152-23-4004,Female,62,,U,Radnage,African American,TRUE,31.0,General Practice,General Practice,2,6,1,8,2,0
+2020-08-02 03:32:00,548-74-1022,Female,22,,O,Shelford,Pacific Islander,FALSE,46.0,,General Emergency,3,6,1,8,3,1
+2020-08-02 04:10:00,310-26-9113,Female,16,,C,Simpole,African American,FALSE,11.0,Renal,Renal,4,6,1,8,3,0
+2020-08-02 06:26:00,642-02-9790,Female,23,,D,Bassindale,White,FALSE,20.0,,General Emergency,6,6,1,8,3,0
+2020-08-02 16:34:00,251-26-5273,Female,61,10.0,K,Hefferon,White,TRUE,18.0,Gastroenterology,Gastroenterology,16,6,1,8,2,0
+2020-08-03 03:46:00,689-35-5574,Male,65,3.0,S,Flippini,White,FALSE,40.0,General Practice,General Practice,3,0,0,8,3,0
+2020-08-03 04:00:00,792-98-0919,Female,19,9.0,K,Thompson,Asian,FALSE,56.0,Physiotherapy,Physiotherapy,4,0,0,8,3,0
+2020-08-03 08:24:00,802-14-1812,Male,61,7.0,J,Methven,Asian,TRUE,52.0,Orthopedics,Orthopedics,8,0,0,8,2,0
+2020-08-03 16:48:00,280-97-8515,Male,23,,Y,Tradewell,White,TRUE,49.0,,General Emergency,16,0,0,8,2,0
+2020-08-04 03:23:00,768-83-3336,Male,12,,C,Milley,African American,TRUE,37.0,,General Emergency,3,1,0,8,2,0
+2020-08-04 09:56:00,667-52-8382,Male,39,,B,Georgel,African American,TRUE,55.0,General Practice,General Practice,9,1,0,8,2,0
+2020-08-04 15:19:00,278-69-7509,Female,53,,X,Whitters,White,FALSE,53.0,,General Emergency,15,1,0,8,3,0
+2020-08-04 20:04:00,784-07-5849,Female,11,,R,Pezey,Declined to Identify,TRUE,38.0,,General Emergency,20,1,0,8,2,0
+2020-08-04 20:13:00,421-47-5088,Male,45,,I,Spelman,African American,FALSE,60.0,,General Emergency,20,1,0,8,3,1
+2020-08-04 22:30:00,171-97-5054,Female,46,9.0,G,MacCosto,Two or More Races,FALSE,30.0,Orthopedics,Orthopedics,22,1,0,8,3,0
+2020-08-05 01:16:00,847-74-2228,Male,50,,N,Jan,White,TRUE,13.0,,General Emergency,1,2,0,8,2,0
+2020-08-05 01:33:00,278-49-6531,Female,74,0.0,L,Vannacci,White,FALSE,20.0,Physiotherapy,Physiotherapy,1,2,0,8,3,0
+2020-08-05 02:17:00,200-22-3513,Male,32,8.0,O,Jansen,Declined to Identify,FALSE,15.0,,General Emergency,2,2,0,8,3,1
+2020-08-05 05:13:00,485-52-4633,Male,18,,T,Burgane,Pacific Islander,FALSE,13.0,General Practice,General Practice,5,2,0,8,3,0
+2020-08-05 05:14:00,459-36-1115,Female,38,,O,Grimsditch,Declined to Identify,FALSE,57.0,,General Emergency,5,2,0,8,3,0
+2020-08-05 09:38:00,783-44-2077,Female,74,,S,Stanesby,African American,FALSE,54.0,General Practice,General Practice,9,2,0,8,3,0
+2020-08-05 10:47:00,851-96-4883,Female,57,,E,Mealiffe,African American,FALSE,29.0,General Practice,General Practice,10,2,0,8,3,1
+2020-08-05 15:17:00,846-66-7490,Male,48,,T,Clissett,White,FALSE,53.0,,General Emergency,15,2,0,8,3,0
+2020-08-05 18:16:00,482-31-9677,Male,5,,Z,Prott,White,FALSE,19.0,Renal,Renal,18,2,0,8,3,0
+2020-08-05 18:56:00,227-92-6315,Female,69,,M,Guillain,White,FALSE,30.0,General Practice,General Practice,18,2,0,8,3,0
+2020-08-05 22:13:00,107-25-3448,Female,72,,H,Littrik,African American,FALSE,21.0,,General Emergency,22,2,0,8,3,0
+2020-08-06 16:09:00,502-22-3736,Female,12,,P,Di Franceshci,Asian,TRUE,49.0,General Practice,General Practice,16,3,0,8,2,0
+2020-08-06 17:04:00,738-93-2682,Female,49,10.0,F,Poulney,Pacific Islander,TRUE,28.0,,General Emergency,17,3,0,8,2,0
+2020-08-06 17:48:00,108-25-6001,Female,10,,T,Snedker,White,TRUE,11.0,Neurology,Neurology,17,3,0,8,2,0
+2020-08-06 18:30:00,378-02-5523,Male,23,0.0,A,Gouldie,African American,TRUE,23.0,,General Emergency,18,3,0,8,2,1
+2020-08-07 04:09:00,452-17-9747,Male,69,,A,Locks,African American,FALSE,32.0,General Practice,General Practice,4,4,0,8,3,0
+2020-08-07 10:36:00,376-86-6417,Male,26,,D,Hassall,Declined to Identify,TRUE,49.0,,General Emergency,10,4,0,8,2,0
+2020-08-07 11:35:00,789-64-5001,Female,16,,S,Craigmyle,Declined to Identify,FALSE,47.0,,General Emergency,11,4,0,8,3,1
+2020-08-07 13:33:00,826-27-1762,Male,79,,I,Melluish,African American,FALSE,29.0,,General Emergency,13,4,0,8,3,1
+2020-08-07 15:37:00,225-49-2583,Male,4,,E,Vinsen,White,FALSE,40.0,Orthopedics,Orthopedics,15,4,0,8,3,0
+2020-08-08 03:09:00,649-33-3703,Female,60,1.0,J,Rapaport,Two or More Races,FALSE,27.0,,General Emergency,3,5,1,8,3,0
+2020-08-08 10:24:00,496-76-4104,Male,59,,L,Drabble,Declined to Identify,FALSE,56.0,,General Emergency,10,5,1,8,3,0
+2020-08-08 11:45:00,619-68-4925,Female,22,,I,Laborda,African American,TRUE,12.0,General Practice,General Practice,11,5,1,8,2,0
+2020-08-08 20:30:00,489-71-8195,Male,42,,V,Steffan,Declined to Identify,FALSE,16.0,,General Emergency,20,5,1,8,3,0
+2020-08-08 21:55:00,258-76-2632,Female,52,,P,MacCaig,White,TRUE,35.0,Cardiology,Cardiology,21,5,1,8,2,0
+2020-08-09 03:12:00,544-63-0784,Male,74,,P,Cappleman,Native American/Alaska Native,FALSE,56.0,Orthopedics,Orthopedics,3,6,1,8,3,0
+2020-08-09 10:55:00,409-18-9979,Female,52,,S,Wayvill,Asian,TRUE,18.0,Physiotherapy,Physiotherapy,10,6,1,8,2,0
+2020-08-09 22:49:00,110-38-1118,Female,45,,W,Laing,White,FALSE,45.0,,General Emergency,22,6,1,8,3,0
+2020-08-10 00:55:00,386-68-5391,Female,27,,F,MacPaik,Two or More Races,FALSE,19.0,,General Emergency,0,0,0,8,3,0
+2020-08-10 01:02:00,875-73-1721,Male,31,,A,Pitrelli,Pacific Islander,FALSE,51.0,,General Emergency,1,0,0,8,3,1
+2020-08-10 02:38:00,760-33-4176,Female,45,,Q,Dear,White,FALSE,57.0,Orthopedics,Orthopedics,2,0,0,8,3,0
+2020-08-10 08:41:00,542-80-3587,Male,67,,N,Hazley,Asian,FALSE,42.0,Physiotherapy,Physiotherapy,8,0,0,8,3,0
+2020-08-10 11:33:00,547-62-9847,Female,43,,E,Mensler,Declined to Identify,TRUE,57.0,,General Emergency,11,0,0,8,2,0
+2020-08-10 12:08:00,883-22-1946,Female,35,,P,Paulusch,African American,TRUE,15.0,,General Emergency,12,0,0,8,2,1
+2020-08-10 12:23:00,266-60-4228,Male,59,,B,Balhatchet,Asian,FALSE,48.0,Neurology,Neurology,12,0,0,8,3,0
+2020-08-10 13:12:00,254-34-7286,Female,34,,Z,Sawl,White,FALSE,38.0,,General Emergency,13,0,0,8,3,2
+2020-08-10 14:28:00,735-74-1211,Male,23,,C,Rubinshtein,White,FALSE,15.0,,General Emergency,14,0,0,8,3,1
+2020-08-10 15:27:00,372-61-0636,Male,28,,F,Threlkeld,Asian,FALSE,55.0,General Practice,General Practice,15,0,0,8,3,0
+2020-08-10 23:50:00,881-39-8203,Female,77,,H,Woolens,White,FALSE,27.0,,General Emergency,23,0,0,8,3,0
+2020-08-11 06:38:00,672-38-5049,Female,61,,G,Ranger,African American,FALSE,39.0,,General Emergency,6,1,0,8,3,0
+2020-08-11 12:24:00,411-64-9516,Female,62,,I,Gehringer,Asian,TRUE,14.0,,General Emergency,12,1,0,8,2,0
+2020-08-11 23:56:00,431-60-6906,Male,1,,V,Shasnan,Native American/Alaska Native,TRUE,31.0,,General Emergency,23,1,0,8,2,0
+2020-08-12 08:26:00,543-30-7171,Male,12,,F,Canty,White,FALSE,60.0,Orthopedics,Orthopedics,8,2,0,8,3,0
+2020-08-12 20:32:00,830-11-9359,Female,71,,W,Stoad,Declined to Identify,TRUE,20.0,,General Emergency,20,2,0,8,2,0
+2020-08-13 02:04:00,814-54-8042,Female,2,,M,Surr,African American,FALSE,59.0,,General Emergency,2,3,0,8,3,0
+2020-08-13 03:57:00,472-80-8183,Male,19,1.0,E,Simner,White,FALSE,52.0,Orthopedics,Orthopedics,3,3,0,8,3,0
+2020-08-13 05:32:00,810-25-2434,Male,78,,I,Lippatt,African American,TRUE,10.0,General Practice,General Practice,5,3,0,8,2,0
+2020-08-13 06:07:00,100-74-5636,Female,47,1.0,A,Warwicker,Declined to Identify,FALSE,25.0,,General Emergency,6,3,0,8,3,0
+2020-08-13 06:59:00,722-82-4175,Male,49,,H,Guess,White,TRUE,16.0,Neurology,Neurology,6,3,0,8,2,0
+2020-08-13 07:05:00,543-38-8768,Male,40,,K,Dumbell,African American,TRUE,40.0,General Practice,General Practice,7,3,0,8,2,1
+2020-08-13 07:52:00,765-76-0326,Female,3,,N,MacAlpyne,Two or More Races,TRUE,40.0,General Practice,General Practice,7,3,0,8,2,1
+2020-08-13 19:24:00,373-24-7267,Female,37,,J,Oswal,White,TRUE,37.0,General Practice,General Practice,19,3,0,8,2,0
+2020-08-13 23:13:00,681-56-5046,Female,65,10.0,Z,Gliddon,Two or More Races,TRUE,45.0,,General Emergency,23,3,0,8,2,0
+2020-08-14 04:49:00,458-19-1191,Male,42,,O,Scargill,Pacific Islander,TRUE,32.0,,General Emergency,4,4,0,8,2,0
+2020-08-14 05:58:00,825-27-0713,Female,59,,E,Doumer,Native American/Alaska Native,FALSE,35.0,Orthopedics,Orthopedics,5,4,0,8,3,0
+2020-08-14 07:40:00,241-31-1101,Male,25,,Z,O'Hartnett,White,TRUE,12.0,General Practice,General Practice,7,4,0,8,2,0
+2020-08-14 09:09:00,588-56-7026,Female,72,,J,Bernet,Two or More Races,FALSE,51.0,,General Emergency,9,4,0,8,3,0
+2020-08-14 14:24:00,757-58-2588,Female,19,,T,Stubbeley,Two or More Races,FALSE,14.0,General Practice,General Practice,14,4,0,8,3,0
+2020-08-15 00:05:00,567-64-8503,Male,28,,A,Knight,Two or More Races,FALSE,58.0,Physiotherapy,Physiotherapy,0,5,1,8,3,0
+2020-08-15 00:15:00,773-38-3470,Female,75,,P,Littlefair,Two or More Races,TRUE,26.0,General Practice,General Practice,0,5,1,8,2,0
+2020-08-15 07:01:00,892-25-8683,Male,14,7.0,G,Colliard,African American,FALSE,60.0,General Practice,General Practice,7,5,1,8,3,0
+2020-08-15 08:43:00,171-47-7261,Male,78,,L,Sallows,Two or More Races,FALSE,55.0,,General Emergency,8,5,1,8,3,0
+2020-08-15 10:43:00,199-68-5630,Male,60,6.0,L,McIlharga,Two or More Races,TRUE,42.0,,General Emergency,10,5,1,8,2,1
+2020-08-15 13:07:00,866-26-1903,Male,8,3.0,Q,Jerson,Asian,FALSE,24.0,Orthopedics,Orthopedics,13,5,1,8,3,0
+2020-08-15 13:57:00,188-08-8982,Male,45,,L,Smitton,Two or More Races,FALSE,21.0,,General Emergency,13,5,1,8,3,0
+2020-08-15 17:50:00,107-19-6298,Male,28,,K,Clendennen,Asian,FALSE,10.0,Orthopedics,Orthopedics,17,5,1,8,3,0
+2020-08-16 12:38:00,466-84-0336,Female,52,,X,Keynes,Two or More Races,FALSE,11.0,,General Emergency,12,6,1,8,3,0
+2020-08-16 14:00:00,467-64-9058,Female,40,9.0,U,Bradnocke,Pacific Islander,FALSE,50.0,,General Emergency,14,6,1,8,3,1
+2020-08-16 14:01:00,411-20-5425,Male,37,,I,Garlic,White,TRUE,55.0,,General Emergency,14,6,1,8,2,2
+2020-08-16 16:11:00,676-74-9268,Male,64,,C,Aspinwall,Declined to Identify,TRUE,51.0,Orthopedics,Orthopedics,16,6,1,8,2,0
+2020-08-16 19:55:00,237-84-8828,Male,35,6.0,R,Whitehouse,Native American/Alaska Native,FALSE,53.0,,General Emergency,19,6,1,8,3,0
+2020-08-16 21:18:00,428-45-4055,Female,49,,F,Dunkerley,Declined to Identify,TRUE,39.0,,General Emergency,21,6,1,8,2,1
+2020-08-17 00:15:00,240-29-9184,Female,78,,K,Tweed,White,TRUE,42.0,,General Emergency,0,0,0,8,2,0
+2020-08-17 06:32:00,531-96-7985,Male,13,,Y,Fuggle,White,FALSE,13.0,,General Emergency,6,0,0,8,3,0
+2020-08-17 06:33:00,727-81-2340,Male,68,,P,Capron,White,TRUE,20.0,,General Emergency,6,0,0,8,2,1
+2020-08-17 07:29:00,723-18-5369,Female,62,,T,Vanyutin,Two or More Races,FALSE,20.0,,General Emergency,7,0,0,8,3,2
+2020-08-17 10:39:00,439-58-8398,Male,72,6.0,E,Wendover,Native American/Alaska Native,FALSE,58.0,Cardiology,Cardiology,10,0,0,8,3,0
+2020-08-17 11:49:00,739-59-7499,Female,12,,G,Edler,Declined to Identify,TRUE,54.0,,General Emergency,11,0,0,8,2,0
+2020-08-17 11:53:00,190-91-2664,Female,14,,C,Goullee,Pacific Islander,TRUE,20.0,,General Emergency,11,0,0,8,2,1
+2020-08-17 12:51:00,267-31-9051,Male,73,6.0,A,Verrechia,White,FALSE,53.0,General Practice,General Practice,12,0,0,8,3,0
+2020-08-17 18:52:00,757-47-1680,Male,54,,X,Hawkyens,White,FALSE,40.0,,General Emergency,18,0,0,8,3,0
+2020-08-17 19:38:00,851-76-2999,Female,62,,Z,Hammand,African American,TRUE,32.0,,General Emergency,19,0,0,8,2,1
+2020-08-17 21:33:00,143-12-4621,Female,66,,V,Brindle,African American,FALSE,52.0,Orthopedics,Orthopedics,21,0,0,8,3,0
+2020-08-17 23:48:00,672-14-9431,Male,5,2.0,C,Kent,White,TRUE,33.0,,General Emergency,23,0,0,8,2,0
+2020-08-18 01:14:00,824-31-0857,Female,71,,I,MacKean,Declined to Identify,TRUE,53.0,,General Emergency,1,1,0,8,2,1
+2020-08-18 02:39:00,220-45-5150,Male,57,,H,Ruddoch,Declined to Identify,TRUE,10.0,,General Emergency,2,1,0,8,2,1
+2020-08-18 11:14:00,613-38-1181,Female,5,,Z,Loker,African American,FALSE,49.0,General Practice,General Practice,11,1,0,8,3,0
+2020-08-18 13:26:00,859-16-8010,Male,9,,Z,Demeter,African American,TRUE,34.0,,General Emergency,13,1,0,8,2,0
+2020-08-18 19:37:00,300-67-3405,Female,48,4.0,E,Misk,African American,TRUE,20.0,,General Emergency,19,1,0,8,2,0
+2020-08-18 23:17:00,111-53-3748,Male,2,,E,Somerset,African American,FALSE,35.0,,General Emergency,23,1,0,8,3,0
+2020-08-19 01:54:00,735-07-3139,Female,29,,D,Kroll,Native American/Alaska Native,TRUE,20.0,General Practice,General Practice,1,2,0,8,2,0
+2020-08-19 03:01:00,249-96-3585,Female,36,,F,Salisbury,White,FALSE,37.0,,General Emergency,3,2,0,8,3,0
+2020-08-19 03:19:00,340-01-2682,Female,29,,X,Kellert,Asian,TRUE,56.0,,General Emergency,3,2,0,8,2,1
+2020-08-19 03:45:00,766-83-5972,Female,42,4.0,F,Durnill,White,FALSE,39.0,General Practice,General Practice,3,2,0,8,3,1
+2020-08-19 13:18:00,395-31-5947,Male,35,,F,Sheal,Asian,FALSE,12.0,General Practice,General Practice,13,2,0,8,3,0
+2020-08-19 15:27:00,713-88-3339,Female,41,,T,Scrowston,Asian,FALSE,48.0,,General Emergency,15,2,0,8,3,0
+2020-08-20 01:35:00,206-97-4149,Female,77,,M,De Ruggiero,Two or More Races,FALSE,46.0,General Practice,General Practice,1,3,0,8,3,0
+2020-08-20 05:56:00,661-44-3953,Male,6,5.0,S,Dowers,Pacific Islander,TRUE,48.0,,General Emergency,5,3,0,8,2,0
+2020-08-20 11:01:00,783-72-7030,Male,63,,U,Stiles,Declined to Identify,FALSE,37.0,,General Emergency,11,3,0,8,3,0
+2020-08-20 17:42:00,121-86-3543,Male,32,,K,Elliker,White,TRUE,22.0,,General Emergency,17,3,0,8,2,0
+2020-08-20 20:36:00,580-35-3681,Female,68,,C,Maslin,African American,TRUE,26.0,Physiotherapy,Physiotherapy,20,3,0,8,2,0
+2020-08-20 21:13:00,724-23-4445,Female,45,,X,Orrom,Asian,TRUE,25.0,,General Emergency,21,3,0,8,2,0
+2020-08-21 01:01:00,854-61-3541,Male,27,,U,Lightman,White,FALSE,11.0,,General Emergency,1,4,0,8,3,0
+2020-08-21 04:20:00,849-30-0675,Male,35,,U,Fitzsimon,Two or More Races,FALSE,15.0,Orthopedics,Orthopedics,4,4,0,8,3,0
+2020-08-21 05:38:00,753-92-5377,Male,46,,C,Elcoux,Two or More Races,TRUE,26.0,Physiotherapy,Physiotherapy,5,4,0,8,2,0
+2020-08-22 06:37:00,574-75-4280,Female,6,1.0,T,Wohlers,Two or More Races,TRUE,57.0,,General Emergency,6,5,1,8,2,0
+2020-08-22 07:40:00,527-40-3617,Male,37,,Q,Abeau,Two or More Races,TRUE,13.0,,General Emergency,7,5,1,8,2,1
+2020-08-22 15:34:00,707-68-7512,Male,33,6.0,J,Topham,White,FALSE,18.0,Neurology,Neurology,15,5,1,8,3,0
+2020-08-22 20:27:00,427-70-7254,Female,52,,F,Rosthorn,Two or More Races,FALSE,20.0,,General Emergency,20,5,1,8,3,0
+2020-08-23 09:12:00,331-62-8519,Male,61,,C,Embra,White,TRUE,28.0,General Practice,General Practice,9,6,1,8,2,0
+2020-08-23 09:57:00,252-67-0809,Female,73,,W,Colclough,Asian,FALSE,49.0,,General Emergency,9,6,1,8,3,0
+2020-08-23 14:24:00,662-68-0306,Male,6,,O,Pring,Asian,FALSE,36.0,,General Emergency,14,6,1,8,3,0
+2020-08-23 16:04:00,242-70-5420,Female,9,,X,Caroll,White,FALSE,35.0,Physiotherapy,Physiotherapy,16,6,1,8,3,0
+2020-08-23 23:49:00,359-98-5533,Female,16,,E,Kobiela,Two or More Races,TRUE,58.0,,General Emergency,23,6,1,8,2,0
+2020-08-24 02:24:00,592-60-7210,Female,29,,Y,Carik,Declined to Identify,FALSE,32.0,Neurology,Neurology,2,0,0,8,3,0
+2020-08-24 05:41:00,270-39-6593,Female,11,,J,Gillie,Asian,FALSE,60.0,,General Emergency,5,0,0,8,3,0
+2020-08-24 06:02:00,680-03-6336,Male,17,4.0,M,MacVean,Asian,FALSE,48.0,,General Emergency,6,0,0,8,3,1
+2020-08-24 06:24:00,771-87-6088,Female,14,,F,Biskup,Declined to Identify,TRUE,22.0,Neurology,Neurology,6,0,0,8,2,0
+2020-08-24 15:09:00,890-83-9216,Female,59,,H,Membry,Pacific Islander,FALSE,53.0,,General Emergency,15,0,0,8,3,0
+2020-08-24 16:17:00,321-57-9470,Female,2,,Q,Micheau,Declined to Identify,FALSE,15.0,Gastroenterology,Gastroenterology,16,0,0,8,3,0
+2020-08-25 04:36:00,869-82-8816,Male,49,,E,Clougher,White,FALSE,33.0,,General Emergency,4,1,0,8,3,0
+2020-08-25 05:37:00,263-15-6279,Female,68,,B,Asplen,White,FALSE,57.0,Orthopedics,Orthopedics,5,1,0,8,3,0
+2020-08-25 08:25:00,793-63-4699,Female,37,,F,Hug,Two or More Races,FALSE,50.0,,General Emergency,8,1,0,8,3,0
+2020-08-25 15:01:00,738-42-8501,Female,51,,M,Brogi,Declined to Identify,TRUE,15.0,,General Emergency,15,1,0,8,2,0
+2020-08-25 15:56:00,539-86-9387,Female,69,,M,Baudasso,Asian,TRUE,32.0,General Practice,General Practice,15,1,0,8,2,0
+2020-08-25 16:05:00,213-89-6553,Male,1,,S,Fountain,White,FALSE,38.0,General Practice,General Practice,16,1,0,8,3,1
+2020-08-25 22:28:00,268-53-8144,Male,12,8.0,J,Amori,African American,TRUE,14.0,Physiotherapy,Physiotherapy,22,1,0,8,2,0
+2020-08-26 00:08:00,151-89-4367,Male,9,,J,Acheson,Two or More Races,TRUE,44.0,,General Emergency,0,2,0,8,2,0
+2020-08-26 08:06:00,419-41-5696,Female,74,,X,Hebble,White,FALSE,27.0,,General Emergency,8,2,0,8,3,0
+2020-08-26 13:49:00,200-87-7696,Female,13,4.0,V,Giovani,African American,TRUE,10.0,,General Emergency,13,2,0,8,2,0
+2020-08-26 14:53:00,167-44-8625,Female,7,,K,Isakovic,White,TRUE,20.0,General Practice,General Practice,14,2,0,8,2,0
+2020-08-26 15:49:00,532-39-4090,Male,54,1.0,B,Peskin,White,FALSE,17.0,,General Emergency,15,2,0,8,3,1
+2020-08-26 18:23:00,705-06-3874,Male,79,,F,Schurcke,Two or More Races,FALSE,18.0,Orthopedics,Orthopedics,18,2,0,8,3,0
+2020-08-27 03:43:00,532-91-6458,Male,62,,X,Slaight,African American,FALSE,45.0,,General Emergency,3,3,0,8,3,0
+2020-08-27 05:00:00,716-39-5317,Male,14,,A,Penhalurick,Two or More Races,TRUE,49.0,General Practice,General Practice,5,3,0,8,2,0
+2020-08-27 06:41:00,792-03-5512,Female,39,,L,North,Two or More Races,TRUE,57.0,Renal,Renal,6,3,0,8,2,0
+2020-08-27 07:04:00,456-51-8577,Female,75,4.0,Y,Bonner,White,FALSE,13.0,,General Emergency,7,3,0,8,3,0
+2020-08-27 09:11:00,490-58-8278,Female,54,,B,Bythway,African American,FALSE,47.0,General Practice,General Practice,9,3,0,8,3,0
+2020-08-28 05:55:00,186-26-5228,Female,29,,M,Spiring,African American,TRUE,26.0,General Practice,General Practice,5,4,0,8,2,0
+2020-08-28 08:38:00,570-65-0181,Female,58,,W,Schistl,African American,FALSE,42.0,,General Emergency,8,4,0,8,3,0
+2020-08-28 10:51:00,161-45-2290,Male,57,,G,Alishoner,Declined to Identify,TRUE,24.0,,General Emergency,10,4,0,8,2,0
+2020-08-28 12:11:00,825-31-1708,Male,46,,V,Pleasance,Two or More Races,FALSE,58.0,Neurology,Neurology,12,4,0,8,3,0
+2020-08-28 13:51:00,597-65-0647,Female,47,,L,Pacht,Two or More Races,TRUE,59.0,Gastroenterology,Gastroenterology,13,4,0,8,2,0
+2020-08-28 20:39:00,563-03-8388,Female,63,0.0,D,Weyman,White,TRUE,24.0,,General Emergency,20,4,0,8,2,0
+2020-08-28 22:40:00,490-74-0642,Male,7,,F,Deshorts,Asian,FALSE,31.0,,General Emergency,22,4,0,8,3,0
+2020-08-28 23:28:00,441-78-6203,Male,3,6.0,E,Sandys,African American,TRUE,42.0,Renal,Renal,23,4,0,8,2,0
+2020-08-29 00:50:00,745-14-1282,Male,24,4.0,O,Pitchers,Pacific Islander,TRUE,13.0,,General Emergency,0,5,1,8,2,0
+2020-08-29 00:51:00,835-77-3003,Male,72,,O,Abad,African American,FALSE,29.0,,General Emergency,0,5,1,8,3,1
+2020-08-29 04:01:00,114-13-2465,Male,44,,G,Franceschelli,Asian,FALSE,56.0,,General Emergency,4,5,1,8,3,0
+2020-08-29 04:28:00,238-05-9108,Male,51,,B,Tompkinson,Pacific Islander,TRUE,12.0,,General Emergency,4,5,1,8,2,1
+2020-08-29 06:21:00,750-10-6392,Female,64,,W,Babin,White,FALSE,43.0,Orthopedics,Orthopedics,6,5,1,8,3,0
+2020-08-29 08:53:00,479-96-0578,Male,16,,G,Deeprose,Declined to Identify,FALSE,44.0,Cardiology,Cardiology,8,5,1,8,3,0
+2020-08-29 14:31:00,206-36-2849,Female,37,,B,Downgate,Pacific Islander,TRUE,25.0,General Practice,General Practice,14,5,1,8,2,0
+2020-08-29 16:05:00,589-52-0548,Male,71,,X,Carnson,Two or More Races,TRUE,21.0,,General Emergency,16,5,1,8,2,0
+2020-08-29 16:55:00,760-59-1309,Male,52,,Z,Oakley,Two or More Races,TRUE,49.0,General Practice,General Practice,16,5,1,8,2,0
+2020-08-29 21:48:00,751-97-7123,Female,38,,G,Creelman,Two or More Races,TRUE,11.0,,General Emergency,21,5,1,8,2,0
+2020-08-30 01:48:00,208-91-1133,Male,31,,Y,Palmby,Pacific Islander,TRUE,12.0,Cardiology,Cardiology,1,6,1,8,2,0
+2020-08-30 01:52:00,476-79-6068,Male,76,,L,Brosi,White,TRUE,25.0,,General Emergency,1,6,1,8,2,0
+2020-08-30 07:21:00,548-78-6274,Male,70,,Z,Housegoe,White,FALSE,57.0,,General Emergency,7,6,1,8,3,0
+2020-08-30 08:41:00,844-34-4827,Male,77,,Q,Talby,Two or More Races,TRUE,20.0,,General Emergency,8,6,1,8,2,1
+2020-08-30 12:06:00,313-71-4006,Male,21,,I,Lamputt,White,TRUE,58.0,Orthopedics,Orthopedics,12,6,1,8,2,0
+2020-08-31 06:38:00,368-53-4901,Male,26,7.0,I,Rubinsztein,White,FALSE,59.0,,General Emergency,6,0,0,8,3,0
+2020-08-31 09:34:00,581-71-7643,Male,67,2.0,W,Baxill,White,FALSE,47.0,Physiotherapy,Physiotherapy,9,0,0,8,3,0
+2020-08-31 15:40:00,215-35-3486,Female,78,,M,Gurry,White,TRUE,26.0,General Practice,General Practice,15,0,0,8,2,0
+2020-08-31 18:12:00,312-86-7147,Female,37,,B,Masterton,White,FALSE,43.0,,General Emergency,18,0,0,8,3,0
+2020-08-31 23:46:00,558-56-3966,Female,76,10.0,T,Longhi,White,TRUE,42.0,,General Emergency,23,0,0,8,2,0
+2020-09-01 01:04:00,333-45-8232,Male,9,,Y,Tethcote,Declined to Identify,TRUE,42.0,General Practice,General Practice,1,1,0,9,2,0
+2020-09-01 02:23:00,352-98-0907,Male,64,,M,Saywell,African American,FALSE,47.0,Orthopedics,Orthopedics,2,1,0,9,3,0
+2020-09-01 04:25:00,587-71-6980,Female,37,0.0,P,Grieve,White,TRUE,57.0,,General Emergency,4,1,0,9,2,0
+2020-09-01 10:15:00,616-41-9787,Male,54,,Q,Nanetti,African American,TRUE,34.0,Cardiology,Cardiology,10,1,0,9,2,0
+2020-09-01 13:38:00,556-92-5924,Female,37,,I,Fulstow,Declined to Identify,FALSE,52.0,,General Emergency,13,1,0,9,3,0
+2020-09-01 13:44:00,300-02-4857,Female,52,,D,Easman,White,FALSE,26.0,,General Emergency,13,1,0,9,3,1
+2020-09-01 14:04:00,712-66-6927,Female,44,7.0,H,Tolomei,Pacific Islander,FALSE,36.0,,General Emergency,14,1,0,9,3,2
+2020-09-01 17:20:00,659-80-5601,Female,64,,C,Angliss,White,TRUE,14.0,,General Emergency,17,1,0,9,2,0
+2020-09-01 17:23:00,776-73-0164,Male,39,2.0,O,Ridoutt,Declined to Identify,TRUE,30.0,Orthopedics,Orthopedics,17,1,0,9,2,0
+2020-09-01 21:36:00,845-45-0091,Female,6,,G,Baldinotti,Two or More Races,FALSE,41.0,,General Emergency,21,1,0,9,3,0
+2020-09-01 22:04:00,810-32-8712,Female,63,,R,Langmaid,White,TRUE,35.0,,General Emergency,22,1,0,9,2,1
+2020-09-01 22:09:00,749-62-9350,Male,1,0.0,H,Aldridge,Declined to Identify,FALSE,32.0,,General Emergency,22,1,0,9,3,2
+2020-09-01 23:34:00,659-98-9321,Male,11,,N,Alwin,White,FALSE,47.0,General Practice,General Practice,23,1,0,9,3,0
+2020-09-02 01:13:00,548-98-4114,Male,27,,F,McSparran,Pacific Islander,TRUE,23.0,General Practice,General Practice,1,2,0,9,2,1
+2020-09-02 20:20:00,457-45-3813,Female,78,,R,Straffon,African American,FALSE,31.0,,General Emergency,20,2,0,9,3,0
+2020-09-02 20:36:00,548-40-3880,Male,45,,O,Antos,White,FALSE,53.0,General Practice,General Practice,20,2,0,9,3,0
+2020-09-02 22:42:00,428-22-3036,Female,30,,R,Bickerdyke,White,TRUE,57.0,,General Emergency,22,2,0,9,2,0
+2020-09-03 00:20:00,766-92-5908,Male,16,,C,Kimblin,White,TRUE,46.0,,General Emergency,0,3,0,9,2,1
+2020-09-03 01:37:00,602-29-7310,Male,10,,N,Legrand,White,TRUE,21.0,,General Emergency,1,3,0,9,2,1
+2020-09-03 02:12:00,218-23-7747,Female,27,,O,Steddall,White,FALSE,46.0,,General Emergency,2,3,0,9,3,2
+2020-09-03 04:30:00,103-94-9474,Female,68,,S,Ronald,African American,TRUE,30.0,Orthopedics,Orthopedics,4,3,0,9,2,0
+2020-09-03 10:31:00,824-30-1382,Female,14,2.0,H,Gifford,White,TRUE,49.0,Neurology,Neurology,10,3,0,9,2,0
+2020-09-03 13:18:00,295-04-1906,Female,62,0.0,B,Skin,White,FALSE,47.0,General Practice,General Practice,13,3,0,9,3,0
+2020-09-03 16:59:00,457-19-5880,Male,45,,X,Yurkov,White,FALSE,16.0,,General Emergency,16,3,0,9,3,0
+2020-09-03 18:33:00,869-02-5604,Female,43,,D,Hizir,Two or More Races,FALSE,43.0,General Practice,General Practice,18,3,0,9,3,0
+2020-09-03 18:54:00,482-40-7597,Female,27,5.0,X,Lyndon,African American,FALSE,18.0,,General Emergency,18,3,0,9,3,1
+2020-09-04 02:30:00,598-53-3927,Female,68,,S,Noads,African American,FALSE,58.0,,General Emergency,2,4,0,9,3,0
+2020-09-04 02:41:00,670-31-8033,Male,79,7.0,V,Crowch,Asian,FALSE,34.0,,General Emergency,2,4,0,9,3,1
+2020-09-04 06:27:00,860-43-2537,Male,31,,D,Wessel,Declined to Identify,TRUE,19.0,Orthopedics,Orthopedics,6,4,0,9,2,0
+2020-09-04 13:50:00,158-18-8065,Female,15,,N,Reboul,Asian,TRUE,11.0,,General Emergency,13,4,0,9,2,0
+2020-09-04 17:48:00,289-26-0537,Male,5,,Y,Gionettitti,African American,FALSE,10.0,Orthopedics,Orthopedics,17,4,0,9,3,0
+2020-09-05 06:30:00,316-86-7414,Male,28,9.0,T,Poynton,Asian,FALSE,29.0,,General Emergency,6,5,1,9,3,0
+2020-09-05 06:49:00,863-51-9551,Male,46,,D,Corrin,African American,TRUE,51.0,Cardiology,Cardiology,6,5,1,9,2,0
+2020-09-05 07:26:00,711-74-2032,Male,76,,G,Carruth,African American,FALSE,58.0,,General Emergency,7,5,1,9,3,1
+2020-09-05 16:41:00,818-21-7805,Male,36,,Y,Lees,Two or More Races,FALSE,30.0,,General Emergency,16,5,1,9,3,0
+2020-09-05 19:04:00,557-77-2197,Male,29,7.0,C,Weir,African American,FALSE,54.0,Orthopedics,Orthopedics,19,5,1,9,3,0
+2020-09-05 21:29:00,301-60-9365,Female,17,7.0,J,Castelluzzi,White,FALSE,60.0,Cardiology,Cardiology,21,5,1,9,3,0
+2020-09-06 02:02:00,822-51-9844,Female,11,9.0,B,Pauletti,Declined to Identify,TRUE,11.0,Physiotherapy,Physiotherapy,2,6,1,9,2,0
+2020-09-06 03:00:00,182-78-5630,Male,31,,R,Graffin,White,FALSE,60.0,,General Emergency,3,6,1,9,3,0
+2020-09-06 05:39:00,144-47-5038,Female,45,0.0,K,Alexis,White,TRUE,49.0,Renal,Renal,5,6,1,9,2,0
+2020-09-06 05:46:00,654-54-6014,Male,4,5.0,S,Haddeston,Native American/Alaska Native,TRUE,33.0,General Practice,General Practice,5,6,1,9,2,0
+2020-09-06 13:39:00,884-77-2363,Male,56,,S,Nazer,African American,FALSE,55.0,General Practice,General Practice,13,6,1,9,3,0
+2020-09-06 17:59:00,340-30-7357,Male,39,,N,Gribbin,Two or More Races,TRUE,53.0,,General Emergency,17,6,1,9,2,0
+2020-09-06 21:58:00,577-17-4945,Male,59,,Y,McGraw,White,FALSE,34.0,General Practice,General Practice,21,6,1,9,3,0
+2020-09-07 02:40:00,121-57-0594,Male,5,,S,de Verson,African American,FALSE,17.0,,General Emergency,2,0,0,9,3,0
+2020-09-07 09:46:00,865-05-6089,Male,65,,F,Merlin,Declined to Identify,FALSE,46.0,,General Emergency,9,0,0,9,3,0
+2020-09-07 15:56:00,778-23-0967,Male,24,6.0,N,Mace,Declined to Identify,FALSE,36.0,General Practice,General Practice,15,0,0,9,3,0
+2020-09-07 16:02:00,477-43-3427,Female,58,7.0,B,Pardew,Asian,FALSE,10.0,Cardiology,Cardiology,16,0,0,9,3,0
+2020-09-08 02:46:00,625-89-3309,Male,4,,R,Tschiersch,Two or More Races,TRUE,34.0,,General Emergency,2,1,0,9,2,0
+2020-09-08 07:37:00,867-83-3947,Male,29,,S,Pash,Pacific Islander,FALSE,55.0,,General Emergency,7,1,0,9,3,0
+2020-09-08 10:26:00,324-75-4743,Male,48,,T,Aldridge,Pacific Islander,FALSE,13.0,,General Emergency,10,1,0,9,3,0
+2020-09-08 10:45:00,181-41-7605,Male,27,,K,Pesterfield,Two or More Races,FALSE,18.0,,General Emergency,10,1,0,9,3,1
+2020-09-08 13:07:00,279-38-7669,Male,65,,W,Charrier,African American,TRUE,44.0,,General Emergency,13,1,0,9,2,0
+2020-09-08 21:19:00,117-34-7854,Female,4,,C,Goodhew,White,FALSE,55.0,,General Emergency,21,1,0,9,3,0
+2020-09-08 22:52:00,283-52-4368,Male,46,,K,Strapp,Native American/Alaska Native,TRUE,15.0,Neurology,Neurology,22,1,0,9,2,0
+2020-09-09 00:57:00,800-71-0609,Female,1,,X,McCart,Declined to Identify,FALSE,17.0,,General Emergency,0,2,0,9,3,0
+2020-09-09 02:19:00,193-27-1560,Female,12,,E,Norcliff,White,TRUE,17.0,,General Emergency,2,2,0,9,2,1
+2020-09-09 09:25:00,780-96-6113,Female,63,5.0,W,Breede,African American,FALSE,32.0,,General Emergency,9,2,0,9,3,0
+2020-09-09 12:34:00,223-54-0736,Female,51,7.0,B,Carman,Two or More Races,TRUE,35.0,,General Emergency,12,2,0,9,2,0
+2020-09-09 14:00:00,792-04-6423,Female,59,,K,Brittan,White,TRUE,56.0,General Practice,General Practice,14,2,0,9,2,0
+2020-09-09 16:42:00,714-35-6722,Male,31,,Y,Baldetti,Asian,FALSE,22.0,Orthopedics,Orthopedics,16,2,0,9,3,0
+2020-09-09 19:25:00,552-51-5855,Female,24,,F,Dickerson,African American,TRUE,36.0,,General Emergency,19,2,0,9,2,0
+2020-09-09 20:33:00,404-43-9499,Male,79,,K,Blaydes,African American,TRUE,38.0,General Practice,General Practice,20,2,0,9,2,0
+2020-09-10 20:45:00,864-61-2647,Male,35,5.0,X,Bonnesen,Two or More Races,TRUE,16.0,Orthopedics,Orthopedics,20,3,0,9,2,0
+2020-09-10 23:58:00,753-19-0249,Male,17,,Y,Arthars,White,FALSE,25.0,,General Emergency,23,3,0,9,3,0
+2020-09-11 09:13:00,295-25-4846,Male,72,8.0,C,Kepp,Two or More Races,TRUE,53.0,,General Emergency,9,4,0,9,2,0
+2020-09-11 09:54:00,353-67-7450,Male,50,,I,Cragoe,Declined to Identify,TRUE,22.0,,General Emergency,9,4,0,9,2,1
+2020-09-11 12:19:00,646-91-7660,Female,21,,J,Gleeton,Native American/Alaska Native,FALSE,57.0,,General Emergency,12,4,0,9,3,0
+2020-09-11 13:26:00,879-96-5283,Female,69,,K,Gorvette,Two or More Races,TRUE,26.0,,General Emergency,13,4,0,9,2,1
+2020-09-12 00:50:00,345-14-4829,Male,41,,Z,Petersen,African American,TRUE,41.0,,General Emergency,0,5,1,9,2,0
+2020-09-12 03:14:00,171-54-7134,Female,64,,X,Rouby,Native American/Alaska Native,FALSE,36.0,,General Emergency,3,5,1,9,3,0
+2020-09-12 10:47:00,688-25-2615,Male,44,,A,Birbeck,White,FALSE,33.0,General Practice,General Practice,10,5,1,9,3,0
+2020-09-12 13:20:00,271-50-1988,Female,65,,W,Du Plantier,Declined to Identify,FALSE,11.0,Gastroenterology,Gastroenterology,13,5,1,9,3,0
+2020-09-12 17:18:00,676-90-4688,Female,29,,U,Reame,Pacific Islander,FALSE,18.0,,General Emergency,17,5,1,9,3,0
+2020-09-12 18:52:00,337-49-3637,Male,39,,Z,Dimitriades,African American,FALSE,19.0,,General Emergency,18,5,1,9,3,1
+2020-09-12 21:12:00,871-63-8322,Male,74,,C,Lawlie,White,FALSE,10.0,General Practice,General Practice,21,5,1,9,3,0
+2020-09-13 01:16:00,645-59-5135,Female,22,7.0,A,Pund,Native American/Alaska Native,FALSE,28.0,,General Emergency,1,6,1,9,3,0
+2020-09-13 06:29:00,425-25-7574,Female,68,,J,Lishmund,Two or More Races,TRUE,53.0,Physiotherapy,Physiotherapy,6,6,1,9,2,0
+2020-09-13 17:45:00,154-20-9417,Male,79,1.0,A,Roberti,Asian,FALSE,36.0,Gastroenterology,Gastroenterology,17,6,1,9,3,0
+2020-09-13 18:47:00,170-62-0653,Female,44,5.0,S,Trevain,White,TRUE,42.0,,General Emergency,18,6,1,9,2,0
+2020-09-14 05:03:00,514-37-1729,Female,17,,Z,Howling,Two or More Races,FALSE,30.0,,General Emergency,5,0,0,9,3,0
+2020-09-14 09:23:00,724-81-2611,Male,66,,R,Ollcott,White,TRUE,25.0,General Practice,General Practice,9,0,0,9,2,0
+2020-09-14 09:45:00,698-73-6142,Male,30,,R,Lamberteschi,Two or More Races,TRUE,45.0,,General Emergency,9,0,0,9,2,0
+2020-09-14 10:04:00,108-70-2706,Female,15,,D,Demer,Declined to Identify,FALSE,40.0,General Practice,General Practice,10,0,0,9,3,1
+2020-09-14 10:47:00,814-60-0292,Male,16,,Z,Gobourn,African American,TRUE,11.0,,General Emergency,10,0,0,9,2,1
+2020-09-14 11:34:00,321-32-7223,Female,11,,B,Gibling,Two or More Races,TRUE,33.0,,General Emergency,11,0,0,9,2,2
+2020-09-14 18:45:00,156-79-3301,Male,33,1.0,I,Leadbitter,White,FALSE,14.0,Gastroenterology,Gastroenterology,18,0,0,9,3,0
+2020-09-14 19:43:00,603-37-2279,Female,59,9.0,E,Barrack,Pacific Islander,FALSE,19.0,,General Emergency,19,0,0,9,3,0
+2020-09-15 00:37:00,290-95-7276,Female,26,,Q,Heselwood,African American,FALSE,49.0,,General Emergency,0,1,0,9,3,0
+2020-09-15 01:29:00,793-16-8190,Male,7,,N,Gamblin,African American,TRUE,28.0,General Practice,General Practice,1,1,0,9,2,0
+2020-09-15 04:41:00,571-03-9350,Male,66,,O,Dounbare,Two or More Races,FALSE,37.0,Gastroenterology,Gastroenterology,4,1,0,9,3,0
+2020-09-15 12:42:00,846-43-9311,Female,16,,V,McIlwrath,Pacific Islander,TRUE,16.0,,General Emergency,12,1,0,9,2,0
+2020-09-15 20:21:00,544-11-1795,Male,7,,S,Forge,Two or More Races,FALSE,52.0,,General Emergency,20,1,0,9,3,0
+2020-09-15 23:49:00,713-44-5163,Male,55,8.0,X,Dobrowolny,Asian,FALSE,36.0,Gastroenterology,Gastroenterology,23,1,0,9,3,0
+2020-09-16 07:38:00,509-19-9192,Female,44,0.0,L,Whear,Pacific Islander,FALSE,34.0,,General Emergency,7,2,0,9,3,0
+2020-09-17 05:53:00,586-91-2074,Male,21,,D,Emmitt,Declined to Identify,TRUE,22.0,,General Emergency,5,3,0,9,2,0
+2020-09-17 12:08:00,333-23-4575,Male,19,,F,Cabena,Pacific Islander,FALSE,19.0,,General Emergency,12,3,0,9,3,0
+2020-09-17 14:32:00,754-56-4342,Female,34,,U,Leifer,White,TRUE,49.0,Physiotherapy,Physiotherapy,14,3,0,9,2,0
+2020-09-17 15:43:00,880-71-5024,Female,67,,R,Roydon,White,FALSE,34.0,General Practice,General Practice,15,3,0,9,3,0
+2020-09-17 16:19:00,408-56-0055,Female,55,,W,MacMenamin,Pacific Islander,TRUE,14.0,Orthopedics,Orthopedics,16,3,0,9,2,0
+2020-09-17 17:43:00,798-70-3323,Female,9,,A,Shillitoe,African American,TRUE,60.0,,General Emergency,17,3,0,9,2,0
+2020-09-17 21:42:00,393-15-1888,Male,40,3.0,K,Silveston,African American,FALSE,35.0,,General Emergency,21,3,0,9,3,0
+2020-09-17 23:03:00,222-46-6969,Male,49,,Z,Livoir,Declined to Identify,FALSE,60.0,Orthopedics,Orthopedics,23,3,0,9,3,0
+2020-09-17 23:43:00,861-37-1476,Female,26,,P,Corlett,Declined to Identify,TRUE,35.0,,General Emergency,23,3,0,9,2,0
+2020-09-18 06:00:00,839-47-7307,Female,29,,G,Blunsen,Asian,TRUE,52.0,,General Emergency,6,4,0,9,2,0
+2020-09-18 06:14:00,886-24-8880,Female,53,10.0,D,Gilbart,African American,FALSE,59.0,Cardiology,Cardiology,6,4,0,9,3,0
+2020-09-18 17:49:00,818-26-8196,Male,26,8.0,B,MacNally,African American,TRUE,38.0,Orthopedics,Orthopedics,17,4,0,9,2,0
+2020-09-18 20:24:00,153-91-6324,Male,37,,B,Vittle,Two or More Races,TRUE,47.0,Gastroenterology,Gastroenterology,20,4,0,9,2,0
+2020-09-18 20:33:00,638-34-1566,Female,70,,P,Frick,Two or More Races,TRUE,53.0,,General Emergency,20,4,0,9,2,0
+2020-09-19 00:21:00,403-72-3420,Male,32,7.0,Y,Hallihan,African American,FALSE,15.0,,General Emergency,0,5,1,9,3,0
+2020-09-19 04:40:00,564-64-5838,Female,40,,M,Driffill,Asian,TRUE,44.0,,General Emergency,4,5,1,9,2,0
+2020-09-19 18:34:00,274-79-2232,Female,55,,J,Murty,Pacific Islander,FALSE,49.0,Orthopedics,Orthopedics,18,5,1,9,3,0
+2020-09-20 03:41:00,693-48-7205,Male,12,,B,Smalridge,Native American/Alaska Native,FALSE,47.0,,General Emergency,3,6,1,9,3,0
+2020-09-20 12:11:00,497-86-6002,Male,72,,W,Coll,White,TRUE,33.0,,General Emergency,12,6,1,9,2,0
+2020-09-21 02:11:00,651-52-1504,Male,15,,E,Brockley,Pacific Islander,FALSE,45.0,Orthopedics,Orthopedics,2,0,0,9,3,0
+2020-09-21 05:12:00,166-24-3928,Female,70,,M,Popham,Asian,TRUE,13.0,General Practice,General Practice,5,0,0,9,2,0
+2020-09-21 05:30:00,106-58-3767,Female,10,,Z,Briance,African American,FALSE,43.0,,General Emergency,5,0,0,9,3,0
+2020-09-21 06:00:00,187-33-6988,Male,64,,Z,Scotfurth,Asian,FALSE,10.0,General Practice,General Practice,6,0,0,9,3,1
+2020-09-21 07:46:00,437-61-1608,Female,13,,E,Quickfall,White,TRUE,24.0,,General Emergency,7,0,0,9,2,0
+2020-09-21 09:29:00,139-07-0452,Male,20,3.0,K,McGarva,Declined to Identify,TRUE,57.0,Orthopedics,Orthopedics,9,0,0,9,2,0
+2020-09-21 18:44:00,731-89-5373,Female,30,,C,Jonson,White,FALSE,60.0,General Practice,General Practice,18,0,0,9,3,0
+2020-09-21 20:59:00,233-24-4968,Male,49,,Q,Knapman,Asian,TRUE,56.0,,General Emergency,20,0,0,9,2,0
+2020-09-21 23:52:00,863-59-4383,Male,2,4.0,H,Noirel,African American,TRUE,60.0,General Practice,General Practice,23,0,0,9,2,0
+2020-09-22 02:44:00,890-40-4074,Male,26,,R,Akam,White,TRUE,57.0,General Practice,General Practice,2,1,0,9,2,0
+2020-09-23 00:50:00,308-97-7916,Male,8,,R,Smale,Pacific Islander,FALSE,57.0,,General Emergency,0,2,0,9,3,0
+2020-09-23 00:55:00,426-61-6009,Female,69,,N,MacAiline,Asian,FALSE,40.0,,General Emergency,0,2,0,9,3,1
+2020-09-23 18:59:00,480-22-9841,Female,37,,U,Wrefford,Declined to Identify,FALSE,59.0,Orthopedics,Orthopedics,18,2,0,9,3,0
+2020-09-24 02:35:00,571-83-1829,Female,7,,T,Havenhand,Two or More Races,TRUE,31.0,,General Emergency,2,3,0,9,2,0
+2020-09-24 09:39:00,189-95-1488,Female,61,,J,Rollinson,White,TRUE,58.0,,General Emergency,9,3,0,9,2,0
+2020-09-24 16:31:00,613-30-3074,Female,47,,H,Toulson,Pacific Islander,FALSE,51.0,,General Emergency,16,3,0,9,3,0
+2020-09-25 15:23:00,448-60-8500,Male,52,7.0,O,Josofovitz,White,TRUE,35.0,Physiotherapy,Physiotherapy,15,4,0,9,2,0
+2020-09-25 16:11:00,354-75-9525,Female,76,,L,Shayes,African American,TRUE,19.0,General Practice,General Practice,16,4,0,9,2,0
+2020-09-26 05:47:00,740-09-6067,Female,79,,I,Seefeldt,Asian,TRUE,49.0,,General Emergency,5,5,1,9,2,0
+2020-09-26 09:16:00,657-07-6765,Male,28,,F,Fowlston,Native American/Alaska Native,TRUE,37.0,,General Emergency,9,5,1,9,2,0
+2020-09-26 17:43:00,262-46-0717,Male,51,,Z,Douche,Asian,FALSE,13.0,,General Emergency,17,5,1,9,3,0
+2020-09-27 06:11:00,307-95-7194,Male,2,,A,Riddall,African American,TRUE,46.0,,General Emergency,6,6,1,9,2,0
+2020-09-27 07:06:00,241-58-9086,Female,26,0.0,J,Pedican,Two or More Races,FALSE,20.0,General Practice,General Practice,7,6,1,9,3,0
+2020-09-27 09:06:00,367-68-2505,Female,6,,D,Humpherson,Two or More Races,TRUE,40.0,,General Emergency,9,6,1,9,2,0
+2020-09-27 13:33:00,229-08-8535,Female,36,,O,Portchmouth,Asian,TRUE,27.0,,General Emergency,13,6,1,9,2,0
+2020-09-27 21:34:00,707-40-6053,Female,26,,O,Bahde,Declined to Identify,FALSE,37.0,,General Emergency,21,6,1,9,3,0
+2020-09-28 01:53:00,167-17-2338,Male,48,,Y,Brunotti,Native American/Alaska Native,TRUE,44.0,,General Emergency,1,0,0,9,2,0
+2020-09-28 05:51:00,473-32-0894,Male,23,,D,Hazeltine,African American,TRUE,56.0,,General Emergency,5,0,0,9,2,0
+2020-09-28 10:17:00,540-89-3110,Female,60,,R,Elderton,Two or More Races,FALSE,10.0,,General Emergency,10,0,0,9,3,0
+2020-09-28 17:53:00,603-46-9977,Female,49,,Q,Elfe,African American,TRUE,15.0,,General Emergency,17,0,0,9,2,0
+2020-09-28 23:57:00,113-13-3301,Female,37,,Y,Antecki,White,TRUE,54.0,,General Emergency,23,0,0,9,2,0
+2020-09-29 02:27:00,268-42-8258,Male,10,,W,Hurtic,Two or More Races,TRUE,24.0,,General Emergency,2,1,0,9,2,0
+2020-09-29 04:06:00,658-82-9991,Male,7,9.0,O,Roscher,Pacific Islander,TRUE,45.0,Orthopedics,Orthopedics,4,1,0,9,2,0
+2020-09-29 14:05:00,387-46-0963,Female,51,,Y,Helwig,White,TRUE,16.0,,General Emergency,14,1,0,9,2,0
+2020-09-29 14:57:00,518-18-8369,Female,63,,F,Mickleburgh,Asian,TRUE,11.0,,General Emergency,14,1,0,9,2,1
+2020-09-29 16:42:00,791-04-7639,Female,75,,N,Gownge,Two or More Races,FALSE,24.0,,General Emergency,16,1,0,9,3,1
+2020-09-29 19:10:00,819-75-6661,Female,64,,G,Decourt,Two or More Races,FALSE,29.0,,General Emergency,19,1,0,9,3,0
+2020-09-29 19:39:00,395-82-4902,Female,57,,C,Restall,Two or More Races,TRUE,15.0,,General Emergency,19,1,0,9,2,1
+2020-09-29 20:20:00,684-01-5172,Male,44,9.0,J,Joutapaitis,African American,TRUE,60.0,,General Emergency,20,1,0,9,2,2
+2020-09-30 16:39:00,380-79-5717,Female,36,,E,McConigal,White,TRUE,34.0,,General Emergency,16,2,0,9,2,0
+2020-09-30 19:55:00,122-73-4557,Female,2,,R,Godar,African American,FALSE,23.0,Orthopedics,Orthopedics,19,2,0,9,3,0
+2020-10-01 04:30:00,450-28-3332,Male,26,,B,Hindes,White,FALSE,17.0,,General Emergency,4,3,0,10,3,0
+2020-10-01 08:14:00,262-61-0435,Female,18,9.0,E,Landon,Asian,FALSE,30.0,,General Emergency,8,3,0,10,3,0
+2020-10-01 16:23:00,314-39-8096,Female,29,,W,Darnborough,African American,TRUE,46.0,,General Emergency,16,3,0,10,2,0
+2020-10-02 18:09:00,851-43-5041,Female,62,,Z,Bearman,Native American/Alaska Native,TRUE,47.0,,General Emergency,18,4,0,10,2,0
+2020-10-02 22:12:00,789-25-4400,Male,74,,C,Marcham,Two or More Races,FALSE,60.0,,General Emergency,22,4,0,10,3,0
+2020-10-03 07:06:00,329-52-8249,Male,73,,W,Snoddon,African American,FALSE,21.0,,General Emergency,7,5,1,10,3,0
+2020-10-03 10:20:00,454-08-5050,Female,67,6.0,Z,Gibbens,Native American/Alaska Native,FALSE,48.0,General Practice,General Practice,10,5,1,10,3,0
+2020-10-03 13:20:00,142-53-1650,Male,3,,N,Deport,White,TRUE,25.0,,General Emergency,13,5,1,10,2,0
+2020-10-03 13:39:00,599-40-2753,Female,16,,A,Aspling,African American,TRUE,20.0,,General Emergency,13,5,1,10,2,1
+2020-10-03 23:29:00,195-22-5174,Female,25,,K,Larrat,Two or More Races,FALSE,46.0,General Practice,General Practice,23,5,1,10,3,0
+2020-10-03 23:40:00,717-51-2915,Female,7,,X,Shiels,White,TRUE,32.0,Orthopedics,Orthopedics,23,5,1,10,2,0
+2020-10-04 03:34:00,790-31-3127,Male,55,,F,Paoloni,White,TRUE,31.0,,General Emergency,3,6,1,10,2,0
+2020-10-04 11:04:00,598-11-7544,Male,29,0.0,X,Kuhnel,White,TRUE,30.0,General Practice,General Practice,11,6,1,10,2,0
+2020-10-04 13:53:00,195-26-8178,Female,18,,Y,Orrett,White,TRUE,27.0,Orthopedics,Orthopedics,13,6,1,10,2,0
+2020-10-04 21:29:00,652-09-6792,Female,48,8.0,E,Pochin,Pacific Islander,TRUE,59.0,General Practice,General Practice,21,6,1,10,2,0
+2020-10-04 21:51:00,454-88-1988,Male,5,,P,Bravery,White,FALSE,27.0,,General Emergency,21,6,1,10,3,0
+2020-10-05 00:34:00,207-92-4947,Male,23,,I,Dinnage,African American,TRUE,11.0,General Practice,General Practice,0,0,0,10,2,0
+2020-10-05 02:28:00,689-07-9836,Male,25,2.0,A,Latek,African American,FALSE,12.0,,General Emergency,2,0,0,10,3,0
+2020-10-05 11:20:00,176-56-4968,Female,26,,Y,Mulvagh,White,TRUE,21.0,,General Emergency,11,0,0,10,2,0
+2020-10-06 03:45:00,640-49-2306,Male,27,,C,Rowbury,Declined to Identify,FALSE,34.0,Neurology,Neurology,3,1,0,10,3,0
+2020-10-06 05:24:00,808-75-2972,Male,6,,X,Spellesy,Declined to Identify,FALSE,36.0,,General Emergency,5,1,0,10,3,0
+2020-10-06 18:20:00,808-32-5113,Male,57,,C,Ginni,White,TRUE,27.0,General Practice,General Practice,18,1,0,10,2,0
+2020-10-06 23:55:00,202-34-5918,Female,77,,J,Coyte,African American,FALSE,54.0,,General Emergency,23,1,0,10,3,0
+2020-10-07 01:24:00,552-17-8075,Male,15,,J,Threlkeld,Two or More Races,FALSE,35.0,Orthopedics,Orthopedics,1,2,0,10,3,0
+2020-10-07 06:43:00,449-69-8456,Female,29,4.0,V,Robic,White,TRUE,10.0,,General Emergency,6,2,0,10,2,0
+2020-10-07 07:44:00,855-94-5606,Male,50,4.0,X,Lorking,African American,FALSE,22.0,,General Emergency,7,2,0,10,3,1
+2020-10-07 09:27:00,223-49-3545,Male,22,,T,Joontjes,African American,FALSE,14.0,,General Emergency,9,2,0,10,3,1
+2020-10-07 15:40:00,334-65-8008,Male,7,,K,Abrahams,White,TRUE,56.0,,General Emergency,15,2,0,10,2,0
+2020-10-07 21:48:00,223-33-6036,Male,30,,R,Churchill,Asian,TRUE,27.0,Cardiology,Cardiology,21,2,0,10,2,0
+2020-10-08 00:30:00,236-05-7260,Female,9,,Q,Neicho,Declined to Identify,FALSE,49.0,General Practice,General Practice,0,3,0,10,3,0
+2020-10-08 01:00:00,469-30-6816,Male,34,,G,Preuvost,African American,FALSE,26.0,,General Emergency,1,3,0,10,3,0
+2020-10-08 04:36:00,608-49-9277,Male,32,,Z,Cordon,White,FALSE,20.0,General Practice,General Practice,4,3,0,10,3,0
+2020-10-08 04:44:00,809-70-6273,Female,73,9.0,Y,Duddin,Declined to Identify,TRUE,13.0,Physiotherapy,Physiotherapy,4,3,0,10,2,0
+2020-10-08 07:08:00,346-75-9980,Male,26,2.0,W,Tussaine,White,TRUE,34.0,,General Emergency,7,3,0,10,2,0
+2020-10-08 07:30:00,592-78-2378,Female,53,5.0,A,Funnell,Declined to Identify,FALSE,10.0,Neurology,Neurology,7,3,0,10,3,0
+2020-10-08 12:18:00,101-38-5868,Male,14,,J,Saddington,White,TRUE,20.0,,General Emergency,12,3,0,10,2,0
+2020-10-08 15:51:00,643-90-3414,Male,64,,U,Mangham,Pacific Islander,FALSE,59.0,,General Emergency,15,3,0,10,3,0
+2020-10-08 18:09:00,142-07-6600,Female,23,,J,Kees,Declined to Identify,TRUE,11.0,,General Emergency,18,3,0,10,2,0
+2020-10-08 22:18:00,801-75-4801,Female,38,,V,McShee,African American,FALSE,35.0,Orthopedics,Orthopedics,22,3,0,10,3,0
+2020-10-09 01:10:00,535-20-8984,Female,13,,E,Braunthal,African American,FALSE,46.0,Neurology,Neurology,1,4,0,10,3,0
+2020-10-09 02:07:00,511-82-4653,Female,7,7.0,I,Gartin,Two or More Races,FALSE,52.0,,General Emergency,2,4,0,10,3,0
+2020-10-09 05:41:00,567-05-4342,Female,21,,N,Emblin,Two or More Races,TRUE,55.0,General Practice,General Practice,5,4,0,10,2,0
+2020-10-09 08:49:00,177-26-9806,Male,65,,X,MacGibbon,White,TRUE,16.0,,General Emergency,8,4,0,10,2,0
+2020-10-09 15:07:00,774-31-5026,Female,27,10.0,Y,Sugars,White,FALSE,28.0,Renal,Renal,15,4,0,10,3,0
+2020-10-09 17:12:00,163-79-8130,Male,23,,U,Klain,Declined to Identify,TRUE,12.0,,General Emergency,17,4,0,10,2,0
+2020-10-09 23:25:00,424-43-5485,Male,16,,Z,McClarence,White,FALSE,15.0,General Practice,General Practice,23,4,0,10,3,0
+2020-10-10 04:29:00,439-25-2191,Female,10,,M,Plews,White,TRUE,26.0,General Practice,General Practice,4,5,1,10,2,0
+2020-10-10 12:33:00,550-23-1722,Male,19,,D,Vamplers,Two or More Races,TRUE,20.0,,General Emergency,12,5,1,10,2,0
+2020-10-10 22:27:00,112-97-3102,Male,66,,A,Dumbellow,Declined to Identify,TRUE,43.0,,General Emergency,22,5,1,10,2,0
+2020-10-10 23:39:00,473-20-6494,Female,10,,U,Pankhurst.,White,TRUE,56.0,,General Emergency,23,5,1,10,2,1
+2020-10-11 04:38:00,386-69-5532,Female,65,,D,Chapelhow,White,FALSE,25.0,General Practice,General Practice,4,6,1,10,3,0
+2020-10-11 05:25:00,609-17-8678,Male,62,,M,Crebo,African American,FALSE,51.0,,General Emergency,5,6,1,10,3,0
+2020-10-11 06:52:00,351-71-9604,Male,75,,B,Kearney,White,TRUE,15.0,,General Emergency,6,6,1,10,2,1
+2020-10-11 08:16:00,312-12-5886,Female,36,,B,Patemore,White,FALSE,36.0,General Practice,General Practice,8,6,1,10,3,0
+2020-10-11 11:11:00,275-97-9757,Female,59,2.0,S,Alkin,African American,FALSE,13.0,,General Emergency,11,6,1,10,3,0
+2020-10-11 12:12:00,518-52-9027,Female,65,,I,Morsley,African American,FALSE,45.0,,General Emergency,12,6,1,10,3,1
+2020-10-11 19:53:00,452-96-1280,Female,33,,C,Paolucci,African American,TRUE,39.0,,General Emergency,19,6,1,10,2,0
+2020-10-11 21:22:00,813-15-4119,Male,20,6.0,O,Valentetti,Declined to Identify,TRUE,19.0,General Practice,General Practice,21,6,1,10,2,0
+2020-10-12 01:08:00,195-51-9264,Female,47,,C,Lympany,White,TRUE,40.0,Physiotherapy,Physiotherapy,1,0,0,10,2,0
+2020-10-12 02:07:00,577-64-5812,Male,33,,C,Pairpoint,African American,TRUE,59.0,,General Emergency,2,0,0,10,2,0
+2020-10-12 10:39:00,437-30-1210,Male,60,,F,Derle,White,FALSE,12.0,Orthopedics,Orthopedics,10,0,0,10,3,0
+2020-10-12 13:55:00,769-87-9911,Male,11,,I,Crusham,African American,FALSE,47.0,,General Emergency,13,0,0,10,3,0
+2020-10-12 16:16:00,796-98-4459,Female,68,,Y,Outram,African American,TRUE,60.0,Orthopedics,Orthopedics,16,0,0,10,2,0
+2020-10-12 19:55:00,670-67-2348,Female,76,,R,Need,Two or More Races,TRUE,39.0,,General Emergency,19,0,0,10,2,0
+2020-10-12 20:42:00,535-15-4291,Female,15,,T,Sherel,Native American/Alaska Native,FALSE,48.0,,General Emergency,20,0,0,10,3,1
+2020-10-13 02:23:00,204-51-5061,Female,64,2.0,I,Thys,Native American/Alaska Native,FALSE,50.0,Orthopedics,Orthopedics,2,1,0,10,3,0
+2020-10-13 08:33:00,475-86-8257,Male,12,,Y,Annwyl,Two or More Races,TRUE,47.0,,General Emergency,8,1,0,10,2,0
+2020-10-13 15:10:00,427-34-8170,Female,79,,E,Braybrookes,Asian,FALSE,21.0,General Practice,General Practice,15,1,0,10,3,0
+2020-10-13 16:19:00,482-97-1193,Male,39,4.0,G,Renfrew,African American,TRUE,20.0,,General Emergency,16,1,0,10,2,0
+2020-10-13 18:07:00,438-37-8380,Female,15,2.0,K,Grotty,Native American/Alaska Native,TRUE,31.0,Physiotherapy,Physiotherapy,18,1,0,10,2,0
+2020-10-13 23:15:00,730-22-5135,Female,43,,H,Trubshaw,Native American/Alaska Native,FALSE,53.0,,General Emergency,23,1,0,10,3,0
+2020-10-14 00:55:00,705-68-8729,Male,15,3.0,V,Isoldi,White,TRUE,28.0,,General Emergency,0,2,0,10,2,1
+2020-10-14 01:27:00,411-87-1178,Female,33,2.0,I,Maleham,Asian,TRUE,33.0,,General Emergency,1,2,0,10,2,1
+2020-10-14 06:01:00,266-12-6783,Male,26,,U,Henlon,African American,FALSE,42.0,General Practice,General Practice,6,2,0,10,3,0
+2020-10-14 06:03:00,186-28-5457,Female,24,,L,Downing,Two or More Races,TRUE,11.0,General Practice,General Practice,6,2,0,10,2,1
+2020-10-14 10:20:00,820-08-8919,Male,18,0.0,U,Phettiplace,African American,FALSE,36.0,,General Emergency,10,2,0,10,3,0
+2020-10-14 17:37:00,334-39-4208,Male,36,2.0,M,Hargitt,Asian,FALSE,39.0,,General Emergency,17,2,0,10,3,0
+2020-10-14 19:04:00,575-30-5215,Female,38,10.0,L,Pimerick,African American,FALSE,47.0,General Practice,General Practice,19,2,0,10,3,0
+2020-10-14 20:42:00,870-19-2489,Female,58,,H,Vinecombe,White,TRUE,17.0,,General Emergency,20,2,0,10,2,0
+2020-10-15 00:07:00,178-86-9071,Female,2,,I,Basezzi,Two or More Races,FALSE,12.0,General Practice,General Practice,0,3,0,10,3,0
+2020-10-15 01:38:00,698-93-1765,Female,31,,H,Doumer,Two or More Races,TRUE,34.0,,General Emergency,1,3,0,10,2,0
+2020-10-15 10:41:00,794-74-3955,Male,15,,E,Cunningham,Declined to Identify,TRUE,57.0,,General Emergency,10,3,0,10,2,0
+2020-10-15 12:17:00,747-67-5371,Female,2,9.0,L,Dracey,Asian,TRUE,54.0,,General Emergency,12,3,0,10,2,1
+2020-10-15 13:34:00,829-92-4746,Male,47,5.0,E,Cratchley,African American,TRUE,53.0,Orthopedics,Orthopedics,13,3,0,10,2,0
+2020-10-15 21:44:00,775-28-0288,Female,76,8.0,K,Blasli,Two or More Races,FALSE,42.0,General Practice,General Practice,21,3,0,10,3,0
+2020-10-15 23:56:00,454-05-8913,Male,42,,I,Carcass,African American,TRUE,60.0,,General Emergency,23,3,0,10,2,0
+2020-10-16 20:14:00,684-12-2313,Female,11,9.0,N,Abendroth,White,TRUE,41.0,,General Emergency,20,4,0,10,2,0
+2020-10-17 09:37:00,891-68-9213,Male,60,10.0,I,Collicott,Asian,TRUE,27.0,,General Emergency,9,5,1,10,2,0
+2020-10-17 11:37:00,114-45-5732,Female,43,,I,Isham,White,TRUE,18.0,Cardiology,Cardiology,11,5,1,10,2,0
+2020-10-17 11:49:00,246-46-3354,Male,46,,U,Fison,Declined to Identify,TRUE,20.0,General Practice,General Practice,11,5,1,10,2,0
+2020-10-17 14:16:00,647-24-1990,Female,39,,S,Bazoge,Declined to Identify,TRUE,41.0,,General Emergency,14,5,1,10,2,0
+2020-10-17 14:30:00,199-16-2312,Male,51,,L,Dohmer,White,TRUE,18.0,Physiotherapy,Physiotherapy,14,5,1,10,2,0
+2020-10-17 16:29:00,887-49-6202,Female,77,,C,Dugan,African American,FALSE,40.0,,General Emergency,16,5,1,10,3,0
+2020-10-18 02:00:00,753-02-8581,Female,74,,S,Daunter,White,TRUE,53.0,,General Emergency,2,6,1,10,2,0
+2020-10-18 07:15:00,554-84-1081,Male,27,,J,Barrow,Pacific Islander,TRUE,58.0,,General Emergency,7,6,1,10,2,0
+2020-10-18 07:32:00,177-46-8112,Male,40,,W,McNerlin,Two or More Races,TRUE,43.0,,General Emergency,7,6,1,10,2,1
+2020-10-18 15:36:00,707-44-8386,Female,3,,V,Scantlebury,Asian,FALSE,15.0,,General Emergency,15,6,1,10,3,0
+2020-10-18 16:30:00,881-82-8123,Female,21,,Q,Netherwood,Pacific Islander,TRUE,12.0,,General Emergency,16,6,1,10,2,1
+2020-10-18 23:08:00,289-89-6208,Female,49,7.0,A,Merlin,White,FALSE,20.0,,General Emergency,23,6,1,10,3,0
+2020-10-19 02:18:00,769-41-8217,Female,55,,X,Gentzsch,Declined to Identify,FALSE,58.0,,General Emergency,2,0,0,10,3,0
+2020-10-19 03:55:00,759-80-5949,Female,49,9.0,Z,Maccree,White,FALSE,46.0,General Practice,General Practice,3,0,0,10,3,0
+2020-10-19 08:48:00,662-33-7487,Male,56,,M,Fancy,White,TRUE,47.0,,General Emergency,8,0,0,10,2,0
+2020-10-19 14:33:00,192-66-9492,Male,40,,U,Mingardo,African American,TRUE,29.0,,General Emergency,14,0,0,10,2,0
+2020-10-20 09:51:00,452-25-4626,Male,53,,H,Greenacre,White,FALSE,22.0,,General Emergency,9,1,0,10,3,0
+2020-10-20 12:24:00,401-65-8779,Male,58,,D,Timms,White,TRUE,21.0,Orthopedics,Orthopedics,12,1,0,10,2,0
+2020-10-20 12:49:00,789-74-0963,Male,1,,Z,Hark,Two or More Races,TRUE,22.0,,General Emergency,12,1,0,10,2,0
+2020-10-20 15:46:00,511-98-1628,Female,25,9.0,X,Bentame,Asian,FALSE,19.0,,General Emergency,15,1,0,10,3,0
+2020-10-20 17:44:00,156-26-5666,Female,2,2.0,N,Keysall,Declined to Identify,TRUE,10.0,General Practice,General Practice,17,1,0,10,2,0
+2020-10-20 21:26:00,497-79-0802,Female,4,,U,Ochiltree,African American,FALSE,47.0,,General Emergency,21,1,0,10,3,0
+2020-10-20 23:03:00,774-42-0800,Female,41,,S,Tumini,African American,TRUE,32.0,,General Emergency,23,1,0,10,2,1
+2020-10-21 04:23:00,806-06-2745,Female,52,,K,Champniss,White,FALSE,12.0,,General Emergency,4,2,0,10,3,0
+2020-10-21 12:05:00,520-32-2321,Female,35,4.0,X,Antrack,Two or More Races,FALSE,13.0,Orthopedics,Orthopedics,12,2,0,10,3,0
+2020-10-21 14:00:00,659-67-6667,Female,72,,J,Schermick,White,TRUE,52.0,,General Emergency,14,2,0,10,2,0
+2020-10-21 15:42:00,492-30-2957,Female,74,,C,Curds,Pacific Islander,TRUE,24.0,,General Emergency,15,2,0,10,2,1
+2020-10-21 17:01:00,475-18-2855,Male,10,,M,Itzkovich,Declined to Identify,FALSE,31.0,General Practice,General Practice,17,2,0,10,3,0
+2020-10-21 21:02:00,664-09-7964,Male,63,,N,O'Dulchonta,White,TRUE,13.0,,General Emergency,21,2,0,10,2,0
+2020-10-21 21:16:00,304-54-7969,Female,44,,K,Mandifield,White,TRUE,24.0,General Practice,General Practice,21,2,0,10,2,0
+2020-10-22 07:43:00,706-66-3236,Male,71,,A,McIlwain,Two or More Races,FALSE,25.0,General Practice,General Practice,7,3,0,10,3,0
+2020-10-22 11:39:00,545-79-9266,Female,39,,J,Willingham,Two or More Races,TRUE,19.0,,General Emergency,11,3,0,10,2,0
+2020-10-22 13:37:00,615-25-9046,Female,76,,I,McAlpin,African American,FALSE,57.0,General Practice,General Practice,13,3,0,10,3,0
+2020-10-22 17:21:00,878-59-3101,Female,38,0.0,N,Lawful,African American,TRUE,39.0,Orthopedics,Orthopedics,17,3,0,10,2,0
+2020-10-23 01:58:00,702-17-2187,Female,64,,P,Fishe,White,FALSE,60.0,Cardiology,Cardiology,1,4,0,10,3,0
+2020-10-23 03:19:00,313-29-0509,Male,47,,D,McNabb,Asian,FALSE,57.0,General Practice,General Practice,3,4,0,10,3,0
+2020-10-23 11:06:00,524-75-8060,Female,4,,R,Simpson,White,FALSE,39.0,General Practice,General Practice,11,4,0,10,3,0
+2020-10-23 11:11:00,290-26-3161,Male,3,0.0,F,Ivanshintsev,Two or More Races,FALSE,26.0,,General Emergency,11,4,0,10,3,0
+2020-10-23 15:45:00,688-37-3649,Female,6,,M,Walby,Native American/Alaska Native,FALSE,27.0,General Practice,General Practice,15,4,0,10,3,0
+2020-10-23 16:28:00,379-45-8010,Female,45,,Q,Rapi,African American,TRUE,53.0,General Practice,General Practice,16,4,0,10,2,1
+2020-10-23 20:01:00,415-95-3806,Female,76,,D,Bantham,African American,TRUE,49.0,,General Emergency,20,4,0,10,2,0
+2020-10-24 02:27:00,538-63-5200,Male,37,,Z,Warland,White,TRUE,18.0,,General Emergency,2,5,1,10,2,0
+2020-10-24 04:53:00,298-72-2588,Male,74,9.0,E,Lillistone,Two or More Races,TRUE,48.0,General Practice,General Practice,4,5,1,10,2,0
+2020-10-24 06:16:00,491-79-2938,Female,15,,E,Courage,White,FALSE,30.0,Orthopedics,Orthopedics,6,5,1,10,3,0
+2020-10-24 07:25:00,713-55-4167,Female,52,,X,Somerscales,White,FALSE,23.0,Orthopedics,Orthopedics,7,5,1,10,3,1
+2020-10-24 07:57:00,409-53-7660,Female,21,,C,Edgars,Pacific Islander,TRUE,17.0,,General Emergency,7,5,1,10,2,0
+2020-10-24 11:37:00,686-61-2694,Female,48,9.0,O,Gummery,Two or More Races,FALSE,54.0,,General Emergency,11,5,1,10,3,0
+2020-10-24 18:17:00,687-78-6410,Male,9,,V,Rodder,Two or More Races,FALSE,50.0,General Practice,General Practice,18,5,1,10,3,0
+2020-10-25 00:14:00,696-86-6623,Male,11,,J,Wilfing,African American,TRUE,10.0,Physiotherapy,Physiotherapy,0,6,1,10,2,0
+2020-10-25 05:11:00,519-73-0586,Female,37,3.0,S,Dockwray,African American,FALSE,24.0,,General Emergency,5,6,1,10,3,0
+2020-10-25 10:33:00,808-11-5508,Female,9,,U,Peat,Declined to Identify,TRUE,37.0,Neurology,Neurology,10,6,1,10,2,0
+2020-10-25 11:21:00,716-22-9303,Female,67,,T,McSwan,Two or More Races,TRUE,31.0,,General Emergency,11,6,1,10,2,0
+2020-10-25 15:32:00,659-83-0379,Female,67,,X,Merman,Declined to Identify,FALSE,11.0,,General Emergency,15,6,1,10,3,0
+2020-10-25 15:51:00,145-05-0045,Female,38,5.0,K,Jeffery,African American,FALSE,15.0,General Practice,General Practice,15,6,1,10,3,0
+2020-10-25 18:47:00,502-81-1725,Female,13,8.0,W,Boulder,Pacific Islander,FALSE,50.0,,General Emergency,18,6,1,10,3,0
+2020-10-25 19:27:00,801-66-2184,Male,56,,N,Hearon,White,FALSE,17.0,Orthopedics,Orthopedics,19,6,1,10,3,0
+2020-10-25 19:56:00,247-92-7347,Male,78,,A,Winslade,White,TRUE,16.0,,General Emergency,19,6,1,10,2,1
+2020-10-25 20:52:00,478-52-8782,Female,28,,L,Kidstoun,White,TRUE,52.0,,General Emergency,20,6,1,10,2,1
+2020-10-26 14:18:00,719-67-4238,Male,7,,S,Bruck,White,TRUE,10.0,,General Emergency,14,0,0,10,2,0
+2020-10-26 21:45:00,509-56-3417,Male,18,,V,Kirlin,Two or More Races,FALSE,26.0,,General Emergency,21,0,0,10,3,0
+2020-10-27 00:20:00,426-82-0991,Female,7,10.0,M,Quartermain,White,TRUE,31.0,Orthopedics,Orthopedics,0,1,0,10,2,0
+2020-10-27 07:11:00,134-73-6304,Female,48,,C,Alvaro,White,TRUE,44.0,General Practice,General Practice,7,1,0,10,2,0
+2020-10-27 11:16:00,546-38-9941,Female,50,,Y,McMeeking,White,TRUE,26.0,,General Emergency,11,1,0,10,2,0
+2020-10-27 15:34:00,651-84-7603,Female,59,10.0,X,Dunston,African American,FALSE,29.0,General Practice,General Practice,15,1,0,10,3,0
+2020-10-27 19:57:00,808-17-1359,Male,76,5.0,U,Hargey,White,TRUE,13.0,General Practice,General Practice,19,1,0,10,2,0
+2020-10-28 01:11:00,590-07-7660,Male,6,,C,Hullot,African American,FALSE,44.0,Physiotherapy,Physiotherapy,1,2,0,10,3,0
+2020-10-28 08:29:00,683-71-6277,Male,67,7.0,I,Batistelli,White,TRUE,43.0,Orthopedics,Orthopedics,8,2,0,10,2,0
+2020-10-28 09:08:00,595-74-4278,Male,67,2.0,R,Eccleston,Asian,TRUE,19.0,,General Emergency,9,2,0,10,2,0
+2020-10-28 16:52:00,528-88-1999,Female,6,,P,Stagg,African American,FALSE,57.0,Physiotherapy,Physiotherapy,16,2,0,10,3,0
+2020-10-29 04:55:00,668-01-8193,Male,21,,B,Josselsohn,African American,TRUE,46.0,,General Emergency,4,3,0,10,2,0
+2020-10-29 18:40:00,213-73-5378,Male,27,,N,Strangeway,Asian,FALSE,43.0,Orthopedics,Orthopedics,18,3,0,10,3,0
+2020-10-29 18:47:00,543-37-4558,Female,17,,H,Realy,Two or More Races,TRUE,36.0,,General Emergency,18,3,0,10,2,0
+2020-10-30 00:29:00,331-79-8648,Female,36,,W,Ayerst,Native American/Alaska Native,TRUE,47.0,Orthopedics,Orthopedics,0,4,0,10,2,0
+2020-10-30 00:47:00,278-89-6924,Male,29,2.0,B,Sandom,Asian,TRUE,18.0,General Practice,General Practice,0,4,0,10,2,0
+2020-10-30 03:49:00,392-82-1935,Female,23,,Z,Ernshaw,White,FALSE,24.0,,General Emergency,3,4,0,10,3,0
+2020-10-30 05:23:00,194-12-1935,Female,48,,R,Woodgate,Declined to Identify,FALSE,47.0,,General Emergency,5,4,0,10,3,1
+2020-10-30 08:22:00,363-04-9232,Male,12,,L,Guislin,Declined to Identify,FALSE,28.0,,General Emergency,8,4,0,10,3,0

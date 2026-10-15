@@ -1,0 +1,65 @@
+{
+  "dataset_name": "Hospital Emergency Room Dataset",
+  "publisher": "Laxdip Patel",
+  "verified_kaggle_url": "https://www.kaggle.com/datasets/laxdippatel/hospital-emergency-room-dataset",
+  "target_variable": "patient_waittime",
+  "target_description": "Total waiting time in minutes from patient arrival to clinical consultation.",
+  "target_units": "Minutes",
+  "columns": {
+    "date": {
+      "description": "Patient arrival timestamp (M/D/YYYY H:MM format). Used to extract hour, day of week, and queue concurrency.",
+      "type": "datetime",
+      "role": "temporal_feature"
+    },
+    "patient_id": {
+      "description": "Unique identifier for patient record.",
+      "type": "string",
+      "role": "identifier"
+    },
+    "patient_gender": {
+      "description": "Biological sex of patient (M, F, NC).",
+      "type": "categorical",
+      "role": "feature"
+    },
+    "patient_age": {
+      "description": "Patient age in years.",
+      "type": "integer",
+      "role": "feature"
+    },
+    "patient_sat_score": {
+      "description": "Patient satisfaction rating recorded after visit (0-10). Excluded from prediction to prevent data leakage.",
+      "type": "float",
+      "role": "post_visit_metric"
+    },
+    "patient_first_inital": {
+      "description": "First initial of patient name.",
+      "type": "string",
+      "role": "demographic"
+    },
+    "patient_last_name": {
+      "description": "Last name of patient.",
+      "type": "string",
+      "role": "demographic"
+    },
+    "patient_race": {
+      "description": "Reported race/ethnicity of patient.",
+      "type": "categorical",
+      "role": "demographic"
+    },
+    "patient_admin_flag": {
+      "description": "Indicator if patient was admitted to inpatient bed or treated as outpatient. In live triage, mapped to urgency/priority.",
+      "type": "boolean",
+      "role": "feature"
+    },
+    "patient_waittime": {
+      "description": "Actual waiting duration in minutes before consultation/care start. Target variable.",
+      "type": "numeric (minutes)",
+      "role": "target"
+    },
+    "department_referral": {
+      "description": "Hospital department handling the patient visit (General Practice, Orthopedics, Cardiology, Neurology, Gastroenterology, Renal, Physiotherapy, or General Emergency if unreferred).",
+      "type": "categorical",
+      "role": "feature"
+    }
+  }
+}
